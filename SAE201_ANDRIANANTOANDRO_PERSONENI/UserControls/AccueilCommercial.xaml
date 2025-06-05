@@ -5,36 +5,35 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="1200">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid Background="#FFDDF1FF" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <Label Style="{DynamicResource LabelTextBox}" Content="Recherche par mot clef" HorizontalAlignment="Left" Margin="72,62,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-            <TextBox Style="{DynamicResource TextBoxRecherche}" HorizontalAlignment="Left" Margin="72,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="320" Height="44"/>
-            <Label Style="{DynamicResource LabelTextBox}" Content="Catégorie" HorizontalAlignment="Left" Margin="72,182,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-            <TextBox Style="{DynamicResource TextBoxRecherche}" HorizontalAlignment="Left" Margin="72,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="204" Height="44"/>
-            <Label Style="{DynamicResource LabelTextBox}" Content="Type" HorizontalAlignment="Left" Margin="352,182,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-            <TextBox Style="{DynamicResource TextBoxRecherche}" HorizontalAlignment="Left" Margin="352,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="204" Height="44"/>
-            <Label Style="{DynamicResource LabelTextBox}" Content="Type de pointe" HorizontalAlignment="Left" Margin="630,182,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-            <TextBox Style="{DynamicResource TextBoxRecherche}" HorizontalAlignment="Left" Margin="630,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="204" Height="44"/>
-            <Label Style="{DynamicResource LabelTextBox}" Content="Couleur" HorizontalAlignment="Left" Margin="912,182,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
-            <TextBox Style="{DynamicResource TextBoxRecherche}" HorizontalAlignment="Left" Margin="912,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="204" Height="44"/>
-            <DataGrid AutoGenerateColumns="False"
+             Height="700" Width="1200" Background="#FFFF0303">
+    <Grid Background="#FFDDF1FF" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <Label Style="{DynamicResource LabelTextBox}" Content="Recherche par mot clef" HorizontalAlignment="Left" Margin="72,62,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBox Style="{DynamicResource TextBoxRecherche}" HorizontalAlignment="Left" Margin="72,101,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="320" Height="44"/>
+        <Label Style="{DynamicResource LabelTextBox}" Content="Catégorie" HorizontalAlignment="Left" Margin="72,182,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBox Style="{DynamicResource TextBoxRecherche}" HorizontalAlignment="Left" Margin="72,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="204" Height="44"/>
+        <Label Style="{DynamicResource LabelTextBox}" Content="Type" HorizontalAlignment="Left" Margin="352,182,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBox Style="{DynamicResource TextBoxRecherche}" HorizontalAlignment="Left" Margin="352,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="204" Height="44"/>
+        <Label Style="{DynamicResource LabelTextBox}" Content="Type de pointe" HorizontalAlignment="Left" Margin="630,182,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBox Style="{DynamicResource TextBoxRecherche}" HorizontalAlignment="Left" Margin="630,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="204" Height="44"/>
+        <Label Style="{DynamicResource LabelTextBox}" Content="Couleur" HorizontalAlignment="Left" Margin="912,182,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold"/>
+        <TextBox Style="{DynamicResource TextBoxRecherche}" HorizontalAlignment="Left" Margin="912,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="204" Height="44"/>
+        <DataGrid AutoGenerateColumns="False"
           Background="Azure"
           ColumnWidth="*" Margin="0,350,0,0">
-                <!-- toutes les colonnes prennent un espace égal -->
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Code Produit" Width="*" />
-                    <DataGridTextColumn Header="Nom produit" Width="*" />
-                    <DataGridTextColumn Header="Catégorie" Width="*" />
-                    <DataGridTextColumn Header="Type" Width="*" />
-                    <DataGridTextColumn Header="Type de pointe" Width="*" />
-                    <DataGridTextColumn Header="Couleur" Width="*" />
-                    <DataGridTextColumn Header="Prix" Width="*" />
-                    <DataGridTextColumn Header="Quantité en stock" Width="*" />
-                </DataGrid.Columns>
-            </DataGrid>
+            <!-- toutes les colonnes prennent un espace égal -->
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Code Produit" Width="*" />
+                <DataGridTextColumn Header="Nom produit" Width="*" />
+                <DataGridTextColumn Header="Catégorie" Width="*" />
+                <DataGridTextColumn Header="Type" Width="*" />
+                <DataGridTextColumn Header="Type de pointe" Width="*" />
+                <DataGridTextColumn Header="Couleur" Width="*" />
+                <DataGridTextColumn Header="Prix" Width="*" />
+                <DataGridTextColumn Header="Quantité en stock" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Rectangle HorizontalAlignment="Left" Height="100" Margin="1598,1394,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
 
 
-        </Grid>
-    </ScrollViewer>
+    </Grid>
 </UserControl>
