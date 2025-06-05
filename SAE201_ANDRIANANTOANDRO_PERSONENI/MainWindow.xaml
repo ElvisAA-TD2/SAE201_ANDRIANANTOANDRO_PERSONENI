@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="Stock'Ink" Height="700" Width="1200"
         WindowStartupLocation="CenterScreen">
-    <Grid x:Name="conteneur_principal" Background="#FFDDF1FF" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+
+    <Grid x:Name="conteneur_principal">
+        
+    </Grid>
+
 
 </Window>

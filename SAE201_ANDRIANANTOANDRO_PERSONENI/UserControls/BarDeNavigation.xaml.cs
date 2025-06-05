@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Windows
+namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 {
     /// <summary>
-    /// Logique d'interaction pour AccueilCommercial.xaml
+    /// Logique d'interaction pour BarDeNavigation.xaml
     /// </summary>
-    public partial class AccueilCommercial : UserControl
+    public partial class BarDeNavigation : UserControl
     {
-        public AccueilCommercial()
+        public BarDeNavigation()
         {
             InitializeComponent();
         }

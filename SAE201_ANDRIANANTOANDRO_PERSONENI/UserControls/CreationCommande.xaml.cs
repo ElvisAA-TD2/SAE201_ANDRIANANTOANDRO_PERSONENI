@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Windows
+namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 {
     /// <summary>
-    /// Logique d'interaction pour Authentification.xaml
+    /// Logique d'interaction pour CreationCommande.xaml
     /// </summary>
-    public partial class Authentification : UserControl
+    public partial class CreationCommande : UserControl
     {
-        public Authentification()
+        public CreationCommande()
         {
             InitializeComponent();
         }

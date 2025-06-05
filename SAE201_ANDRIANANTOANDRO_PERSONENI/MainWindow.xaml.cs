@@ -1,4 +1,4 @@
-﻿using SAE201_ANDRIANANTOANDRO_PERSONENI.Windows;
+﻿using SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,14 +22,15 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             InitializeComponent();
             Authentification ucAuthentification = new Authentification();
             BarDeNavigation ucBarDeNavigation = new BarDeNavigation();
+            AccueilCommercial ucAcceuilCommercial = new AccueilCommercial();
 
-            conteneur_principal.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            /*conteneur_principal.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             conteneur_principal.RowDefinitions.Add(new RowDefinition { Height = new GridLength(2, GridUnitType.Star) });
 
             Grid.SetRow(ucBarDeNavigation, 0);
             Grid.SetRow(ucAuthentification, 1);
-            conteneur_principal.Children.Add(ucBarDeNavigation);
-            conteneur_principal.Children.Add(ucAuthentification);
+            conteneur_principal.Children.Add(ucBarDeNavigation);*/
+            conteneur_principal.Children.Add(ucAcceuilCommercial);
         }
     }
 }
