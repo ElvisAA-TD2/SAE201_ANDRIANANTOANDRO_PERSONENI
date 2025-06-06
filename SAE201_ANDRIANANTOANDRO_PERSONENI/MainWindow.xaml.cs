@@ -34,6 +34,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             InitializeComponent();
             Authentification ucAuthentification = new Authentification();
             BarDeNavigation ucBarDeNavigation = new BarDeNavigation();
+            /*SelectionClient ucSelectionClient = new SelectionClient();
+            CreationCommande ucCreationCommande = new CreationCommande();*/
 
             ucBarDeNavigation.NavigationDemandee += BarDeNavigation_NavigationDemandee;
 
@@ -63,6 +65,13 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                     break;
             }
         }
+
+        /*private void CreationCommande_VersSelectionClient(object sender, bool creationCommande)
+        {
+            if(creationCommande)
+                conteneur_principal.Content = new UserControls.SelectionClient();
+        }*/
+        
         public void ChargeData()
         {
             try

@@ -95,12 +95,12 @@
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
             TextWrapping="Wrap" />
-        <DataGrid
-            Margin="0,350,0,0"
+        <DataGrid Style="{DynamicResource DataGridStyle}"
+            Margin="29,350,32,0"
             AutoGenerateColumns="False"
-            Background="Azure"
             ColumnWidth="*"
-            ItemsSource="{Binding LesProduits}">
+            ItemsSource="{Binding LesProduits}"
+            HeadersVisibility="Column" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="*"

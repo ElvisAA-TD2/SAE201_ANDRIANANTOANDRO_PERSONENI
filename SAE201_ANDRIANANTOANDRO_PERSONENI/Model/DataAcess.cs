@@ -13,6 +13,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
     {
         private static readonly DataAccess instance = new DataAccess();
         private readonly string connectionString = "Host=srv-peda-new;Port=5433;Username=andriane;Password=HpwaA4;Database=andriane_pilot;Options='-c search_path=andriane'";
+        //private readonly string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=Anniversaire1906$;Database=andriane_pilot";
         private NpgsqlConnection connection;
 
         public static DataAccess Instance

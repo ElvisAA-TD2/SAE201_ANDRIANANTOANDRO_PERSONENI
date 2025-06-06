@@ -9,15 +9,20 @@
     Width="1200"
     Height="700"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Icon="/Images/logo.ico">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="133*"/>
+            <ColumnDefinition Width="67*"/>
+        </Grid.ColumnDefinitions>
         <Grid
             x:Name="conteneur_haut"
             Height="200"
-            VerticalAlignment="Top" />
+            VerticalAlignment="Top" Grid.ColumnSpan="2" />
 
-        <ScrollViewer Margin="0,200,0,0" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Margin="0,200,0,0" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
             <ContentControl x:Name="conteneur_principal" />
         </ScrollViewer>
     </Grid>

@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Ajouter.png" />
     <None Remove="Images\Logo_pilot.png" />
   </ItemGroup>
 
@@ -17,6 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Ajouter.png" />
+    <Resource Include="Images\logo.ico" />
     <Resource Include="Images\Logo_pilot.png" />
   </ItemGroup>
 
