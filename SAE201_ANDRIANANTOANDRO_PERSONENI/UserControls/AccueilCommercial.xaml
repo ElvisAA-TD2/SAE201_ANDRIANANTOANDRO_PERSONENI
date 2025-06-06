@@ -99,16 +99,41 @@
             Margin="0,350,0,0"
             AutoGenerateColumns="False"
             Background="Azure"
-            ColumnWidth="*">
+            ColumnWidth="*"
+            ItemsSource="{Binding LesProduits}">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Code Produit" />
-                <DataGridTextColumn Width="*" Header="Nom produit" />
-                <DataGridTextColumn Width="*" Header="Catégorie" />
-                <DataGridTextColumn Width="*" Header="Type" />
-                <DataGridTextColumn Width="*" Header="Type de pointe" />
-                <DataGridTextColumn Width="*" Header="Couleur" />
-                <DataGridTextColumn Width="*" Header="Prix" />
-                <DataGridTextColumn Width="*" Header="Quantité en stock" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding CodeProduit, ValidatesOnExceptions=True}"
+                    Header="Code Produit" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding NomProduit}"
+                    Header="Nom produit" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding UnType.UneCategorie.NomCategorie}"
+                    Header="Catégorie" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding UnType.NomType}"
+                    Header="Type" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding UnTypePointe.NomTypePointe}"
+                    Header="Type de pointe" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding NomProduit}"
+                    Header="Couleur" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding PrixVente}"
+                    Header="Prix" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding QteStock}"
+                    Header="Quantité en stock" />
             </DataGrid.Columns>
         </DataGrid>
         <Rectangle

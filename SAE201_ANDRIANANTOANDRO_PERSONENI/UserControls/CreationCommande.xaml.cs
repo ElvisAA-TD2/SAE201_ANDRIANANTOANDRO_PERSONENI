@@ -24,6 +24,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         public CreationCommande()
         {
             InitializeComponent();
+            
         }
 
         private void CreationCommande_Click(object sender, RoutedEventArgs e)

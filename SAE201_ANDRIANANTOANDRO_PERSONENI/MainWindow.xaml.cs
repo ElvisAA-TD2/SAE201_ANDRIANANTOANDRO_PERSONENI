@@ -30,7 +30,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         public GestionPilot LaGestion { get; set; }
         public MainWindow()
         {
-            //ChargeData();
+            ChargeData();
             InitializeComponent();
             Authentification ucAuthentification = new Authentification();
             BarDeNavigation ucBarDeNavigation = new BarDeNavigation();

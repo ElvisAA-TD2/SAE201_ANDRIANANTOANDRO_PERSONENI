@@ -12,11 +12,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
     public class CouleurProduit
     {
         private int codeCouleur;
-        private string codeProduit;
+        private int codeProduit;
         public CouleurProduit()
         { }
 
-        public CouleurProduit(int codeCouleur, string codeProduit)
+        public CouleurProduit(int codeCouleur, int codeProduit)
         {
             this.CodeCouleur = codeCouleur;
             this.CodeProduit = codeProduit;
@@ -35,7 +35,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
-        public string CodeProduit
+        public int CodeProduit
         {
             get
             {
@@ -55,7 +55,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             {
                 DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
                 foreach (DataRow dr in dt.Rows)
-                    lesCouleurProduits.Add(new CouleurProduit((Int32)dr["numcouleur"], (String)dr["numproduit"]));
+                    lesCouleurProduits.Add(new CouleurProduit((Int32)dr["numcouleur"], (Int32)dr["numproduit"]));
             }
             return lesCouleurProduits;
         }
