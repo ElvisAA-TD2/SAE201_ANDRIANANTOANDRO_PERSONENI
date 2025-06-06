@@ -23,7 +23,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         {
             this.LesCategories = new ObservableCollection<Categorie>(new Categorie().FindAll());
             this.LesTypePointes = new ObservableCollection<TypePointe>(new TypePointe().FindAll());
-            this.LesType = new ObservableCollection<Type>(new Type().FindAll(this.lesCategories));
+            this.LesType = new ObservableCollection<Type>(new Type().FindAll(this.LesCategories));
             this.LesCouleurProduits = new ObservableCollection<CouleurProduit>(new CouleurProduit().FindAll());
             this.LesProduits = new ObservableCollection<Produit>(new Produit().FindAll(this.LesTypePointes,this.LesType,this.LesCouleurProduits));
             this.LesCommandes = lesCommandes;
