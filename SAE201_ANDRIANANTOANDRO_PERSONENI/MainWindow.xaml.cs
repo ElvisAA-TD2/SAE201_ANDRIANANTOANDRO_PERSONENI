@@ -1,4 +1,4 @@
-﻿using SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls;
+﻿using System;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
+using SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls;
 
 namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 {
@@ -17,6 +19,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
     /// </summary>
     public partial class MainWindow : Window
     {
+        public GestionPilot LaGestion { get; set; }
         public MainWindow()
         {
             ChargeData();
@@ -32,6 +35,20 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             Grid.SetRow(ucAuthentification, 1);
             conteneur_principal.Children.Add(ucBarDeNavigation);*/
             conteneur_principal.Children.Add(ucAcceuilCommercial);
+        }
+        public void ChargeData()
+        {
+            try
+            {
+                LaGestion = new GestionPilot("gestion pilot");
+                this.DataContext = LaGestion;
+            }
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Erreur SQL");
+                MessageBox.Show("Problème lors de récupération des données, veuillez consulter votre admin");
+                Application.Current.Shutdown();
+            }
         }
     }
 }
