@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,41 +11,53 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 {
     public class CouleurProduit
     {
-        private Couleur uneCouleur;
-        private Produit unProduit;
-
-        public CouleurProduit(Couleur uneCouleur, Produit unProduit)
-        {
-            this.UneCouleur = uneCouleur;
-            this.UnProduit = unProduit;
-        }
+        private int codeCouleur;
+        private string codeProduit;
         public CouleurProduit()
         { }
 
-        public Couleur UneCouleur
+        public CouleurProduit(int codeCouleur, string codeProduit)
+        {
+            this.CodeCouleur = codeCouleur;
+            this.CodeProduit = codeProduit;
+        }
+
+        public int CodeCouleur
         {
             get
             {
-                return uneCouleur;
+                return codeCouleur;
             }
 
             set
             {
-                this.uneCouleur = value;
+                this.codeCouleur = value;
             }
         }
 
-        public Produit UnProduit
+        public string CodeProduit
         {
             get
             {
-                return this.unProduit;
+                return this.codeProduit;
             }
 
             set
             {
-                this.unProduit = value;
+                this.codeProduit = value;
             }
+        }
+
+        public List<CouleurProduit> FindAll()
+        {
+            List<CouleurProduit> lesCouleurProduits = new List<CouleurProduit>();
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from couleurproduit ;"))
+            {
+                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                foreach (DataRow dr in dt.Rows)
+                    lesCouleurProduits.Add(new CouleurProduit((Int32)dr["numcouleur"], (String)dr["numproduit"]));
+            }
+            return lesCouleurProduits;
         }
     }
 }

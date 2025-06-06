@@ -1,9 +1,6 @@
-<<<<<<< Updated upstream
 ﻿using System;
-=======
 ﻿using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
 using SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls;
->>>>>>> Stashed changes
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,12 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-<<<<<<< Updated upstream
 using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
 using SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls;
-=======
 using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.BarDeNavigation;
->>>>>>> Stashed changes
 
 namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 {

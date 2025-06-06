@@ -13,6 +13,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         private ObservableCollection<Produit> lesProduits;
         private ObservableCollection<TypePointe> lesTypePointes;
         private ObservableCollection<Type> lesType;
+        private ObservableCollection<Categorie> lesCategories;
         private ObservableCollection<CouleurProduit> lesCouleurProduits;
         private ObservableCollection<Commande> lesCommandes;
         private ObservableCollection<Revendeur> lesRevendeurs;
@@ -20,9 +21,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
         public GestionPilot(string nom)
         {
-            this.LesTypePointes = lesTypePointes;
-            this.LesType = lesType;
-            this.LesCouleurProduits = lesCouleurProduits;
+            this.LesCategories = new ObservableCollection<Categorie>(new Categorie().FindAll());
+            this.LesTypePointes = new ObservableCollection<TypePointe>(new TypePointe().FindAll());
+            this.LesType = new ObservableCollection<Type>(new Type().FindAll(this.lesCategories));
+            this.LesCouleurProduits = new ObservableCollection<CouleurProduit>(new CouleurProduit().FindAll());
             this.LesProduits = new ObservableCollection<Produit>(new Produit().FindAll(this.LesTypePointes,this.LesType,this.LesCouleurProduits));
             this.LesCommandes = lesCommandes;
             this.LesRevendeurs = lesRevendeurs;
@@ -130,6 +132,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             set
             {
                 this.nom = value;
+            }
+        }
+
+        public ObservableCollection<Categorie> LesCategories
+        {
+            get
+            {
+                return this.lesCategories;
+            }
+
+            set
+            {
+                this.lesCategories = value;
             }
         }
     }

@@ -164,7 +164,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                    (String)dr["cheminimage"], (Double)dr["prixvente"], (Int32)dr["quantitestock"],
                    (Boolean)dr["disponible"], unTypePointe.SingleOrDefault(c => c.CodeTypePointe == (Int32)dr["numtypepointe"]),
                    unType.SingleOrDefault(c => c.CodeType == (Int32)dr["numtype"]),
-                   lesCouleurProduits.Where(c => c.UnProduit.CodeProduit == (String)dr["numproduit"]).ToList()));
+                   lesCouleurProduits.Where(c => c.CodeProduit == (String)dr["numproduit"]).ToList()));
             }
             return lesProduits;
         }
