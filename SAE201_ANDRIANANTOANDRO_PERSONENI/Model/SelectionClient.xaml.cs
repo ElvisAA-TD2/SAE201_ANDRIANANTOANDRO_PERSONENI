@@ -13,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
+namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 {
     /// <summary>
-    /// Logique d'interaction pour CreationCommande.xaml
+    /// Logique d'interaction pour SelectionClient.xaml
     /// </summary>
-    public partial class CreationCommande : UserControl
+    public partial class SelectionClient : UserControl
     {
-        public event EventHandler<bool> CreationCommandeValidation;
-        public CreationCommande()
+        public SelectionClient()
         {
             InitializeComponent();
-        }
-
-        private void CreationCommande_Click(object sender, RoutedEventArgs e)
-        {
-            CreationCommandeValidation?.Invoke(this, true);
         }
     }
 }
