@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream
 ﻿using System;
+=======
+﻿using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
+using SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls;
+>>>>>>> Stashed changes
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,8 +14,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+<<<<<<< Updated upstream
 using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
 using SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls;
+=======
+using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.BarDeNavigation;
+>>>>>>> Stashed changes
 
 namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 {
@@ -22,11 +31,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         public GestionPilot LaGestion { get; set; }
         public MainWindow()
         {
-            ChargeData();
+            //ChargeData();
             InitializeComponent();
             Authentification ucAuthentification = new Authentification();
             BarDeNavigation ucBarDeNavigation = new BarDeNavigation();
-            AccueilCommercial ucAcceuilCommercial = new AccueilCommercial();
+
+            ucBarDeNavigation.NavigationDemandee += BarDeNavigation_NavigationDemandee;
 
             /*conteneur_principal.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             conteneur_principal.RowDefinitions.Add(new RowDefinition { Height = new GridLength(2, GridUnitType.Star) });
@@ -34,7 +44,25 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             Grid.SetRow(ucBarDeNavigation, 0);
             Grid.SetRow(ucAuthentification, 1);
             conteneur_principal.Children.Add(ucBarDeNavigation);*/
-            conteneur_principal.Children.Add(ucAcceuilCommercial);
+            conteneur_haut.Children.Add(ucBarDeNavigation);
+            conteneur_principal.Content = new AccueilCommercial();
+        }
+
+        private void BarDeNavigation_NavigationDemandee(object sender, Enum page)
+        {
+            switch (page)
+            {
+                case Navigation.ListeProduits:
+                    conteneur_principal.Content = new AccueilCommercial();
+                    break;
+
+                case Navigation.CréationCommande:
+                    conteneur_principal.Content = new CreationCommande();
+                    break;
+                case Navigation.MesCommandes:
+                    conteneur_principal.Content = new Authentification();
+                    break;
+            }
         }
         public void ChargeData()
         {

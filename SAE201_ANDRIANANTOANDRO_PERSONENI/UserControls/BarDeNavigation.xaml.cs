@@ -20,9 +20,27 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// </summary>
     public partial class BarDeNavigation : UserControl
     {
+        public enum Navigation { ListeProduits, CréationCommande, MesCommandes};
+
+        public event EventHandler<Enum> NavigationDemandee;
         public BarDeNavigation()
         {
             InitializeComponent();
+        }
+
+        private void ListeDesProduits_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationDemandee?.Invoke(this, Navigation.ListeProduits);
+        }
+
+        private void CreationCommande_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationDemandee?.Invoke(this, Navigation.CréationCommande);
+        }
+
+        private void MesCommandes_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationDemandee?.Invoke(this, Navigation.MesCommandes);
         }
     }
 }

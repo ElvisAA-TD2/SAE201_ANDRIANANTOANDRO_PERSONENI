@@ -1,15 +1,53 @@
-﻿<UserControl x:Class="SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.BarDeNavigation"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls"
-             mc:Ignorable="d" 
-             Height="250" Width="1200">
+﻿<UserControl
+    x:Class="SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.BarDeNavigation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="1200"
+    Height="250"
+    mc:Ignorable="d">
     <Grid Background="#FFDDF1FF">
-        <Button Content="Liste des produits" HorizontalAlignment="Left" Margin="64,117,0,0" VerticalAlignment="Top" Width="249" Height="60" Background="#FF3B5D68" Foreground="White" BorderBrush="{x:Null}" FontSize="16"/>
-        <Button Content="Créer une commande" HorizontalAlignment="Left" Margin="311,117,0,0" VerticalAlignment="Top" Width="249" Height="60" Background="#FFADC9DC" Foreground="#FF3B5D68" BorderBrush="{x:Null}" FontSize="16"/>
-        <Button Content="Mes commandes" HorizontalAlignment="Left" Margin="557,117,0,0" VerticalAlignment="Top" Width="249" Height="60" Background="#FFADC9DC" Foreground="#FF3B5D68" BorderBrush="{x:Null}" FontSize="16"/>
-        <Image Margin="479,10,479,168" Source="/Images/Logo_pilot.png" Stretch="Fill"/>
+        <Button
+            Width="249"
+            Height="60"
+            Margin="64,117,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="#FF3B5D68"
+            BorderBrush="{x:Null}"
+            Click="ListeDesProduits_Click"
+            Content="Liste des produits"
+            FontSize="16"
+            Foreground="White" />
+        <Button
+            Width="249"
+            Height="60"
+            Margin="311,117,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="#FFADC9DC"
+            BorderBrush="{x:Null}"
+            Click="CreationCommande_Click"
+            Content="Créer une commande"
+            FontSize="16"
+            Foreground="#FF3B5D68" />
+        <Button
+            Width="249"
+            Height="60"
+            Margin="557,117,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="#FFADC9DC"
+            BorderBrush="{x:Null}"
+            Click="MesCommandes_Click"
+            Content="Mes commandes"
+            FontSize="16"
+            Foreground="#FF3B5D68" />
+        <Image
+            Margin="479,10,479,168"
+            Source="/Images/Logo_pilot.png"
+            Stretch="Fill" />
     </Grid>
 </UserControl>
