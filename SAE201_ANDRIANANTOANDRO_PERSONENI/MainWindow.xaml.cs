@@ -19,6 +19,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
     {
         public MainWindow()
         {
+            ChargeData();
             InitializeComponent();
             Authentification ucAuthentification = new Authentification();
             BarDeNavigation ucBarDeNavigation = new BarDeNavigation();
