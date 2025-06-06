@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -150,5 +152,23 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 this.lesCouleurProduit = value;
             }
         }
+        public List<Produit> FindAll(List<TypePointe> lesTypePointes, List<Type> lesTypes, List<CouleurProduit> lesCouleurProduits)
+        {
+            List<Produit> lesProduits = new List<Produit>();
+            List<CouleurProduit> lesCouleursProduitsResult = new List<CouleurProduit>();
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from produit ;"))
+            {
+                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                foreach (DataRow dr in dt.Rows)
+                    lesProduits.Add(new Produit((String)dr["numproduit"], (String)dr["nomproduit"],
+                   (String)dr["cheminimage"], (Double)dr["prixvente"], (Int32)dr["quantitestock"],
+                   (Boolean)dr["disponible"], lesTypePointes.SingleOrDefault(c => c.CodeTypePointe == (Int32)dr["numtypepointe"]),
+                   lesTypes.SingleOrDefault(c => c.CodeType == (Int32)dr["numtype"]),
+                   lesCouleurProduits.FindAll(c => c.UnProduit.CodeProduit == (String)dr["numproduit"])));
+            }
+            return lesProduits;
+        }
     }
 }
+
+//lesSejours.Add(new Sejour((DateTime)dr["datedebut"], (DateTime)dr["datefin"],pension.LesChiens.SingleOrDefault(c => c.Id == (int)dr["idchien"]), pension.LesBoxs.SingleOrDefault(c => c.IdBox == (int)dr["idbox"])));

@@ -8,13 +8,13 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 {
     public class Type
     {
-        private int codeCategorie;
+        private int codeType;
         private string nomType;
         private Categorie uneCategorie;
 
-        public Type(int codeCategorie, string nomType, Categorie uneCategorie)
+        public Type(int codeType, string nomType, Categorie uneCategorie)
         {
-            this.CodeCategorie = codeCategorie;
+            this.CodeType = codeType;
             this.NomType = nomType;
             this.UneCategorie = uneCategorie;
         }
@@ -22,16 +22,16 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         {
         }
 
-        public int CodeCategorie
+        public int CodeType
         {
             get
             {
-                return codeCategorie;
+                return codeType;
             }
 
             set
             {
-                this.codeCategorie = value;
+                this.codeType = value;
             }
         }
 
