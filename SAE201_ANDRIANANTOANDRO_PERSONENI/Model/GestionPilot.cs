@@ -12,7 +12,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         private string nom;
         private ObservableCollection<Produit> lesProduits;
         private ObservableCollection<TypePointe> lesTypePointes;
-        private ObservableCollection<Type> lesType;
+        private ObservableCollection<Type> lesTypes;
         private ObservableCollection<Categorie> lesCategories;
         private ObservableCollection<CouleurProduit> lesCouleurProduits;
         private ObservableCollection<Commande> lesCommandes;
@@ -23,9 +23,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         {
             this.LesCategories = new ObservableCollection<Categorie>(new Categorie().FindAll());
             this.LesTypePointes = new ObservableCollection<TypePointe>(new TypePointe().FindAll());
-            this.LesType = new ObservableCollection<Type>(new Type().FindAll(this.LesCategories));
+            this.LesTypes = new ObservableCollection<Type>(new Type().FindAll(this));
             this.LesCouleurProduits = new ObservableCollection<CouleurProduit>(new CouleurProduit().FindAll());
-            this.LesProduits = new ObservableCollection<Produit>(new Produit().FindAll(this.LesTypePointes,this.LesType,this.LesCouleurProduits));
+            this.LesProduits = new ObservableCollection<Produit>(new Produit().FindAll(this,this.LesCouleurProduits));
             this.LesCommandes = lesCommandes;
             this.LesRevendeurs = lesRevendeurs;
             this.LesEmploye = lesEmploye;
@@ -96,16 +96,16 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
-        public ObservableCollection<Type> LesType
+        public ObservableCollection<Type> LesTypes
         {
             get
             {
-                return lesType;
+                return lesTypes;
             }
 
             set
             {
-                lesType = value;
+                lesTypes = value;
             }
         }
 
