@@ -25,6 +25,21 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         public event EventHandler<bool> CreationCommandeValidation;
 
         private ObservableCollection<Produit> LesProduitsSelectionnes { get; set; } = new ObservableCollection<Produit>();
+
+        public ModeTransport ModeTransportSelectionne
+        {
+            get
+            {
+                return this.modeTransportSelectionne;
+            }
+
+            set
+            {
+                this.modeTransportSelectionne = value;
+            }
+        }
+
+        private ModeTransport modeTransportSelectionne;
         public CreationCommande()
         {
             InitializeComponent();

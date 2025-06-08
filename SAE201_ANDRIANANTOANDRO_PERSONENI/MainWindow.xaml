@@ -12,20 +12,24 @@
     mc:Ignorable="d"
     Icon="/Images/logo.ico">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="133*"/>
-            <ColumnDefinition Width="67*"/>
-        </Grid.ColumnDefinitions>
-        <Grid
-            x:Name="conteneur_haut"
-            Height="200"
-            VerticalAlignment="Top" Grid.ColumnSpan="2" />
+    <Grid x:Name="conteneur_Parent">
+        <ContentControl x:Name="conteneur_authentification" />
 
-        <ScrollViewer Margin="0,200,0,0" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+        <Grid x:Name="conteneur_haut"
+          Height="200"
+          Visibility="Collapsed"
+          VerticalAlignment="Top"
+          Grid.ColumnSpan="2" />
+
+        <ScrollViewer Margin="0,200,0,0"
+                  VerticalScrollBarVisibility="Auto"
+                  Grid.ColumnSpan="2"
+                  Visibility="Collapsed"
+                  x:Name="scrollViewer_conteneur_principal">
             <ContentControl x:Name="conteneur_principal" />
         </ScrollViewer>
     </Grid>
+
 
 
 

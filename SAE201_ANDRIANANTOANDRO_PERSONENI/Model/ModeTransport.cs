@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +47,17 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             {
                 this.nomModeTransport = value;
             }
+        }
+        public List<ModeTransport> FindAll()
+        {
+            List<ModeTransport> lesModesDeTransport = new List<ModeTransport>();
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from modetransport ;"))
+            {
+                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                foreach (DataRow dr in dt.Rows)
+                    lesModesDeTransport.Add(new ModeTransport((Int32)dr["numtransport"], (String)dr["libelletransport"]));
+            }
+            return lesModesDeTransport;
         }
     }
 }

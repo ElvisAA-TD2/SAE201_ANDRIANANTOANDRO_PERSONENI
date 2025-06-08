@@ -9,7 +9,7 @@
     Height="250"
     mc:Ignorable="d">
     <Grid Background="#FFDDF1FF">
-        <Button
+        <Button x:Name="listeDesProduits_btn"
             Width="249"
             Height="60"
             Margin="64,117,0,0"
@@ -21,7 +21,7 @@
             Content="Liste des produits"
             FontSize="16"
             Foreground="White" />
-        <Button
+        <Button x:Name="creationCommande_btn"
             Width="249"
             Height="60"
             Margin="311,117,0,0"
@@ -33,7 +33,7 @@
             Content="Créer une commande"
             FontSize="16"
             Foreground="#FF3B5D68" />
-        <Button
+        <Button x:Name="mesCommandes_btn"
             Width="249"
             Height="60"
             Margin="557,117,0,0"

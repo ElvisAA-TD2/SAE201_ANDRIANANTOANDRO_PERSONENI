@@ -195,7 +195,10 @@
             Height="51"
             Margin="897,848,0,0"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top" ItemsSource="{Binding LesModesTransports}"/>
+            VerticalAlignment="Top"
+            ItemsSource="{Binding LesModeTransports}"
+            DisplayMemberPath="NomModeTransport"
+            SelectedItem="{Binding ModeTransportSelectionne, Mode=TwoWay}" />
         <Button
             Width="446"
             Height="61"

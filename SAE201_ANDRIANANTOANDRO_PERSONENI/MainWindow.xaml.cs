@@ -1,6 +1,5 @@
 
 ﻿using System;
-﻿using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
 using SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls;
 
 using System.Text;
@@ -16,6 +15,7 @@ using System.Windows.Shapes;
 
 
 using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.BarDeNavigation;
+using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
 
 
 
@@ -28,25 +28,29 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
     public partial class MainWindow : Window
     {
         public GestionPilot LaGestion { get; set; }
+        private BarDeNavigation UcBarDeNavigation { get; set; }
+        private CreationCommande UcCreationCommande { get; set; }
+        private AccueilCommercial UcAccueilCommercial { get; set; }
+        private SelectionClient UcSelectionClient { get; set; }
+        private Authentification UcAuthentification { get; set; }
+
         public MainWindow()
         {
             ChargeData();
             InitializeComponent();
-            Authentification ucAuthentification = new Authentification();
-            BarDeNavigation ucBarDeNavigation = new BarDeNavigation();
-            /*SelectionClient ucSelectionClient = new SelectionClient();
-            CreationCommande ucCreationCommande = new CreationCommande();*/
+            this.UcAuthentification = new Authentification();
+            this.UcBarDeNavigation = new BarDeNavigation();
+            this.UcCreationCommande = new CreationCommande();
+            this.UcSelectionClient = new SelectionClient();
+            this.UcAccueilCommercial = new AccueilCommercial();
 
-            ucBarDeNavigation.NavigationDemandee += BarDeNavigation_NavigationDemandee;
 
-            /*conteneur_principal.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            conteneur_principal.RowDefinitions.Add(new RowDefinition { Height = new GridLength(2, GridUnitType.Star) });
+            this.UcAuthentification.AuthentificationReussi += SeConnecter_Reussi;
+            this.UcBarDeNavigation.NavigationDemandee += BarDeNavigation_NavigationDemandee;
+            this.UcCreationCommande.CreationCommandeValidation += CreationCommande_VersSelectionClient;
 
-            Grid.SetRow(ucBarDeNavigation, 0);
-            Grid.SetRow(ucAuthentification, 1);
-            conteneur_principal.Children.Add(ucBarDeNavigation);*/
-            conteneur_haut.Children.Add(ucBarDeNavigation);
-            conteneur_principal.Content = new AccueilCommercial();
+
+            conteneur_authentification.Content = this.UcAuthentification;
         }
 
         private void BarDeNavigation_NavigationDemandee(object sender, Enum page)
@@ -54,24 +58,41 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             switch (page)
             {
                 case Navigation.ListeProduits:
-                    conteneur_principal.Content = new AccueilCommercial();
+                    conteneur_principal.Content = this.UcAccueilCommercial;
                     break;
 
                 case Navigation.CréationCommande:
-                    conteneur_principal.Content = new CreationCommande();
+                    conteneur_principal.Content = this.UcCreationCommande;
                     break;
                 case Navigation.MesCommandes:
-                    conteneur_principal.Content = new Authentification();
+                    conteneur_principal.Content = this.UcAuthentification;
                     break;
             }
         }
 
-        /*private void CreationCommande_VersSelectionClient(object sender, bool creationCommande)
+        private void SeConnecter_Reussi (object sender, bool reponse)
         {
-            if(creationCommande)
-                conteneur_principal.Content = new UserControls.SelectionClient();
-        }*/
-        
+            if(reponse)
+            {
+                conteneur_authentification.Visibility = Visibility.Collapsed;
+                conteneur_authentification.Content = null;
+
+                conteneur_haut.Visibility = Visibility.Visible;
+                scrollViewer_conteneur_principal.Visibility = Visibility.Visible;
+
+                conteneur_haut.Children.Add(this.UcBarDeNavigation);
+                conteneur_principal.Content = this.UcAccueilCommercial;
+
+            }
+                
+        }
+
+        private void CreationCommande_VersSelectionClient(object sender, bool creationCommande)
+        {
+            if (creationCommande)
+                conteneur_principal.Content = this.UcSelectionClient;
+        }
+
         public void ChargeData()
         {
             try

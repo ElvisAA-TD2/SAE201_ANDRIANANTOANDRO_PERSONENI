@@ -20,9 +20,15 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// </summary>
     public partial class Authentification : UserControl
     {
+        public event EventHandler<bool> AuthentificationReussi;
         public Authentification()
         {
             InitializeComponent();
+        }
+
+        private void SeConnecter_Click(object sender, RoutedEventArgs e)
+        {
+            AuthentificationReussi?.Invoke(this, true);
         }
     }
 }

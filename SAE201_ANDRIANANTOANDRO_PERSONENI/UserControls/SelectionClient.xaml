@@ -6,25 +6,54 @@
              xmlns:local="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1200">
-    <StackPanel Background="AliceBlue" Width="500">
-        <Label Content="Selection du revendeur" HorizontalAlignment="Center" Style="{DynamicResource LabelTextBox}"/>
-        <Rectangle Height="1" Stroke="#FF00538E" Width="267" RenderTransformOrigin="0.5,0.5">
-            <Rectangle.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleY="-1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Rectangle.RenderTransform>
-        </Rectangle>
-        <Label Content="Rechercher" Margin="0,25,0,0" Style="{DynamicResource LabelTextBox}"/>
-        <TextBox TextWrapping="Wrap" Text="" Width="220" HorizontalAlignment="Left" Style="{DynamicResource TextBoxRecherche}" Height="36"/>
-        <Button Content="Créer un revendeur" HorizontalAlignment="Right" Height="31" Width="118"/>
-        
-        <!--test-->
+    <Grid Background="#FFDDF1FF">
+        <StackPanel Background="#FFDDF1FF" Width="500">
+            <Label Content="Selection du revendeur" HorizontalAlignment="Center" Style="{DynamicResource LabelTextBox}"/>
+            <Rectangle Height="1" Stroke="#FF00538E" Width="267" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Label Content="Rechercher" Margin="0,25,0,0" Style="{DynamicResource LabelTextBox}"/>
+            <TextBox TextWrapping="Wrap" Text="" Width="220" HorizontalAlignment="Left" Style="{DynamicResource TextBoxRecherche}" Height="36"/>
+            <Button Content="Créer un revendeur" HorizontalAlignment="Right" Height="31" Width="118"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="ListeFournisseurs" Margin="10" ItemsSource="{Binding LesRevendeurs}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="10" Margin="0 5" Background="#BDDBF0" Padding="10">
+                                <DockPanel>
+                                    <!-- Texte du fournisseur -->
+                                    <TextBlock Text="{Binding RaisonSociale}"
+                                       FontWeight="SemiBold"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       Foreground="Black"
+                                       DockPanel.Dock="Left"/>
 
-
-
-    </StackPanel>
+                                    <!-- Icône à droite -->
+                                    <Button Width="32" Height="32"
+                                    Tag="{Binding}"
+                                    Background="#6495ED"
+                                    BorderBrush="Transparent"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Margin="10,0,0,0"
+                                    Padding="0"
+                                    Cursor="Hand">
+                                        <TextBlock Text="✎" FontSize="16" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Button>
+                                </DockPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
 </UserControl>

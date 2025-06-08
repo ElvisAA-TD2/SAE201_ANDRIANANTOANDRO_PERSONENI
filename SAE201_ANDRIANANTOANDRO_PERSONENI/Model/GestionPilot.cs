@@ -18,16 +18,18 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         private ObservableCollection<Commande> lesCommandes;
         private ObservableCollection<Revendeur> lesRevendeurs;
         private ObservableCollection<Employe> lesEmploye;
+        private ObservableCollection<ModeTransport> lesModeTransports;
 
         public GestionPilot(string nom)
         {
+            this.LesModeTransports = new ObservableCollection<ModeTransport>(new ModeTransport().FindAll());
             this.LesCategories = new ObservableCollection<Categorie>(new Categorie().FindAll());
             this.LesTypePointes = new ObservableCollection<TypePointe>(new TypePointe().FindAll());
             this.LesTypes = new ObservableCollection<Type>(new Type().FindAll(this));
             this.LesCouleurProduits = new ObservableCollection<CouleurProduit>(new CouleurProduit().FindAll());
             this.LesProduits = new ObservableCollection<Produit>(new Produit().FindAll(this,this.LesCouleurProduits));
             this.LesCommandes = lesCommandes;
-            this.LesRevendeurs = lesRevendeurs;
+            this.LesRevendeurs = new ObservableCollection<Revendeur>(new Revendeur().FindAll());
             this.LesEmploye = lesEmploye;
         }
 
@@ -145,6 +147,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             set
             {
                 this.lesCategories = value;
+            }
+        }
+
+        public ObservableCollection<ModeTransport> LesModeTransports
+        {
+            get
+            {
+                return this.lesModeTransports;
+            }
+
+            set
+            {
+                this.lesModeTransports = value;
             }
         }
     }

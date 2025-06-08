@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -86,6 +88,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             {
                 this.adresseVille = value;
             }
+        }
+
+        public List<Revendeur> FindAll()
+        {
+            List<Revendeur> lesRevendeurs = new List<Revendeur>();
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from revendeur ;"))
+            {
+                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                foreach (DataRow dr in dt.Rows)
+                    lesRevendeurs.Add(new Revendeur((Int32)dr["numrevendeur"], (String)dr["raisonsociale"], 
+                        (String)dr["adresserue"], (String)dr["adressecp"], (String)dr["adresseville"]));
+            }
+            return lesRevendeurs;
         }
     }
 }
