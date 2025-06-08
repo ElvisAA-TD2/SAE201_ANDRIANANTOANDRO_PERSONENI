@@ -20,38 +20,63 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
             <Label Content="Rechercher" Margin="0,25,0,0" Style="{DynamicResource LabelTextBox}"/>
-            <TextBox TextWrapping="Wrap" Text="" Width="220" HorizontalAlignment="Left" Style="{DynamicResource TextBoxRecherche}" Height="36"/>
-            <Button Content="Créer un revendeur" HorizontalAlignment="Right" Height="31" Width="118"/>
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl x:Name="ListeFournisseurs" Margin="10" ItemsSource="{Binding LesRevendeurs}">
+            <TextBox x:Name="tb_rechercheMotClef" TextWrapping="Wrap" Text="" Width="220" HorizontalAlignment="Left" Style="{DynamicResource TextBoxRecherche}" Height="45" TextChanged="TextBox_TextChanged"/>
+            <Button Content="Créer un revendeur" HorizontalAlignment="Right" Height="35" Width="118" Style="{DynamicResource Button_BorderRadiud}" Padding="0" Background="#FF0387FC" Foreground="White" BorderBrush="Transparent" Margin="10, 0 , 10, 10"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="280">
+                <ItemsControl x:Name="listeRevendeurs" Margin="0, 20" ItemsSource="{Binding LesRevendeurs}">
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border CornerRadius="10" Margin="0 5" Background="#BDDBF0" Padding="10">
-                                <DockPanel>
-                                    <!-- Texte du fournisseur -->
-                                    <TextBlock Text="{Binding RaisonSociale}"
-                                       FontWeight="SemiBold"
-                                       FontSize="16"
-                                       VerticalAlignment="Center"
-                                       Foreground="Black"
-                                       DockPanel.Dock="Left"/>
+                            <DataTemplate>
+                                <Border CornerRadius="10" Margin="0 5" Background="#BDDBF0" Padding="10">
+                                    <DockPanel LastChildFill="False">
+                                        <TextBlock Text="{Binding RaisonSociale}"
+                                           FontWeight="SemiBold"
+                                           FontSize="16"
+                                           VerticalAlignment="Center"
+                                           Foreground="Black"
+                                           DockPanel.Dock="Left" />
 
-                                    <!-- Icône à droite -->
-                                    <Button Width="32" Height="32"
-                                    Tag="{Binding}"
-                                    Background="#6495ED"
-                                    BorderBrush="Transparent"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    Margin="10,0,0,0"
-                                    Padding="0"
-                                    Cursor="Hand">
-                                        <TextBlock Text="✎" FontSize="16" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Button>
-                                </DockPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
+                                        <!-- Conteneur pour les boutons alignés à droite -->
+                                        <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Right"
+                                            DockPanel.Dock="Right"
+                                            VerticalAlignment="Center">
+
+                                            <!-- Bouton Sélectionner -->
+                                            <Button Width="Auto" Height="32"
+                                                Tag="{Binding}"
+                                                Background="#FF00538E"
+                                                BorderBrush="Transparent"
+                                                Margin="0,0,10,0"
+                                                Padding="10, 0, 10, 0"
+                                                Cursor="Hand"
+                                                Style="{DynamicResource Button_BorderRadiud}">
+                                                <TextBlock Text="Sélectionner"
+                                                   FontSize="16"
+                                                   Foreground="White"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                            </Button>
+
+                                            <!--Bouton Modifier-->
+                                            <Button Width="32" Height="32"
+                                                Tag="{Binding}"
+                                                Background="#FF0387FC"
+                                                BorderBrush="Transparent"
+                                                Padding="0"
+                                                Cursor="Hand"
+                                                Style="{DynamicResource Button_BorderRadiud}">
+                                                <TextBlock Text="✎"
+                                                   FontSize="16"
+                                                   Foreground="White"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DockPanel>
+
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
         </StackPanel>
