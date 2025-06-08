@@ -47,6 +47,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
+                if (String.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("La raison sociale ne peut pas être vide");
                 this.raisonSociale = value;
             }
         }
@@ -60,6 +62,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
+                if (String.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("L'adresse rue ne peut pas être vide");
                 this.adresseRue = value;
             }
         }
@@ -73,6 +77,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
+                if (String.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Le codePostal ne peut pas être vide");
                 this.adresseCP = value;
             }
         }
@@ -86,6 +92,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
+                if (String.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("La ville ne peut pas être vide");
                 this.adresseVille = value;
             }
         }
@@ -101,6 +109,51 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                         (String)dr["adresserue"], (String)dr["adressecp"], (String)dr["adresseville"]));
             }
             return lesRevendeurs;
+        }
+
+        public int Create()
+        {
+            int nb = 0;
+            using (var cmdInsert = new NpgsqlCommand("insert into revendeur (raisonsociale, adresserue, adressecp , adresseville) " +
+                "values (@raisonsociale,@adresserue,@adressecp, @adresseville) RETURNING numrevendeur"))
+            {
+                cmdInsert.Parameters.AddWithValue("raisonsociale", this.RaisonSociale);
+                cmdInsert.Parameters.AddWithValue("adresserue", this.AdresseRue);
+                cmdInsert.Parameters.AddWithValue("adressecp", this.AdresseCP);
+                cmdInsert.Parameters.AddWithValue("adresseville", this.AdresseVille);
+                nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
+            }
+            this.NumRevendeur = nb;
+            return nb;
+        }
+
+        public void Read()
+        {
+            using (var cmdSelect = new NpgsqlCommand("select * from  revendeur  where numrevendeur =@id;"))
+            {
+                cmdSelect.Parameters.AddWithValue("id", this.NumRevendeur);
+
+                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                this.RaisonSociale = (String)dt.Rows[0]["raisonsociale"];
+                this.AdresseRue = (String)dt.Rows[0]["adresserue"];
+                this.AdresseCP = (String)dt.Rows[0]["adressecp"];
+                this.adresseVille = (String)dt.Rows[0]["adresseville"];
+            }
+
+        }
+
+        public int Update()
+        {
+            using (var cmdUpdate = new NpgsqlCommand("update revendeur set raisonsociale =@raisonsociale ,  adresserue = @adresserue,  adressecp = @adressecp, " +
+                "adresseville = @adresseville  where numrevendeur =@id;"))
+            {
+                cmdUpdate.Parameters.AddWithValue("raisonsociale", this.RaisonSociale);
+                cmdUpdate.Parameters.AddWithValue("adresserue", this.AdresseRue);
+                cmdUpdate.Parameters.AddWithValue("adressecp", this.AdresseCP);
+                cmdUpdate.Parameters.AddWithValue("adresseville", this.AdresseVille);
+                cmdUpdate.Parameters.AddWithValue("id", this.NumRevendeur);
+                return DataAccess.Instance.ExecuteSet(cmdUpdate);
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.SelectionClient"
+﻿<UserControl x:Class="SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.SelectionRevendeur"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -21,7 +21,7 @@
             </Rectangle>
             <Label Content="Rechercher" Margin="0,25,0,0" Style="{DynamicResource LabelTextBox}"/>
             <TextBox x:Name="tb_rechercheMotClef" TextWrapping="Wrap" Text="" Width="220" HorizontalAlignment="Left" Style="{DynamicResource TextBoxRecherche}" Height="45" TextChanged="TextBox_TextChanged"/>
-            <Button Content="Créer un revendeur" HorizontalAlignment="Right" Height="35" Width="118" Style="{DynamicResource Button_BorderRadiud}" Padding="0" Background="#FF0387FC" Foreground="White" BorderBrush="Transparent" Margin="10, 0 , 10, 10"/>
+            <Button Content="Créer un revendeur" HorizontalAlignment="Right" Height="35" Width="118" Style="{DynamicResource Button_BorderRadiud}" Padding="0" Background="#FF0387FC" Foreground="White" BorderBrush="Transparent" Margin="10, 0 , 10, 10" Click="CreationRevendeur_Click"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto" Height="280">
                 <ItemsControl x:Name="listeRevendeurs" Margin="0, 20" ItemsSource="{Binding LesRevendeurs}">
                     <ItemsControl.ItemTemplate>
@@ -35,7 +35,6 @@
                                            Foreground="Black"
                                            DockPanel.Dock="Left" />
 
-                                        <!-- Conteneur pour les boutons alignés à droite -->
                                         <StackPanel Orientation="Horizontal"
                                             HorizontalAlignment="Right"
                                             DockPanel.Dock="Right"
@@ -49,7 +48,7 @@
                                                 Margin="0,0,10,0"
                                                 Padding="10, 0, 10, 0"
                                                 Cursor="Hand"
-                                                Style="{DynamicResource Button_BorderRadiud}">
+                                                Style="{DynamicResource Button_BorderRadiud}" Click="SelectionnerRevendeur_Click">
                                                 <TextBlock Text="Sélectionner"
                                                    FontSize="16"
                                                    Foreground="White"
@@ -64,7 +63,7 @@
                                                 BorderBrush="Transparent"
                                                 Padding="0"
                                                 Cursor="Hand"
-                                                Style="{DynamicResource Button_BorderRadiud}">
+                                                Style="{DynamicResource Button_BorderRadiud}" Click="ModifierRevendeur_Click">
                                                 <TextBlock Text="✎"
                                                    FontSize="16"
                                                    Foreground="White"

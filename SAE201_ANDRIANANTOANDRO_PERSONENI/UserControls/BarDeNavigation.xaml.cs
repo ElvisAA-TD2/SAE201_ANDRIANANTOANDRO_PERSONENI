@@ -18,11 +18,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// <summary>
     /// Logique d'interaction pour BarDeNavigation.xaml
     /// </summary>
+    public enum Navigation { ListeProduits, CréationCommande, MesCommandes };
     public partial class BarDeNavigation : UserControl
     {
-        public enum Navigation { ListeProduits, CréationCommande, MesCommandes};
-
-        public event EventHandler<Enum> NavigationDemandee;
+        public event EventHandler<Navigation> NavigationDemandee;
         public static readonly string FOND_BOUTON_SELECTIONNE = "#FF3B5D68";
         public static readonly string FOND_BOUTON_NON_SELECTIONNE = "#FFADC9DC";
         public static readonly string COULEUR_TEXTE_BOUTON_SELECTIONNE = "#FFFFFFFF";
