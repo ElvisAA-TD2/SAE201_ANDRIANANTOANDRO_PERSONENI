@@ -37,6 +37,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         private Authentification UcAuthentification { get; set; }
         private FormulaireRevendeur UcFormulaireRevendeur { get; set; }
         private DetailsProduit UcDetailsProduit { get; set; }
+        private MesCommandes UcMesCommandes { get; set; }
+
+        private RecapitulatifCommande UcRecapitulatifCommande { get; set; }
 
         public MainWindow()
         {
@@ -49,6 +52,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcAccueilCommercial = new AccueilCommercial();
             this.UcFormulaireRevendeur = new FormulaireRevendeur();
             this.UcDetailsProduit = new DetailsProduit();
+            this.UcMesCommandes = new MesCommandes();
+            this.UcRecapitulatifCommande = new RecapitulatifCommande();
 
 
             this.UcAccueilCommercial.VoirDetailProduitDemande += AfficherDetailsProduit;
@@ -59,23 +64,26 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcFormulaireRevendeur.ActionRevendeurEffectuee += ActionRevendeur;
             this.UcFormulaireRevendeur.AnnulationActionRevendeur += AnnulationActionRevendeur;
             this.UcDetailsProduit.RevenirEnArrièreDemandee += RetourEnArrièreVenantVenantDeDétails;
+            this.UcMesCommandes.VoirDetailsCommandes += DetailsCommandeDemandee;
+            this.UcRecapitulatifCommande.ActionCommandeDemandee += ActionCommande;
 
             conteneur_authentification.Content = this.UcAuthentification;
+        }
 
-            if (File.Exists("ImagesProduits/StyloBleu.jpg"))
-            {
-                var img = new BitmapImage();
-                img.BeginInit();
-                img.UriSource = new Uri("ImagesProduits/StyloBleu.jpg", UriKind.Relative);
-                img.CacheOption = BitmapCacheOption.OnLoad;
-                img.EndInit();
-                this.UcDetailsProduit.image_produit.Source = img;
-            }
-            else
-            {
-                MessageBox.Show("Image introuvable !");
-            }
+        private void DetailsCommandeDemandee(object sender, Commande commande)
+        {
+            this.UcRecapitulatifCommande.FindCommandeByNumCommande(commande.NumCommande, this.LaGestion);
 
+            conteneur_principal.Content = this.UcRecapitulatifCommande;
+        }
+
+        private void ActionCommande(object sender, Commande commande)
+        {
+            if (commande == null)
+                conteneur_principal.Content = this.UcMesCommandes;
+            else //pour la suppression, à implementer
+                //commande.Delete()
+                conteneur_principal.Content = this.UcMesCommandes;
         }
 
         private void RetourEnArrièreVenantVenantDeDétails(object sender, bool reponse)
@@ -135,9 +143,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
                 case Navigation.CréationCommande:
                     conteneur_principal.Content = this.UcCreationCommande;
+                    this.UcCreationCommande.LesProduitsSelectionnes.Clear();
                     break;
                 case Navigation.MesCommandes:
-                    conteneur_principal.Content = this.UcAuthentification;
+                    conteneur_principal.Content = this.UcMesCommandes;
                     break;
             }
         }

@@ -10,7 +10,7 @@
     Height="700"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d"
-    Icon="/Images/logo.ico">
+    Icon="/Images/logo.ico" ResizeMode="NoResize">
 
     <Grid x:Name="conteneur_Parent">
         <ContentControl x:Name="conteneur_authentification" />

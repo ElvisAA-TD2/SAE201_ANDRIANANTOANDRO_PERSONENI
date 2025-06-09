@@ -7,18 +7,34 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" Width="1200">
     <Grid Background="#FFDDF1FF">
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <StackPanel>
-                    <Label Content="Date"/>
-                    <TextBox/>
+        <StackPanel Width="900" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Width="550">
+                <StackPanel Width="250">
+                    <Label Content="Date" Style="{DynamicResource LabelTextBox}"/>
+                    <TextBox x:Name="tb_dateCreation" Style="{DynamicResource TextBoxRecherche}"/>
                 </StackPanel>
-                <StackPanel>
-                    <Label Content="Raison sociale du revendeur"/>
-                    <TextBox/>
+                <StackPanel Width="250" Margin="40,0,0,0"> 
+                    <Label Content="Raison sociale du revendeur" Style="{DynamicResource LabelTextBox}"/>
+                    <TextBox x:Name="tb_raisonSociale" Style="{DynamicResource TextBoxRecherche}"/>
                 </StackPanel>
             </StackPanel>
-            
+            <StackPanel Margin="0,40,0,0">
+                <DataGrid ItemsSource="{Binding LesCommandes}" AutoGenerateColumns="False" Style="{DynamicResource DataGridStyle}" CanUserAddRows="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Code commande" Binding="{Binding NumCommande}" Width="*"/>
+                        <DataGridTextColumn Header="Date commande" Binding="{Binding DateCommande, StringFormat={}{0:dd/MM/yyyy}}" Width="*"/>
+                        <DataGridTextColumn Header="Mode de transport" Binding="{Binding UnModeTransport.NomModeTransport}" Width="*"/>
+                        <DataGridTextColumn Header="Revendeur" Binding="{Binding UnRevendeur.RaisonSociale}" Width="*"/>
+                        <DataGridTemplateColumn Header="Action" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Voir récapitulatif" Tag="{Binding}" Style="{DynamicResource Button_BorderRadiud}" Click="VoirRecapitulatif_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

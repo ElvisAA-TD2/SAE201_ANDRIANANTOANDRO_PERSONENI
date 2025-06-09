@@ -16,8 +16,13 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         private ModeTransport unModeTransport;
         private Revendeur unRevendeur;
         private List<ProduitCommande> lesProduitCommande;
+        private decimal prixTotal;
 
-        public Commande(int numCommande, Employe unEmploye, ModeTransport unModeTransport, Revendeur unRevendeur, DateTime dateCommande, DateTime dateLivraion, List<ProduitCommande> lesProduitCommande)
+        public Commande()
+        {
+        }
+
+        public Commande(int numCommande, Employe unEmploye, Revendeur unRevendeur, ModeTransport unModeTransport, DateTime dateCommande, DateTime dateLivraion, List<ProduitCommande> lesProduitCommande, decimal prixTotal)
         {
             this.NumCommande = numCommande;
             this.DateCommande = dateCommande;
@@ -25,10 +30,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             this.UnEmploye = unEmploye;
             this.UnModeTransport = unModeTransport;
             this.UnRevendeur = unRevendeur;
-            this.lesProduitCommande = lesProduitCommande;
-        }
-        public Commande()
-        {
+            this.LesProduitCommande = lesProduitCommande;
+            this.PrixTotal = prixTotal;
         }
 
         public int NumCommande
@@ -122,6 +125,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
+        public decimal PrixTotal
+        {
+            get
+            {
+                return this.prixTotal;
+            }
+
+            set
+            {
+                this.prixTotal = value;
+            }
+        }
+
         public List<Commande> FindAll(GestionPilot gestionPilot)
         {
             List<Commande> lesCommandes = new List<Commande>();
@@ -129,12 +145,13 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             {
                 DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
                 foreach (DataRow dr in dt.Rows)
-                    lesCommandes.Add(new Commande((Int32)dr["numcommande"], 
-                        gestionPilot.LesEmploye.FirstOrDefault(e=> e.NumEmploye == (Int32)dr["numemploye"]),
-                        gestionPilot.LesModeTransports.FirstOrDefault(tr => tr.NumModeTransport == (Int32)dr["numtransport"]), 
+                    lesCommandes.Add(new Commande((Int32)dr["numcommande"], gestionPilot.LesEmploye.FirstOrDefault(e => e.NumEmploye == (Int32)dr["numemploye"]),
                         gestionPilot.LesRevendeurs.SingleOrDefault(r => r.NumRevendeur == (Int32)dr["numrevendeur"]),
-                        (DateTime)dr["datecommande"], (DateTime)dr["datelivraison"], 
-                        gestionPilot.LesProduitCommandes.Where(pc => pc.NumCommande == (Int32)dr["numcommande"]).ToList()));
+                        gestionPilot.LesModeTransports.FirstOrDefault(tr => tr.NumModeTransport == (Int32)dr["numtransport"]),
+                        (DateTime)dr["datelivraison"],
+                        (DateTime)dr["datecommande"],
+                        gestionPilot.LesProduitCommandes.Where(pc => pc.NumCommande == (Int32)dr["numcommande"]).ToList(), 
+                        (Decimal)dr["prixtotal"]));
             }
             return lesCommandes;
         }

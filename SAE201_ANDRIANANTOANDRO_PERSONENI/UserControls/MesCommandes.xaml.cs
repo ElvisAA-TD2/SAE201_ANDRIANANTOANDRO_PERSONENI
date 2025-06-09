@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,15 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// </summary>
     public partial class MesCommandes : UserControl
     {
+        public event EventHandler<Commande> VoirDetailsCommandes;
         public MesCommandes()
         {
             InitializeComponent();
+        }
+
+        private void VoirRecapitulatif_Click(object sender, RoutedEventArgs e)
+        {
+            VoirDetailsCommandes?.Invoke(this, (Commande)((Button)sender).Tag);
         }
     }
 }
