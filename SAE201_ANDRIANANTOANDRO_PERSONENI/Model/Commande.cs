@@ -155,5 +155,14 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
             return lesCommandes;
         }
+
+        public int Delete()
+        {
+            using (var cmdUpdate = new NpgsqlCommand("delete from commande  where numcommande =@numcommande;"))
+            {
+                cmdUpdate.Parameters.AddWithValue("numcommande", this.NumCommande);
+                return DataAccess.Instance.ExecuteSet(cmdUpdate);
+            }
+        }
     }
 }

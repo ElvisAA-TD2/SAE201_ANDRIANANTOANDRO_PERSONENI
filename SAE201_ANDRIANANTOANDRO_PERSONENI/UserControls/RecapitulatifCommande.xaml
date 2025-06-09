@@ -60,7 +60,7 @@
                      BorderBrush="{x:Null}"
                      Content="Revenir en arrière"
                      Foreground="White"
-                     Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="SupprimerCommande_Click"/>
+                     Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="RevenirEnArriere_Click"/>
             <Button
                  Width="250"
                  Height="61"
@@ -71,7 +71,7 @@
                  BorderBrush="{x:Null}"
                  Content="Supprimer"
                  Foreground="White"
-                 Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="RevenirEnArriere_Click" Margin="50,0,0,0"/>
+                 Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446"  Margin="50,0,0,0"  Click="SupprimerCommande_Click" />
         </StackPanel>
     </Grid>
 </UserControl>

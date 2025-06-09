@@ -19,10 +19,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// <summary>
     /// Logique d'interaction pour RecapitulatifCommande.xaml
     /// </summary>
+    public enum ActionCommande { Supprimer, Annuler}
     public partial class RecapitulatifCommande : UserControl
     {
-        public event EventHandler<Commande> ActionCommandeDemandee;
-        public Commande CommandeAAfficher {  get; set; } = new Commande();
+        public event EventHandler<RecapitulatifCommandeEventArgs> ActionCommandeDemandee;
+        public Commande CommandeAAfficher {  get; set; }
         public RecapitulatifCommande()
         {
             InitializeComponent();
@@ -31,12 +32,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void RevenirEnArriere_Click(object sender, RoutedEventArgs e)
         {
-            ActionCommandeDemandee?.Invoke(this, CommandeAAfficher);
+            ActionCommandeDemandee?.Invoke(this, new RecapitulatifCommandeEventArgs(ActionCommande.Annuler, null));
         }
 
         private void SupprimerCommande_Click(object sender, RoutedEventArgs e)
         {
-            ActionCommandeDemandee?.Invoke(this, CommandeAAfficher);
+            ActionCommandeDemandee?.Invoke(this, new RecapitulatifCommandeEventArgs(ActionCommande.Supprimer, this.CommandeAAfficher));
         }
 
         public void FindCommandeByNumCommande (int numCommande, GestionPilot gestionPilot)
@@ -48,6 +49,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             lb_modeTransport_commande.Content = this.CommandeAAfficher.UnModeTransport.NomModeTransport;
             lb_prixTotal_commande.Content = this.CommandeAAfficher.PrixTotal.ToString()+ " €";
 
+        }
+
+        //classe pour transférer deux informations à la mainWindow (l'action et la commande associé)
+        public class RecapitulatifCommandeEventArgs : EventArgs
+        {
+            public Commande UneCommande { get; }
+            public ActionCommande UneAction { get; }
+
+            public RecapitulatifCommandeEventArgs(ActionCommande action, Commande commande)
+            {
+                UneAction = action;
+                UneCommande = commande;
+            }
         }
     }
 }

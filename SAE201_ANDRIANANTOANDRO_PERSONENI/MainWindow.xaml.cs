@@ -18,6 +18,7 @@ using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.BarDeNavigation;
 using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
 using System.Runtime.CompilerServices;
 using System.IO;
+using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.RecapitulatifCommande;
 
 
 
@@ -77,13 +78,16 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             conteneur_principal.Content = this.UcRecapitulatifCommande;
         }
 
-        private void ActionCommande(object sender, Commande commande)
+        private void ActionCommande(object sender, RecapitulatifCommandeEventArgs commande)
         {
-            if (commande == null)
+            if (commande.UneAction == UserControls.ActionCommande.Annuler && commande.UneCommande == null)
                 conteneur_principal.Content = this.UcMesCommandes;
-            else //pour la suppression, à implementer
-                //commande.Delete()
+            else if (commande.UneAction == UserControls.ActionCommande.Supprimer && commande.UneCommande != null)
+            {
+                commande.UneCommande.Delete();
+                this.LaGestion.LesCommandes.Remove(commande.UneCommande);
                 conteneur_principal.Content = this.UcMesCommandes;
+            }   
         }
 
         private void RetourEnArrièreVenantVenantDeDétails(object sender, bool reponse)
