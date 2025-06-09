@@ -19,6 +19,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         private ObservableCollection<Revendeur> lesRevendeurs;
         private ObservableCollection<Employe> lesEmploye;
         private ObservableCollection<ModeTransport> lesModeTransports;
+        private ObservableCollection<ProduitCommande> lesProduitCommandes;
+        private ObservableCollection<Role> lesRoles;
+        private ObservableCollection<CouleurProduit> lesCouleursproduits;
 
         public GestionPilot(string nom)
         {
@@ -28,9 +31,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             this.LesTypes = new ObservableCollection<Type>(new Type().FindAll(this));
             this.LesCouleurProduits = new ObservableCollection<CouleurProduit>(new CouleurProduit().FindAll());
             this.LesProduits = new ObservableCollection<Produit>(new Produit().FindAll(this,this.LesCouleurProduits));
-            this.LesCommandes = lesCommandes;
-            this.LesRevendeurs = new ObservableCollection<Revendeur>(new Revendeur().FindAll());
-            this.LesEmploye = lesEmploye;
+            this.LesCouleurProduits = new ObservableCollection<CouleurProduit>(new CouleurProduit().FindAll());
+            this.LesRevendeurs = new ObservableCollection<Revendeur>(new Revendeur().FindAll());   
+            this.LesRoles = new ObservableCollection<Role>(new Role().FindAll());
+            this.LesEmploye = new ObservableCollection<Employe>(new Employe().FindAll(this));
+            this.LesProduitCommandes = new ObservableCollection<ProduitCommande>(new ProduitCommande().FindAll(this));
+            this.LesCommandes = new ObservableCollection<Commande>(new Commande().FindAll(this));
         }
 
         public ObservableCollection<Produit> LesProduits
@@ -160,6 +166,45 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             set
             {
                 this.lesModeTransports = value;
+            }
+        }
+
+        public ObservableCollection<ProduitCommande> LesProduitCommandes
+        {
+            get
+            {
+                return this.lesProduitCommandes;
+            }
+
+            set
+            {
+                this.lesProduitCommandes = value;
+            }
+        }
+
+        public ObservableCollection<Role> LesRoles
+        {
+            get
+            {
+                return this.lesRoles;
+            }
+
+            set
+            {
+                this.lesRoles = value;
+            }
+        }
+
+        public ObservableCollection<CouleurProduit> LesCouleursproduits
+        {
+            get
+            {
+                return this.lesCouleursproduits;
+            }
+
+            set
+            {
+                this.lesCouleursproduits = value;
             }
         }
     }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +17,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         private Revendeur unRevendeur;
         private List<ProduitCommande> lesProduitCommande;
 
-        public Commande(int numCommande, DateTime dateCommande, DateTime dateLivraion, Employe unEmploye, ModeTransport unModeTransport, Revendeur unRevendeur, List<ProduitCommande> lesProduitCommande)
+        public Commande(int numCommande, Employe unEmploye, ModeTransport unModeTransport, Revendeur unRevendeur, DateTime dateCommande, DateTime dateLivraion, List<ProduitCommande> lesProduitCommande)
         {
             this.NumCommande = numCommande;
             this.DateCommande = dateCommande;
@@ -118,6 +120,23 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             {
                 this.lesProduitCommande = value;
             }
+        }
+
+        public List<Commande> FindAll(GestionPilot gestionPilot)
+        {
+            List<Commande> lesCommandes = new List<Commande>();
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from commande ;"))
+            {
+                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                foreach (DataRow dr in dt.Rows)
+                    lesCommandes.Add(new Commande((Int32)dr["numcommande"], 
+                        gestionPilot.LesEmploye.FirstOrDefault(e=> e.NumEmploye == (Int32)dr["numemploye"]),
+                        gestionPilot.LesModeTransports.FirstOrDefault(tr => tr.NumModeTransport == (Int32)dr["numtransport"]), 
+                        gestionPilot.LesRevendeurs.SingleOrDefault(r => r.NumRevendeur == (Int32)dr["numrevendeur"]),
+                        (DateTime)dr["datecommande"], (DateTime)dr["datelivraison"], 
+                        gestionPilot.LesProduitCommandes.Where(pc => pc.NumCommande == (Int32)dr["numcommande"]).ToList()));
+            }
+            return lesCommandes;
         }
     }
 }
