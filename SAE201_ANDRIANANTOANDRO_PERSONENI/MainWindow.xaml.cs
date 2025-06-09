@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.BarDeNavigation;
 using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
 using System.Runtime.CompilerServices;
+using System.IO;
 
 
 
@@ -60,6 +61,21 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcDetailsProduit.RevenirEnArrièreDemandee += RetourEnArrièreVenantVenantDeDétails;
 
             conteneur_authentification.Content = this.UcAuthentification;
+
+            if (File.Exists("ImagesProduits/StyloBleu.jpg"))
+            {
+                var img = new BitmapImage();
+                img.BeginInit();
+                img.UriSource = new Uri("ImagesProduits/StyloBleu.jpg", UriKind.Relative);
+                img.CacheOption = BitmapCacheOption.OnLoad;
+                img.EndInit();
+                this.UcDetailsProduit.image_produit.Source = img;
+            }
+            else
+            {
+                MessageBox.Show("Image introuvable !");
+            }
+
         }
 
         private void RetourEnArrièreVenantVenantDeDétails(object sender, bool reponse)
@@ -80,8 +96,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 //A modifier
                 this.UcDetailsProduit.lb_couleurProduit.Content = leProduitADetaille.LesCouleurProduit.Count.ToString();
                 this.UcDetailsProduit.lb_quantiteProduit.Content = leProduitADetaille.QteStock.ToString();
-            }
+                AfficherImage("ImagesProduits/StyloBleu.jpg");
+                
+
+
                 conteneur_principal.Content = this.UcDetailsProduit;
+            }    
         }
 
         private void AnnulationActionRevendeur(object sender, bool reponse)
@@ -196,6 +216,23 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             conteneur_principal.Content = this.UcSelectionRevendeur;
             
         }
-        
+
+        private void AfficherImage (string cheminImage)
+        {
+            if (File.Exists(cheminImage))
+            {
+                var img = new BitmapImage();
+                img.BeginInit();
+                img.UriSource = new Uri(cheminImage, UriKind.Relative);
+                img.CacheOption = BitmapCacheOption.OnLoad;
+                img.EndInit();
+                this.UcDetailsProduit.image_produit.Source = img;
+            }
+            else
+            {
+                MessageBox.Show("Image introuvable !");
+            }
+        }
+
     }
 }

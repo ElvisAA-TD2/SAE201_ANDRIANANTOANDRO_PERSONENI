@@ -19,9 +19,9 @@
             </Rectangle.RenderTransform>
         </Rectangle>
         <StackPanel Orientation="Horizontal" Width="630" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel>
+            <StackPanel Height="244" Width="214">
                 <Label Content="nomProduit" HorizontalAlignment="Center" Margin="0,20,0,0" x:Name="lb_nomProduit" Foreground="#335A68" FontSize="18" FontStyle="Italic"/>
-                <Image Height="160" Width="199" IsEnabled="False" x:Name="image_produit" Stretch="Uniform"/>
+                <Image Height="188" Stretch="Uniform" Width="Auto" x:Name="image_produit"/>
             </StackPanel>
 
             <StackPanel Margin="100,0,0,0">
@@ -51,7 +51,7 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-        <StackPanel Margin="0,375,0,0">
+        <StackPanel Margin="0,375,0,0" Orientation="Horizontal">
             <Button
                  Width="446"
                  Height="61"
@@ -63,6 +63,8 @@
                  Content="Revenir en arrière"
                  Foreground="White"
                  Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="RevenirEnArriere_Click"/>
+            <Button Content="test changement Image" Width="500" Click="Button_Click" />
         </StackPanel>
+        
     </Grid>
 </UserControl>
