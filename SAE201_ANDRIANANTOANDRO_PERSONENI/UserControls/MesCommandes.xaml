@@ -11,15 +11,15 @@
             <StackPanel Orientation="Horizontal" Width="550">
                 <StackPanel Width="250">
                     <Label Content="Date" Style="{DynamicResource LabelTextBox}"/>
-                    <TextBox x:Name="tb_dateCreation" Style="{DynamicResource TextBoxRecherche}"/>
+                    <TextBox x:Name="tb_dateCreation_commande" Style="{DynamicResource TextBoxRecherche}" TextChanged="TextBox_Changed"/>
                 </StackPanel>
                 <StackPanel Width="250" Margin="40,0,0,0"> 
                     <Label Content="Raison sociale du revendeur" Style="{DynamicResource LabelTextBox}"/>
-                    <TextBox x:Name="tb_raisonSociale" Style="{DynamicResource TextBoxRecherche}"/>
+                    <TextBox x:Name="tb_raisonSociale_revendeur" Style="{DynamicResource TextBoxRecherche}" TextChanged="TextBox_Changed"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Margin="0,40,0,0">
-                <DataGrid ItemsSource="{Binding LesCommandes}" AutoGenerateColumns="False" Style="{DynamicResource DataGridStyle}" CanUserAddRows="False" IsReadOnly="True">
+                <DataGrid ItemsSource="{Binding LesCommandes}" AutoGenerateColumns="False" Style="{DynamicResource DataGridStyle}" CanUserAddRows="False" IsReadOnly="True" x:Name="dg_mesCommandes">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Code commande" Binding="{Binding NumCommande}" Width="*"/>
                         <DataGridTextColumn Header="Date commande" Binding="{Binding DateCommande, StringFormat={}{0:dd/MM/yyyy}}" Width="*"/>
