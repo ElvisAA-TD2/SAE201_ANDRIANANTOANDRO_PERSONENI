@@ -22,6 +22,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     public partial class FormulaireRevendeur : UserControl
     {
         public event EventHandler<Revendeur> ActionRevendeurEffectuee;
+        public event EventHandler<bool> AnnulationActionRevendeur;
         public int IdRevendeurAModifier { get; set; }
         public FormulaireRevendeur()
         {
@@ -40,6 +41,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
                 Revendeur leRevendeur = new Revendeur(this.IdRevendeurAModifier, tb_raisonSociale.Text, tb_adresseRue.Text, tb_adresseCP.Text, tb_adresseVille.Text);
                 ActionRevendeurEffectuee?.Invoke(this, leRevendeur);
             }   
+        }
+
+        private void AnnulationActionRevendeur_Click(object sender, RoutedEventArgs e)
+        {
+            AnnulationActionRevendeur?.Invoke(this, true);
         }
     }
 }

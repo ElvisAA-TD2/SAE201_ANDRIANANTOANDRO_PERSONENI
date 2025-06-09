@@ -19,8 +19,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// <summary>
     /// Logique d'interaction pour AccueilCommercial.xaml
     /// </summary>
+    
     public partial class AccueilCommercial : UserControl
     {
+        public event EventHandler<Produit> VoirDetailProduitDemande;
         public AccueilCommercial()
         {
             InitializeComponent();
@@ -57,6 +59,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             return motClefOk && typeOk && typePointeOk && categorieOk;
         }
 
-
+        private void VoirDetailsProduit_Click(object sender, RoutedEventArgs e)
+        {
+            Produit produitADetaille = (Produit)((Button)sender)?.Tag;
+            VoirDetailProduitDemande?.Invoke(this, produitADetaille);
+        }
     }
 }

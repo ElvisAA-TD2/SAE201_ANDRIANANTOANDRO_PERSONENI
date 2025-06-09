@@ -35,6 +35,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         private SelectionRevendeur UcSelectionRevendeur { get; set; }
         private Authentification UcAuthentification { get; set; }
         private FormulaireRevendeur UcFormulaireRevendeur { get; set; }
+        private DetailsProduit UcDetailsProduit { get; set; }
 
         public MainWindow()
         {
@@ -46,16 +47,47 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcSelectionRevendeur = new SelectionRevendeur();
             this.UcAccueilCommercial = new AccueilCommercial();
             this.UcFormulaireRevendeur = new FormulaireRevendeur();
+            this.UcDetailsProduit = new DetailsProduit();
 
 
+            this.UcAccueilCommercial.VoirDetailProduitDemande += AfficherDetailsProduit;
             this.UcAuthentification.AuthentificationReussi += SeConnecter_Reussi;
             this.UcBarDeNavigation.NavigationDemandee += BarDeNavigation_NavigationDemandee;
             this.UcCreationCommande.CreationCommandeValidation += CreationCommande_VersSelectionClient;
             this.UcSelectionRevendeur.RevendeurActionNecessaire += SelectionRevendeur_VersActionRevendeur;
             this.UcFormulaireRevendeur.ActionRevendeurEffectuee += ActionRevendeur;
-
+            this.UcFormulaireRevendeur.AnnulationActionRevendeur += AnnulationActionRevendeur;
+            this.UcDetailsProduit.RevenirEnArrièreDemandee += RetourEnArrièreVenantVenantDeDétails;
 
             conteneur_authentification.Content = this.UcAuthentification;
+        }
+
+        private void RetourEnArrièreVenantVenantDeDétails(object sender, bool reponse)
+        {
+            if (reponse)
+                conteneur_principal.Content = this.UcAccueilCommercial;
+        }
+
+        private void AfficherDetailsProduit(object sender, Produit leProduitADetaille)
+        {
+            if(leProduitADetaille != null)
+            {
+                this.UcDetailsProduit.lb_nomProduit.Content = leProduitADetaille.NomProduit;
+                this.UcDetailsProduit.lb_categorieProduit.Content = leProduitADetaille.UnType.UneCategorie.NomCategorie;
+                this.UcDetailsProduit.lb_typeProduit.Content = leProduitADetaille.UnType.NomType;
+                this.UcDetailsProduit.lb_typePointeProduit.Content = leProduitADetaille.UnTypePointe.NomTypePointe;
+                this.UcDetailsProduit.lb_prixProduit.Content = leProduitADetaille.PrixVente.ToString() + " €";
+                //A modifier
+                this.UcDetailsProduit.lb_couleurProduit.Content = leProduitADetaille.LesCouleurProduit.Count.ToString();
+                this.UcDetailsProduit.lb_quantiteProduit.Content = leProduitADetaille.QteStock.ToString();
+            }
+                conteneur_principal.Content = this.UcDetailsProduit;
+        }
+
+        private void AnnulationActionRevendeur(object sender, bool reponse)
+        {
+            if(reponse)
+                conteneur_principal.Content = this.UcSelectionRevendeur;
         }
 
         public void ChargeData()

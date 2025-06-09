@@ -133,7 +133,14 @@
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding QteStock}"
-                    Header="Quantité en stock" />
+                    Header="Qte en stock" />
+                <DataGridTemplateColumn Header="Action" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Voir détails" Click="VoirDetailsProduit_Click" Tag="{Binding}" Padding="5" Style="{DynamicResource Button_BorderRadiud}" Width="100"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Rectangle

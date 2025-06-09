@@ -105,15 +105,15 @@
             FontSize="18"
             FontWeight="Bold"
             Style="{DynamicResource LabelTextBox}" />
-        <ComboBox
+        <ComboBox 
             Width="188"
-            Height="51"
-            Margin="897,848,0,0"
+            Height="52"
+            Margin="899,838,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             ItemsSource="{Binding LesModeTransports}"
             DisplayMemberPath="NomModeTransport"
-            SelectedItem="{Binding ModeTransportSelectionne, Mode=TwoWay}" />
+            SelectedItem="{Binding ModeTransportSelectionne, Mode=TwoWay}" Style="{DynamicResource ComboBoxStyle_ModeDeLivraison}"/>
         <Button
             Width="446"
             Height="61"

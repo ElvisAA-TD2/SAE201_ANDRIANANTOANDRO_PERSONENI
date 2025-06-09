@@ -28,18 +28,30 @@
             <Label Content="Ville" Margin="0,10,0,0" Style="{DynamicResource LabelTextBox}"/>
             <TextBox TextWrapping="Wrap" Text="" Style="{DynamicResource TextBoxRecherche}" x:Name="tb_adresseVille"/>
 
-            <Button x:Name="btn_validation"
-                Width="446"
-                Height="61"
-                Margin="20, 30"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Background="#FF335A68"
-                BorderBrush="{x:Null}"
-                Content="Créer une commande"
-                Foreground="White"
-                FontSize="15"
-                Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="ValidationActionRevendeur_Click" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btn_annulation"
+                    Width="200"
+                    Height="61"
+                    Background="#C14347"
+                    BorderBrush="{x:Null}"
+                    Content="Annuler"
+                    Foreground="White"
+                    FontSize="15"
+                    Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="AnnulationActionRevendeur_Click" HorizontalAlignment="Left"/>
+                <Button x:Name="btn_validation"
+                    Width="200"
+                    Height="61"
+                    Margin="30"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="#FF335A68"
+                    BorderBrush="{x:Null}"
+                    Content="Créer un revendeur"
+                    Foreground="White"
+                    FontSize="15"
+                    Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="ValidationActionRevendeur_Click" />
+            </StackPanel>
+
 
 
         </StackPanel>
