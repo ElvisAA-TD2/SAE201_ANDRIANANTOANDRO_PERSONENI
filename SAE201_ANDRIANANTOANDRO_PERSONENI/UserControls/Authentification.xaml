@@ -7,10 +7,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1200">
     <Grid Background="#FFDDF1FF">
-        <Image Margin="46,265,701,285" Source="/Images/Logo_pilot.png" Stretch="Fill"/>
-        <Rectangle HorizontalAlignment="Left" Height="422" Margin="594,132,0,0" VerticalAlignment="Top" Width="507" RenderTransformOrigin="0.529,0.485" RadiusX="50.1" RadiusY="50.1" Fill="#FFBBE3FF"/>
-        <TextBox Style="{DynamicResource TextBox_BorderRadius}" HorizontalAlignment="Left" Margin="640,191,0,0" TextWrapping="Wrap" Text="Identifiant" VerticalAlignment="Top" Width="415" Height="68" Background="#FF4084B4" BorderBrush="{x:Null}" Foreground="White" FontSize="18" Padding="15,20,0,0"/>
-        <TextBox Style="{DynamicResource TextBox_BorderRadius}" HorizontalAlignment="Left" Margin="640,309,0,0" TextWrapping="Wrap" Text="Mot de passe" VerticalAlignment="Top" Width="415" Height="68" Background="#FF4084B4" BorderBrush="{x:Null}" Foreground="White" FontSize="18" Padding="15,20,0,0"/>
-        <Button Style="{DynamicResource Button_BorderRadiud}" Content="Se connecter" HorizontalAlignment="Left" Margin="728,446,0,0" VerticalAlignment="Top" Height="78" Width="239" BorderBrush="{x:Null}" Background="#FF335A68" Foreground="White" FontSize="18" Click="SeConnecter_Click"/>
+        <StackPanel Orientation="Horizontal" Width="1200">
+            <Image Source="/Images/Logo_pilot.png" Stretch="Uniform" Width="500" Margin="30,0,0,0"/>
+            <Border CornerRadius="30" Background="#FFBBE3FF" Padding="10" BorderBrush="Transparent" Height="486" VerticalAlignment="Center" Margin="75,0,0,0">
+                <StackPanel Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Login" Style="{DynamicResource LabelTextBox}" Foreground="#FF016BB7" FontWeight="Normal" FontSize="24" FontFamily="Dubai" Panel.ZIndex="10" Width="410"/>
+                    <TextBox Style="{DynamicResource TextBox_BorderRadius}" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="415" Height="68" Background="#FF4084B4" BorderBrush="{x:Null}" Foreground="White" FontSize="18" Padding="15,20,0,0"/>
+                    <Label Content="Mot de passe" Style="{DynamicResource LabelTextBox}" Foreground="#FF016BB7" FontWeight="Normal" FontSize="24" FontFamily="Dubai" Panel.ZIndex="10" Width="406" Margin="0,20,0,0"/>
+                    <PasswordBox Style="{DynamicResource PasswordBoxStyle}"  HorizontalAlignment="Center" VerticalAlignment="Top" Width="415" Height="68" Background="#FF4084B4" BorderBrush="{x:Null}" Foreground="White" FontSize="18" Padding="15,20,0,0"/>
+                    <Button Style="{DynamicResource Button_BorderRadiud}" Content="Se connecter" HorizontalAlignment="Center" Height="78" Width="239" BorderBrush="{x:Null}" Background="#FF335A68" Foreground="White" FontSize="18" Click="SeConnecter_Click" Margin="0,40,0,0" IsDefault="True"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </UserControl>
