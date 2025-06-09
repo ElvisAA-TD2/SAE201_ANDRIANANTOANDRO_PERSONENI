@@ -21,7 +21,7 @@
         <StackPanel Orientation="Horizontal" Width="630" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Height="244" Width="214">
                 <Label Content="nomProduit" HorizontalAlignment="Center" Margin="0,20,0,0" x:Name="lb_nomProduit" Foreground="#335A68" FontSize="18" FontStyle="Italic"/>
-                <Image Height="188" Stretch="Uniform" Width="Auto" x:Name="image_produit"/>
+                <Image Height="170" Stretch="Uniform" Width="Auto" x:Name="image_produit"/>
             </StackPanel>
 
             <StackPanel Margin="100,0,0,0">
