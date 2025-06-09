@@ -52,7 +52,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcBarDeNavigation.NavigationDemandee += BarDeNavigation_NavigationDemandee;
             this.UcCreationCommande.CreationCommandeValidation += CreationCommande_VersSelectionClient;
             this.UcSelectionRevendeur.RevendeurActionNecessaire += SelectionRevendeur_VersActionRevendeur;
-            this.UcFormulaireRevendeur.ActionRevendeurEffectuee += AjoutRevendeur;
+            this.UcFormulaireRevendeur.ActionRevendeurEffectuee += ActionRevendeur;
 
 
             conteneur_authentification.Content = this.UcAuthentification;
@@ -117,15 +117,21 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         {
             switch (actionRevendeur.Action)
             {
-                case ActionRevendeur.Ajouter:
+                case UserControls.ActionRevendeur.Ajouter:
                     this.UcFormulaireRevendeur.label_titre.Content = "Création revendeur";
                     this.UcFormulaireRevendeur.btn_validation.Content = "Créer";
+
+                    this.UcFormulaireRevendeur.tb_raisonSociale.Text = "";
+                    this.UcFormulaireRevendeur.tb_adresseRue.Text = "";
+                    this.UcFormulaireRevendeur.tb_adresseCP.Text = ""   ;
+                    this.UcFormulaireRevendeur.tb_adresseVille.Text = "";
                     break;
 
-                case ActionRevendeur.Modifier:
+                case UserControls.ActionRevendeur.Modifier:
                     this.UcFormulaireRevendeur.label_titre.Content = "Modification revendeur";
                     this.UcFormulaireRevendeur.btn_validation.Content = "Modifier";
 
+                    this.UcFormulaireRevendeur.IdRevendeurAModifier = actionRevendeur.Revendeur.NumRevendeur;                  
                     this.UcFormulaireRevendeur.tb_raisonSociale.Text = actionRevendeur.Revendeur.RaisonSociale;
                     this.UcFormulaireRevendeur.tb_adresseRue.Text = actionRevendeur.Revendeur.AdresseRue;
                     this.UcFormulaireRevendeur.tb_adresseCP.Text = actionRevendeur.Revendeur.AdresseCP;
@@ -137,13 +143,26 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             conteneur_principal.Content = this.UcFormulaireRevendeur;
         }
 
-        private void AjoutRevendeur (object sender, Revendeur unRevendeur)
+        private void ActionRevendeur (object sender, Revendeur unRevendeur)
         {
-            unRevendeur.NumRevendeur = unRevendeur.Create();
+            if( (((FormulaireRevendeur)sender).btn_validation.Content == "Créer"))
+            {
+                unRevendeur.NumRevendeur = unRevendeur.Create();
 
-            this.LaGestion.LesRevendeurs.Add(unRevendeur);
+                this.LaGestion.LesRevendeurs.Add(unRevendeur);
+            }
+            else
+            {
+                Revendeur revendeurAModifie = this.LaGestion.LesRevendeurs.FirstOrDefault(r => r.NumRevendeur == unRevendeur.NumRevendeur );
+                revendeurAModifie.RaisonSociale = unRevendeur.RaisonSociale;
+                revendeurAModifie.AdresseRue = unRevendeur.AdresseRue;
+                revendeurAModifie.AdresseCP = unRevendeur.AdresseCP;
+                revendeurAModifie.AdresseVille = unRevendeur.AdresseVille;
 
-            MessageBox.Show($"{unRevendeur.RaisonSociale}, {unRevendeur.AdresseRue}, {unRevendeur.AdresseCP}, {unRevendeur.AdresseVille}");
+                revendeurAModifie.Update();
+            }
+            conteneur_principal.Content = this.UcSelectionRevendeur;
+            
         }
         
     }

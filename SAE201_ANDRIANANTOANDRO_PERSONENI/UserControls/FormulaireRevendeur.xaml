@@ -39,7 +39,7 @@
                 Content="Créer une commande"
                 Foreground="White"
                 FontSize="15"
-                Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="CreationRevendeur_Click" />
+                Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="ValidationActionRevendeur_Click" />
 
 
         </StackPanel>

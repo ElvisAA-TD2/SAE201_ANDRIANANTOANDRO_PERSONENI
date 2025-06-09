@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,12 @@ using System.Threading.Tasks;
 
 namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 {
-    public class Revendeur
+    public class Revendeur : INotifyPropertyChanged
     {
         private int numRevendeur;
         private string raisonSociale, adresseRue, adresseCP, adresseVille;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public Revendeur(int numRevendeur, string raisonSociale, string adresseRue, string adresseCP, string adresseVille)
         {
@@ -35,6 +38,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             set
             {
                 this.numRevendeur = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NumRevendeur)));
             }
         }
 
@@ -50,6 +54,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 if (String.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("La raison sociale ne peut pas être vide");
                 this.raisonSociale = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RaisonSociale)));
             }
         }
 
@@ -65,6 +70,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 if (String.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("L'adresse rue ne peut pas être vide");
                 this.adresseRue = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AdresseRue)));
             }
         }
 
@@ -80,6 +86,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 if (String.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("Le codePostal ne peut pas être vide");
                 this.adresseCP = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AdresseCP)));
             }
         }
 
@@ -95,13 +102,14 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 if (String.IsNullOrWhiteSpace(value))
                     throw new ArgumentException("La ville ne peut pas être vide");
                 this.adresseVille = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AdresseVille)));
             }
         }
 
         public List<Revendeur> FindAll()
         {
             List<Revendeur> lesRevendeurs = new List<Revendeur>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from revendeur ;"))
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from revendeur order by numrevendeur ;"))
             {
                 DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
                 foreach (DataRow dr in dt.Rows)
