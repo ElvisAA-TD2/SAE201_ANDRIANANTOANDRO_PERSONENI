@@ -109,6 +109,13 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.CommandeACree.NumCommande = this.CommandeACree.Create();
 
             this.LaGestion.LesCommandes.Add(this.CommandeACree);
+            foreach (ProduitCommande unProduitCommande in this.CommandeACree.LesProduitCommande)
+            {
+                unProduitCommande.Create(this.CommandeACree.NumCommande);
+                this.LaGestion.LesProduitCommandes.Add(unProduitCommande);
+            }
+                
+
             MessageBox.Show(this.CommandeACree.ToString());
         }
 
@@ -190,6 +197,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 case Navigation.CréationCommande:
                     conteneur_principal.Content = this.UcCreationCommande;
                     this.UcCreationCommande.LesProduitsSelectionnes.Clear();
+                    this.UcCreationCommande.lb_cout_commande.Content = "0,0 €";
                     break;
                 case Navigation.MesCommandes:
                     conteneur_principal.Content = this.UcMesCommandes;
@@ -246,6 +254,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         {
             this.CommandeACree.UnEmploye = this.UtilisateurConnecte;
             this.CommandeACree.DateCommande = uneCommande.DateCommande;
+            this.CommandeACree.DateLivraison = uneCommande.DateLivraison;
             this.CommandeACree.LesProduitCommande = uneCommande.LesProduitCommande;
             this.CommandeACree.PrixTotal = this.UcCreationCommande.PrixTotal;
             this.CommandeACree.UnModeTransport = uneCommande.UnModeTransport;

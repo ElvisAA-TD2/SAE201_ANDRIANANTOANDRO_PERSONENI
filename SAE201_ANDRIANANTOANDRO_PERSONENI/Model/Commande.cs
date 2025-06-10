@@ -11,7 +11,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
     public class Commande
     {
         private int numCommande;
-        private DateTime dateCommande, dateLivraion;
+        private DateTime dateCommande, dateLivraison;
         private Employe unEmploye;
         private ModeTransport unModeTransport;
         private Revendeur unRevendeur;
@@ -22,11 +22,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         {
         }
 
-        public Commande(int numCommande, Employe unEmploye, Revendeur unRevendeur, ModeTransport unModeTransport, DateTime dateCommande, DateTime dateLivraion, List<ProduitCommande> lesProduitCommande, decimal prixTotal)
+        public Commande(int numCommande, Employe unEmploye, Revendeur unRevendeur, ModeTransport unModeTransport, DateTime dateCommande, DateTime dateLivraison, List<ProduitCommande> lesProduitCommande, decimal prixTotal)
         {
             this.NumCommande = numCommande;
             this.DateCommande = dateCommande;
-            this.DateLivraion = dateLivraion;
+            this.DateLivraison = dateLivraison;
             this.UnEmploye = unEmploye;
             this.UnModeTransport = unModeTransport;
             this.UnRevendeur = unRevendeur;
@@ -36,7 +36,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         public Commande(Employe unEmploye, Revendeur unRevendeur, ModeTransport unModeTransport, DateTime dateCommande, DateTime dateLivraion, List<ProduitCommande> lesProduitCommande, decimal prixTotal)
         {
             this.DateCommande = dateCommande;
-            this.DateLivraion = dateLivraion;
+            this.DateLivraison = dateLivraion;
             this.UnEmploye = unEmploye;
             this.UnModeTransport = unModeTransport;
             this.UnRevendeur = unRevendeur;
@@ -70,16 +70,16 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
-        public DateTime DateLivraion
+        public DateTime DateLivraison
         {
             get
             {
-                return dateLivraion;
+                return this.dateLivraison;
             }
 
             set
             {
-                this.dateLivraion = value;
+                this.dateLivraison = value;
             }
         }
 
@@ -87,7 +87,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         {
             get
             {
-                return unEmploye;
+                return this.unEmploye;
             }
 
             set
@@ -100,7 +100,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         {
             get
             {
-                return unModeTransport;
+                return this.unModeTransport;
             }
 
             set
@@ -113,7 +113,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         {
             get
             {
-                return unRevendeur;
+                return this.unRevendeur;
             }
 
             set
@@ -158,8 +158,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                     lesCommandes.Add(new Commande((Int32)dr["numcommande"], gestionPilot.LesEmploye.FirstOrDefault(e => e.NumEmploye == (Int32)dr["numemploye"]),
                         gestionPilot.LesRevendeurs.SingleOrDefault(r => r.NumRevendeur == (Int32)dr["numrevendeur"]),
                         gestionPilot.LesModeTransports.FirstOrDefault(tr => tr.NumModeTransport == (Int32)dr["numtransport"]),
-                        (DateTime)dr["datelivraison"],
                         (DateTime)dr["datecommande"],
+                        (DateTime)dr["datelivraison"],
                         gestionPilot.LesProduitCommandes.Where(pc => pc.NumCommande == (Int32)dr["numcommande"]).ToList(), 
                         (Decimal)dr["prixtotal"]));
             }
@@ -178,13 +178,14 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         public int Create()
         {
             int nb = 0;
-            using (var cmdInsert = new NpgsqlCommand("insert into commande (numemploye,numtransport,numrevendeur,datecommande, prixtotal) " +
-                "values ( @numemploye, @numtransport, @numrevendeur, @datecommande, @prixtotal) RETURNING numcommande"))
+            using (var cmdInsert = new NpgsqlCommand("insert into commande (numemploye,numtransport,numrevendeur,datecommande, datelivraison, prixtotal) " +
+                "values ( @numemploye, @numtransport, @numrevendeur, @datecommande, @datelivraison, @prixtotal) RETURNING numcommande"))
             {
                 cmdInsert.Parameters.AddWithValue("numemploye", this.UnEmploye.NumEmploye);
                 cmdInsert.Parameters.AddWithValue("numtransport", this.UnModeTransport.NumModeTransport);
                 cmdInsert.Parameters.AddWithValue("numrevendeur", this.UnRevendeur.NumRevendeur);
                 cmdInsert.Parameters.AddWithValue("datecommande", this.DateCommande);
+                cmdInsert.Parameters.AddWithValue("datelivraison", this.DateLivraison);
                 cmdInsert.Parameters.AddWithValue("prixtotal", this.PrixTotal);
                 nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
             }

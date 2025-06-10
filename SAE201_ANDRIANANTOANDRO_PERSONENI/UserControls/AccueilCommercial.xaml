@@ -11,7 +11,7 @@
     mc:Ignorable="d">
     <Grid Background="#FFDDF1FF" ScrollViewer.VerticalScrollBarVisibility="Auto">
         <Label
-            Margin="72,62,0,0"
+            Margin="74,24,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Recherche par mot clef"
@@ -21,14 +21,14 @@
         <TextBox x:Name="tb_rechercheParMotClef"
             Width="320"
             Height="44"
-            Margin="72,101,0,0"
+            Margin="74,63,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
             TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
         <Label
-            Margin="72,182,0,0"
+            Margin="74,144,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Catégorie"
@@ -38,14 +38,14 @@
         <TextBox x:Name="tb_categorie"
             Width="204"
             Height="44"
-            Margin="72,221,0,0"
+            Margin="74,183,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
             TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
         <Label
-            Margin="352,182,0,0"
+            Margin="354,144,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Type"
@@ -55,14 +55,14 @@
         <TextBox x:Name="tb_type"
             Width="204"
             Height="44"
-            Margin="352,221,0,0"
+            Margin="354,183,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
             TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
         <Label
-            Margin="630,182,0,0"
+            Margin="632,144,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Type de pointe"
@@ -72,14 +72,14 @@
         <TextBox x:Name="tb_typePointe"
             Width="204"
             Height="44"
-            Margin="630,221,0,0"
+            Margin="632,183,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
             TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
         <Label
-            Margin="912,182,0,0"
+            Margin="914,144,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Couleur"
@@ -89,14 +89,14 @@
         <TextBox x:Name="tb_couleur"
             Width="204"
             Height="44"
-            Margin="912,221,0,0"
+            Margin="914,183,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
             TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
         <DataGrid Style="{DynamicResource DataGridStyle}"
-            Margin="29,350,32,0"
+            Margin="30,312,30,38"
             AutoGenerateColumns="False"
             ColumnWidth="*"
             ItemsSource="{Binding LesProduits}"

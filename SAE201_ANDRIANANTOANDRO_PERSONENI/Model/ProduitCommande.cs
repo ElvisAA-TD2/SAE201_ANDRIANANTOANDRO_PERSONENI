@@ -12,7 +12,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
     {
         private int numCommande;
         private int quantiteCommande;
-        private decimal prix;
         private Produit unProduit;
 
         public ProduitCommande()
@@ -24,7 +23,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             this.NumCommande = numCommande;
             this.UnProduit = unProduit;
             this.QuantiteCommande = quantiteCommande;
-            this.Prix = prix;
         }
 
         public int QuantiteCommande
@@ -44,12 +42,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         {
             get
             {
-                return prix;
-            }
-
-            set
-            {
-                this.prix = value;
+                return this.QuantiteCommande * this.UnProduit.PrixVente;
             }
         }
 
@@ -91,6 +84,22 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                         (Int32)dr["quantitecommande"], (Decimal)dr["prix"] ));
             }
             return lesProduitsCommandes;
+        }
+
+        public int Create(int numCommande)
+        {
+            int nb = 0;
+            using (var cmdInsert = new NpgsqlCommand("insert into produitcommande (numcommande, numproduit, quantitecommande, prix) " +
+                "values (@numcommande, @numproduit, @quantitecommande, @prix) RETURNING numcommande"))
+            {
+                cmdInsert.Parameters.AddWithValue("numcommande", numCommande);
+                cmdInsert.Parameters.AddWithValue("numproduit", this.UnProduit.NumProduit);
+                cmdInsert.Parameters.AddWithValue("quantitecommande", this.QuantiteCommande);
+                cmdInsert.Parameters.AddWithValue("prix", this.Prix);
+                nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
+            }
+            this.NumCommande = nb;
+            return nb;
         }
     }
 }
