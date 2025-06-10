@@ -16,7 +16,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
     {
         private static MainWindow laMainWindow = Application.Current.MainWindow as MainWindow;
         private static readonly DataAccess instance = new DataAccess();
-        private readonly string connectionString = laMainWindow.ConnectionString;
+        private string connectionString ;
         //private readonly string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=Anniversaire1906$;Database=andriane_pilot";
         private NpgsqlConnection connection;
 
@@ -31,9 +31,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         //  Constructeur privé pour empêcher l'instanciation multiple
         private DataAccess()
         {
-            
-            //ChangeConnectionString(login, password);
 
+            //ChangeConnectionString(login, password);
+            connectionString = laMainWindow.ConnectionString;
             try
             {
                 connection = new NpgsqlConnection(connectionString);
@@ -48,10 +48,13 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         // pour récupérer la connexion (et l'ouvrir si nécessaire)
         public NpgsqlConnection GetConnection()
         {
+            connectionString = laMainWindow.ConnectionString;
+            connection = new NpgsqlConnection(connectionString);
             if (connection.State == ConnectionState.Closed || connection.State == ConnectionState.Broken)
             {
                 try
                 {
+                    connectionString = laMainWindow.ConnectionString;
                     connection.Open();
                 }
                 catch (Exception ex)

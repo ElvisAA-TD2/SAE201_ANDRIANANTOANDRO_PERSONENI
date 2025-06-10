@@ -20,6 +20,7 @@ using System.Runtime.CompilerServices;
 using System.IO;
 using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.RecapitulatifCommande;
 using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.Authentification;
+using System.ComponentModel;
 
 
 
@@ -29,9 +30,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        public string ConnectionString { get; set; }
+        private string connectionString;
 
         public GestionPilot LaGestion { get; set; }
         private BarDeNavigation UcBarDeNavigation { get; set; }
@@ -45,8 +46,24 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         private RecapitulatifCommande UcRecapitulatifCommande { get; set; }
         private FormulaireProduit UcFormulaireProduit { get; set; }
 
+        public string ConnectionString
+        {
+            get
+            {
+                return this.connectionString;
+            }
+
+            set
+            {
+                this.connectionString = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConnectionString)));
+            }
+        }
+
         Employe UtilisateurConnecte = null;
-        
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public MainWindow()
         {
             //ChargeData();
@@ -116,8 +133,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             {
                 this.UcDetailsProduit.FindProduitByNum(leProduitADetaille.NumProduit, this.LaGestion);
                 AfficherImage("ImagesProduits/StyloBleu.jpg");
-                
-
 
                 conteneur_principal.Content = this.UcDetailsProduit;
             }    
@@ -129,19 +144,23 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 conteneur_principal.Content = this.UcSelectionRevendeur;
         }
 
-        public void ChargeData()
+        public bool ChargeData()
         {
             try
             {
                 LaGestion = new GestionPilot("gestion pilot");
                 this.DataContext = LaGestion;
+                return true;
             }
             catch (Exception ex)
             {
                 LogError.Log(ex, "Erreur SQL");
-                MessageBox.Show("Problème lors de récupération des données, veuillez consulter votre admin");
-                Application.Current.Shutdown();
+                MessageBox.Show("Login ou mot de passe invalide", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+
+                //Application.Current.Shutdown();
             }
+            
         }
 
         private void BarDeNavigation_NavigationDemandee(object sender, Navigation page)
@@ -164,24 +183,25 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
         private void SeConnecter_Reussi (object sender, InformationConnexion informationConnexion)
         {
-            //Amodifier
             this.ConnectionString = $"Host=srv-peda-new;Port=5433;Username={informationConnexion.Login};Password={informationConnexion.MotDePasse};Database=andriane_pilot;Options='-c search_path=andriane'";
-            ChargeData();
-            this.UtilisateurConnecte = this.LaGestion.LesEmploye.FirstOrDefault(e => e.Login == informationConnexion.Login);
-
-            if (informationConnexion.ConnexionReussi)
+            bool chargeDataOk = ChargeData();
+            if (chargeDataOk)
             {
-                conteneur_authentification.Visibility = Visibility.Collapsed;
-                conteneur_authentification.Content = null;
+                this.UtilisateurConnecte = this.LaGestion.LesEmploye.FirstOrDefault(e => e.Login == informationConnexion.Login);
 
-                conteneur_haut.Visibility = Visibility.Visible;
-                scrollViewer_conteneur_principal.Visibility = Visibility.Visible;
+                if (informationConnexion.ConnexionReussi)
+                {
+                    conteneur_authentification.Visibility = Visibility.Collapsed;
+                    conteneur_authentification.Content = null;
 
-                conteneur_haut.Children.Add(this.UcBarDeNavigation);
-                conteneur_principal.Content = this.UcAccueilCommercial;
+                    conteneur_haut.Visibility = Visibility.Visible;
+                    scrollViewer_conteneur_principal.Visibility = Visibility.Visible;
 
+                    conteneur_haut.Children.Add(this.UcBarDeNavigation);
+                    conteneur_principal.Content = this.UcAccueilCommercial;
+
+                }
             }
-            
         }
 
         private void CreationCommande_VersSelectionClient(object sender, bool creationCommande)
@@ -258,8 +278,5 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 MessageBox.Show("Image introuvable !");
             }
         }
-
-        //public class UtilisateurConnecte
-
     }
 }
