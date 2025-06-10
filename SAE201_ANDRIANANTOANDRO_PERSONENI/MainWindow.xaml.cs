@@ -39,8 +39,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         private FormulaireRevendeur UcFormulaireRevendeur { get; set; }
         private DetailsProduit UcDetailsProduit { get; set; }
         private MesCommandes UcMesCommandes { get; set; }
-
         private RecapitulatifCommande UcRecapitulatifCommande { get; set; }
+        private FormulaireProduit UcFormulaireProduit { get; set; }
 
         public MainWindow()
         {
@@ -55,6 +55,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcDetailsProduit = new DetailsProduit();
             this.UcMesCommandes = new MesCommandes();
             this.UcRecapitulatifCommande = new RecapitulatifCommande();
+            this.UcRecapitulatifCommande = new RecapitulatifCommande();
+            this.UcFormulaireProduit = new FormulaireProduit(); 
 
 
             this.UcAccueilCommercial.VoirDetailProduitDemande += AfficherDetailsProduit;
@@ -67,8 +69,15 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcDetailsProduit.RevenirEnArrièreDemandee += RetourEnArrièreVenantVenantDeDétails;
             this.UcMesCommandes.VoirDetailsCommandes += DetailsCommandeDemandee;
             this.UcRecapitulatifCommande.ActionCommandeDemandee += ActionCommande;
+            this.UcDetailsProduit.RendreIndisponible += RendreIndisponibleDemandee;
 
             conteneur_authentification.Content = this.UcAuthentification;
+        }
+
+        private void RendreIndisponibleDemandee(object sender, Produit produitSelectionnee)
+        {
+            produitSelectionnee.RendreIndisponible();
+            conteneur_principal.Content = this.UcAccueilCommercial;
         }
 
         private void DetailsCommandeDemandee(object sender, Commande commande)
@@ -100,14 +109,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         {
             if(leProduitADetaille != null)
             {
-                this.UcDetailsProduit.lb_nomProduit.Content = leProduitADetaille.NomProduit;
-                this.UcDetailsProduit.lb_categorieProduit.Content = leProduitADetaille.UnType.UneCategorie.NomCategorie;
-                this.UcDetailsProduit.lb_typeProduit.Content = leProduitADetaille.UnType.NomType;
-                this.UcDetailsProduit.lb_typePointeProduit.Content = leProduitADetaille.UnTypePointe.NomTypePointe;
-                this.UcDetailsProduit.lb_prixProduit.Content = leProduitADetaille.PrixVente.ToString() + " €";
-                //A modifier
-                //this.UcDetailsProduit.lb_couleurProduit.Content = leProduitADetaille.LesCouleurs.Count.ToString();
-                this.UcDetailsProduit.lb_quantiteProduit.Content = leProduitADetaille.QteStock.ToString();
+                this.UcDetailsProduit.FindProduitByNum(leProduitADetaille.NumProduit, this.LaGestion);
                 AfficherImage("ImagesProduits/StyloBleu.jpg");
                 
 

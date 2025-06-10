@@ -47,7 +47,7 @@
      Content="Modifier l'image"
      Foreground="White"
      FontSize="15"
-     Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="ValidationActionRevendeur_Click" />
+     Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btn_annulation"
@@ -58,7 +58,7 @@
                     Content="Annuler"
                     Foreground="White"
                     FontSize="15"
-                    Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="AnnulationActionRevendeur_Click" HorizontalAlignment="Left"/>
+                    Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" HorizontalAlignment="Left"/>
                 <Button x:Name="btn_valider"
      Width="200"
      Height="61"
@@ -70,7 +70,7 @@
      Content="Terminer"
      Foreground="White"
      FontSize="15"
-     Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="ValidationActionRevendeur_Click" />
+     Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" />
             </StackPanel>
         </StackPanel>
     </Grid>

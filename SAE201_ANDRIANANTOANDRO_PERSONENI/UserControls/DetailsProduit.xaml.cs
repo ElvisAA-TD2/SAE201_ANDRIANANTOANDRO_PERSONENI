@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.RecapitulatifCommande;
 
 namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 {
@@ -24,6 +25,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     public partial class DetailsProduit : UserControl
     {
         public event EventHandler<bool> RevenirEnArrièreDemandee;
+        public event EventHandler<Produit> RendreIndisponible;
+
+        public Produit ProduitAAfficher {  get; set; }
         public DetailsProduit()
         {
             InitializeComponent();
@@ -62,6 +66,22 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
                 img.EndInit();
                 image_produit.Source = img;
             }
+        }
+
+        private void btn_rendreIndisponible_Click(object sender, RoutedEventArgs e)
+        {
+            RendreIndisponible?.Invoke(this,this.ProduitAAfficher);
+        }
+
+        public void FindProduitByNum(int numProduit, GestionPilot gestionPilot)
+        {
+            this.ProduitAAfficher = gestionPilot.LesProduits.SingleOrDefault(c => c.NumProduit == numProduit);
+            lb_nomProduit.Content = this.ProduitAAfficher.NomProduit;
+            lb_quantiteProduit.Content = this.ProduitAAfficher.QteStock;
+            lb_typeProduit.Content = this.ProduitAAfficher.UnType.NomType;
+            lb_typePointeProduit.Content = this.ProduitAAfficher.UnTypePointe.NomTypePointe;
+            lb_prixProduit.Content = this.ProduitAAfficher.PrixVente + "€";
+            lb_categorieProduit.Content = this.ProduitAAfficher.UnType.UneCategorie.NomCategorie;
         }
     }
 }

@@ -118,6 +118,15 @@
                 Width="500"
                 Click="Button_Click"
                 Content="test changement Image" />
+            <Button x:Name="btn_rendreIndisponible"
+    Width="200"
+    Height="61"
+    Background="#C14347"
+    BorderBrush="{x:Null}"
+    Content="Rendre Indisponible"
+    Foreground="White"
+    FontSize="15"
+    Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" HorizontalAlignment="Left" Margin="20,0,0,0" Click="btn_rendreIndisponible_Click"/>
         </StackPanel>
 
     </Grid>

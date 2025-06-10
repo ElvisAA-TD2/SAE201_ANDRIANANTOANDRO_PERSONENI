@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 {
+    public enum ActionProduit { Modifier, RendreIndisponible}
     public class Produit
     {
         private string codeProduit, nomProduit, cheminImage;
@@ -248,9 +249,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         }
         public int RendreIndisponible()
         {
-            using (var cmdUpdate = new NpgsqlCommand("update produit set disponible =@disponible where numproduit =@numproduit;"))
+            using (var cmdUpdate = new NpgsqlCommand("update produit set disponible =false where numproduit =@numproduit;"))
             {
-                cmdUpdate.Parameters.AddWithValue("disponible", this.Disponible);
+                cmdUpdate.Parameters.AddWithValue("numproduit", this.NumProduit);
                 return DataAccess.Instance.ExecuteSet(cmdUpdate);
             }
         }
