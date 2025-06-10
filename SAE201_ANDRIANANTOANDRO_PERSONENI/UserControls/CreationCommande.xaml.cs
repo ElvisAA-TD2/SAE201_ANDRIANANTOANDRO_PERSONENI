@@ -21,13 +21,14 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// <summary>
     /// Logique d'interaction pour CreationCommande.xaml
     /// </summary>
-    public partial class CreationCommande : UserControl
+    public partial class CreationCommande : UserControl, INotifyPropertyChanged
     {
         public event EventHandler<Commande> CreationCommandeValidation;
-        public event EventHandler<ModeTransport> ChoixModeDeLivraison;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public ObservableCollection<ProduitACommande> LesProduitsSelectionnes { get; set; } = new ObservableCollection<ProduitACommande>();
-        public ModeTransport UnModeTransport { get; set; }
+
+        private ModeTransport modeTransportSelectionne;
         private decimal prixTotal;
 
         public ModeTransport ModeTransportSelectionne
@@ -40,6 +41,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             set
             {
                 this.modeTransportSelectionne = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ModeTransportSelectionne)));
             }
         }
 
@@ -56,7 +58,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             }
         }
 
-        private ModeTransport modeTransportSelectionne;
+        
         public CreationCommande()
         {
             InitializeComponent();
@@ -113,10 +115,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             return motClefOk && typeOk && typePointeOk && categorieOk && couleurOk;
         }
 
-        private void cb_ModeLivraison_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /*private void cb_ModeLivraison_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.UnModeTransport = (ModeTransport)(cb_ModeLivraison.SelectedItem);
-        }
+        }*/
 
         private decimal MettreAJourPrixTotal ()
         {
@@ -170,6 +172,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         private void Tb_QteCommande_Changed(object sender, TextChangedEventArgs e)
         {
             this.PrixTotal = MettreAJourPrixTotal();
+        }
+
+        private void ModeLivraison_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.ModeTransportSelectionne = (ModeTransport)cb_ModeLivraison.SelectedItem;
         }
     }
 }

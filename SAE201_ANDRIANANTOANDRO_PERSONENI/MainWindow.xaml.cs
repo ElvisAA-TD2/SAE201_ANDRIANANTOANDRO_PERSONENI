@@ -98,20 +98,17 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcMesCommandes.VoirDetailsCommandes += DetailsCommandeDemandee;
             this.UcRecapitulatifCommande.ActionCommandeDemandee += ActionCommande;
             this.UcDetailsProduit.RendreIndisponible += RendreIndisponibleDemandee;
-            this.UcCreationCommande.ChoixModeDeLivraison += ChoixModeDeLivraisonDemandee;
             this.UcSelectionRevendeur.RevendeurSelectionne += SelectionRevendeurDemandee;
 
             conteneur_authentification.Content = this.UcAuthentification;
         }
 
-        private void ChoixModeDeLivraisonDemandee(object? sender, ModeTransport modeTransportSelectionnee)
-        {
-            this.CommandeACree.UnModeTransport = modeTransportSelectionnee;
-        }
-
         private void SelectionRevendeurDemandee(object? sender, Revendeur revendeurSelectionnee)
         {
             this.CommandeACree.UnRevendeur = revendeurSelectionnee;
+            this.CommandeACree.NumCommande = this.CommandeACree.Create();
+
+            this.LaGestion.LesCommandes.Add(this.CommandeACree);
             MessageBox.Show(this.CommandeACree.ToString());
         }
 
@@ -251,6 +248,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.CommandeACree.DateCommande = uneCommande.DateCommande;
             this.CommandeACree.LesProduitCommande = uneCommande.LesProduitCommande;
             this.CommandeACree.PrixTotal = this.UcCreationCommande.PrixTotal;
+            this.CommandeACree.UnModeTransport = uneCommande.UnModeTransport;
 
             conteneur_principal.Content = this.UcSelectionRevendeur;
         }

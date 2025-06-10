@@ -175,10 +175,27 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
+        public int Create()
+        {
+            int nb = 0;
+            using (var cmdInsert = new NpgsqlCommand("insert into commande (numemploye,numtransport,numrevendeur,datecommande, prixtotal) " +
+                "values ( @numemploye, @numtransport, @numrevendeur, @datecommande, @prixtotal) RETURNING numcommande"))
+            {
+                cmdInsert.Parameters.AddWithValue("numemploye", this.UnEmploye.NumEmploye);
+                cmdInsert.Parameters.AddWithValue("numtransport", this.UnModeTransport.NumModeTransport);
+                cmdInsert.Parameters.AddWithValue("numrevendeur", this.UnRevendeur.NumRevendeur);
+                cmdInsert.Parameters.AddWithValue("datecommande", this.DateCommande);
+                cmdInsert.Parameters.AddWithValue("prixtotal", this.PrixTotal);
+                nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
+            }
+            this.NumCommande = nb;
+            return nb;
+        }
+
         public override string? ToString()
         {
             return $"Num commande : {this.NumCommande} \ndateCommande : {this.DateCommande.ToShortDateString()} \nRevendeur : {this.UnRevendeur.RaisonSociale} \n" +
-                $"employe : {this.UnEmploye.Nom} \nPrix : {this.PrixTotal} \nProduitCommandé : {this.LesProduitCommande.Count()} ";
+                $"employe : {this.UnEmploye.Nom} \nPrix : {this.PrixTotal} \nProduitCommandé : {this.LesProduitCommande.Count()}\nMode de transport : {this.UnModeTransport.NomModeTransport} ";
         }
     }
 }
