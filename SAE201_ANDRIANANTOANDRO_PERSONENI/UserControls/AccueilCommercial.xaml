@@ -124,8 +124,9 @@
                     Header="Type de pointe" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding NomProduit}"
+                    Binding="{Binding NomCouleurConcatene}"
                     Header="Couleur" />
+
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding PrixVente}"

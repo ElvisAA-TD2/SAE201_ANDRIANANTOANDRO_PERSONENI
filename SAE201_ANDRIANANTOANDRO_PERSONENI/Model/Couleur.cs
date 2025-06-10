@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +46,17 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             {
                 this.nomCouleur = value;
             }
+        }
+        public List<Couleur> FindAll()
+        {
+            List<Couleur> lesCouleurs = new List<Couleur>();
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from couleur ;"))
+            {
+                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                foreach (DataRow dr in dt.Rows)
+                    lesCouleurs.Add(new Couleur((Int32)dr["numcouleur"], (String)dr["libellecouleur"]));
+            }
+            return lesCouleurs;
         }
     }
 }

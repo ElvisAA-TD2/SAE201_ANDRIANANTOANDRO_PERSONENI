@@ -42,7 +42,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         private bool RechercheProduit(object obj)
         {
             Produit unProduit = (Produit)obj;
-
+            Couleur uneCouleur = null;
             bool motClefOk = string.IsNullOrWhiteSpace(tb_rechercheParMotClef.Text) ||
                              unProduit.CodeProduit.Contains(tb_rechercheParMotClef.Text, StringComparison.OrdinalIgnoreCase) ||
                              unProduit.NomProduit.Contains(tb_rechercheParMotClef.Text, StringComparison.OrdinalIgnoreCase);
@@ -56,7 +56,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             bool categorieOk = string.IsNullOrWhiteSpace(tb_categorie.Text) ||
                                unProduit.UnType.UneCategorie.NomCategorie.Contains(tb_categorie.Text, StringComparison.OrdinalIgnoreCase);
 
-            return motClefOk && typeOk && typePointeOk && categorieOk;
+            bool couleurOk = string.IsNullOrEmpty(tb_couleur.Text)
+                || unProduit.LesCouleurs.Any(c => c.NomCouleur.IndexOf(tb_couleur.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+
+            return motClefOk && typeOk && typePointeOk && categorieOk && couleurOk;
         }
 
         private void VoirDetailsProduit_Click(object sender, RoutedEventArgs e)

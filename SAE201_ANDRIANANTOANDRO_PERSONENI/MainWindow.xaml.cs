@@ -106,7 +106,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 this.UcDetailsProduit.lb_typePointeProduit.Content = leProduitADetaille.UnTypePointe.NomTypePointe;
                 this.UcDetailsProduit.lb_prixProduit.Content = leProduitADetaille.PrixVente.ToString() + " €";
                 //A modifier
-                this.UcDetailsProduit.lb_couleurProduit.Content = leProduitADetaille.LesCouleurProduit.Count.ToString();
+                //this.UcDetailsProduit.lb_couleurProduit.Content = leProduitADetaille.LesCouleurs.Count.ToString();
                 this.UcDetailsProduit.lb_quantiteProduit.Content = leProduitADetaille.QteStock.ToString();
                 AfficherImage("ImagesProduits/StyloBleu.jpg");
                 

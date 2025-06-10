@@ -18,23 +18,25 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         private bool disponible;
         private TypePointe unTypePointe;
         private Type unType;
-        private List<CouleurProduit> lesCouleurProduit;
+        private List<Couleur> lesCouleurs;
+        private string nomCouleurConcatene;
 
         public Produit()
         {
         }
 
-        public Produit(int numProduit, string codeProduit, string nomProduit, decimal prixVente, int qteStock, bool disponible, TypePointe unTypePointe, Type unType, List<CouleurProduit> lesCouleurProduit)
+        public Produit(int numProduit, string codeProduit, string nomProduit, decimal prixVente, int qteStock, bool disponible, TypePointe unTypePointe, Type unType, List<Couleur> lesCouleur)
         {
-            this.NumProduit = numProduit;
             this.CodeProduit = codeProduit;
             this.NomProduit = nomProduit;
             this.PrixVente = prixVente;
             this.QteStock = qteStock;
+            this.NumProduit = numProduit;
             this.Disponible = disponible;
             this.UnTypePointe = unTypePointe;
             this.UnType = unType;
-            this.LesCouleurProduit = lesCouleurProduit;
+            this.LesCouleurs = lesCouleur;
+
         }
 
         public string CodeProduit
@@ -153,33 +155,85 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
-        public List<CouleurProduit> LesCouleurProduit
+        public List<Couleur> LesCouleurs
         {
             get
             {
-                return this.lesCouleurProduit;
+                return this.lesCouleurs;
             }
 
             set
             {
-                this.lesCouleurProduit = value;
+                this.lesCouleurs = value;
             }
         }
-        public List<Produit> FindAll(GestionPilot laGestion, ObservableCollection<CouleurProduit> lesCouleurProduits)
+
+        public string NomCouleurConcatene
+        {
+            get
+            {
+                string couleurConcatene = "";
+
+                foreach (Couleur uneCouleur in LesCouleurs)
+                    couleurConcatene += uneCouleur.NomCouleur + ", ";
+
+                return couleurConcatene;
+            }
+        }
+        
+
+
+        public List<Produit> FindAll(GestionPilot laGestion)
         {
             List<Produit> lesProduits = new List<Produit>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from produit ;"))
+
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("SELECT * FROM produit"))
             {
                 DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+
                 foreach (DataRow dr in dt.Rows)
-                    lesProduits.Add(new Produit((Int32)dr["numproduit"],(String)dr["codeproduit"], (String)dr["nomproduit"],
-                   (Decimal)dr["prixvente"], (Int32)dr["quantitestock"],
-                   (Boolean)dr["disponible"], 
-                   laGestion.LesTypePointes.SingleOrDefault(c => c.CodeTypePointe == (Int32)dr["numtypepointe"]),
-                   laGestion.LesTypes.SingleOrDefault(c => c.CodeType == (Int32)dr["numtype"]),
-                   lesCouleurProduits.Where(c => c.CodeProduit == (Int32)dr["numproduit"]).ToList()));
+                {
+                    var produitAInstancier = new Produit(
+                        (int)dr["numproduit"],
+                        (string)dr["codeproduit"],
+                        (string)dr["nomproduit"],
+                        (decimal)dr["prixvente"],
+                        (int)dr["quantitestock"],
+                        (bool)dr["disponible"],
+                        laGestion.LesTypePointes.FirstOrDefault(tp => tp.CodeTypePointe == (int)dr["numtypepointe"]),
+                        laGestion.LesTypes.FirstOrDefault(t => t.CodeType == (int)dr["numtype"]),
+                        new List<Couleur>() // Important : liste vide pour pouvoir ajouter ensuite
+                    );
+
+                    // Ajout des couleurs liées au produit
+                    var couleursAssociees = FindCouleurProduit(produitAInstancier.NumProduit);
+                    foreach (var cp in couleursAssociees)
+                    {
+                        var couleur = laGestion.LesCouleurs.FirstOrDefault(c => c.NumCouleur == cp.CodeCouleur);
+                        if (couleur != null)
+                            produitAInstancier.LesCouleurs.Add(couleur);
+                    }
+
+                    lesProduits.Add(produitAInstancier);
+                }
             }
+
             return lesProduits;
+        }
+
+
+        public List<CouleurProduit> FindCouleurProduit(int numProduit)
+        {
+            List<CouleurProduit> lesCouleurProduits = new List<CouleurProduit>();
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from couleurproduit where numproduit = @numproduit")) 
+            {
+                cmdSelect.Parameters.AddWithValue("numproduit", numProduit);
+
+                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                foreach (DataRow dr in dt.Rows)
+                    lesCouleurProduits.Add(new CouleurProduit((Int32)dr["numcouleur"], (Int32)dr["numproduit"]));
+            }
+            return lesCouleurProduits;
         }
     }
 }
