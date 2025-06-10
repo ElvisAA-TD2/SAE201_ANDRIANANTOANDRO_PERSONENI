@@ -107,12 +107,12 @@
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding NomProduit}"
+                    Binding="{Binding UnProduit.NomProduit}"
                     Header="Nom produit"
                     IsReadOnly="True" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding PrixVente}"
+                    Binding="{Binding UnProduit.PrixVente}"
                     Header="Prix"
                     IsReadOnly="True" />
                 <DataGridTemplateColumn Width="*" Header="Quantité à commander">
@@ -121,14 +121,14 @@
                             <TextBox
                                 x:Name="tb_qteCommandee"
                                 Padding="2"
-                                Text="0" />
+                                Text="{Binding QuantiteCommandee, UpdateSourceTrigger=PropertyChanged}" TextChanged="Tb_QteCommande_Changed" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label
-            Margin="912,800,0,0"
+            Margin="933,698,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Mode de livraison"
@@ -139,7 +139,7 @@
             x:Name="cb_ModeLivraison"
             Width="188"
             Height="52"
-            Margin="899,838,0,0"
+            Margin="920,736,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             DisplayMemberPath="NomModeTransport"
@@ -259,5 +259,7 @@
             Text=""
             TextChanged="TextBox_TextChanged"
             TextWrapping="Wrap" />
+        <Label Content="Coût de la commande : " HorizontalAlignment="Left" Margin="912,905,0,0" VerticalAlignment="Top" Style="{DynamicResource LabelTextBox}"/>
+        <Label Content="0.0 €" HorizontalAlignment="Left" Margin="984,944,0,0" VerticalAlignment="Top"  x:Name="lb_cout_commande" FontSize="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{DynamicResource LabelTextBox}" FontWeight="Bold" Foreground="#FF043F68"/>
     </Grid>
 </UserControl>

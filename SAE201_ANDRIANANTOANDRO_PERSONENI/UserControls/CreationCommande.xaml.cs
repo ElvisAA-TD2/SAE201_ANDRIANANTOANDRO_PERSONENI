@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +26,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         public event EventHandler<Commande> CreationCommandeValidation;
         public event EventHandler<ModeTransport> ChoixModeDeLivraison;
 
-        public ObservableCollection<Produit> LesProduitsSelectionnes { get; set; } = new ObservableCollection<Produit>();
+        public ObservableCollection<ProduitACommande> LesProduitsSelectionnes { get; set; } = new ObservableCollection<ProduitACommande>();
         public ModeTransport UnModeTransport { get; set; }
-        private int prixTotal;
+        private decimal prixTotal;
 
         public ModeTransport ModeTransportSelectionne
         {
@@ -42,13 +43,18 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             }
         }
 
-        //public int PrixTotal
-        //{
-        //    get
-        //    {
-                   
-        //    }
-        //}
+        public decimal PrixTotal
+        {
+            get
+            {
+                return this.prixTotal;
+            }
+
+            set
+            {
+                this.prixTotal = value;
+            }
+        }
 
         private ModeTransport modeTransportSelectionne;
         public CreationCommande()
@@ -60,9 +66,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void CreationCommande_Click(object sender, RoutedEventArgs e)
         {
-            //Commande commandeACree = new Commande(null, null, this.ModeTransportSelectionne,DateTime.Now,null,this.LesProduitsSelectionnes
-            //    ,);
-            //CreationCommandeValidation?.Invoke(this, );
+            List<ProduitCommande> lesProduitsCommandes = new List<ProduitCommande>();
+            foreach (ProduitACommande unProduitACommande in this.LesProduitsSelectionnes)
+                lesProduitsCommandes.Add(new ProduitCommande(0, unProduitACommande.UnProduit, unProduitACommande.QuantiteCommandee, unProduitACommande.SousTotal));
+
+            Commande commandeACree = new Commande(null, null, this.ModeTransportSelectionne, DateTime.Now, DateTime.Now, lesProduitsCommandes, this.PrixTotal);
+            CreationCommandeValidation?.Invoke(this, commandeACree);
         }
 
 
@@ -70,8 +79,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         {
             Produit unProduit = (Produit)((Button)sender)?.Tag;
 
-            if (unProduit != null && !LesProduitsSelectionnes.Contains(unProduit))
-                LesProduitsSelectionnes.Add(unProduit); 
+            if (unProduit != null && !LesProduitsSelectionnes.Any(ps => ps.UnProduit == unProduit))
+            {
+                LesProduitsSelectionnes.Add(new ProduitACommande(unProduit, 0));
+            }
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -105,6 +116,60 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         private void cb_ModeLivraison_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.UnModeTransport = (ModeTransport)(cb_ModeLivraison.SelectedItem);
+        }
+
+        private decimal MettreAJourPrixTotal ()
+        {
+            decimal prixTotal = 0;
+            foreach (ProduitACommande unProduitACommande in this.LesProduitsSelectionnes)
+                prixTotal += unProduitACommande.SousTotal;
+            
+            lb_cout_commande.Content = prixTotal.ToString() + " €";
+            return prixTotal;
+        }
+
+
+        //class pour avoir les info nécessaire
+        public class ProduitACommande : INotifyPropertyChanged
+        {
+            public Produit UnProduit { get; set; }
+
+            private int quantiteCommandee;
+
+            public ProduitACommande(Produit unProduit, int quantiteCommandee)
+            {
+                this.UnProduit = unProduit;
+                this.QuantiteCommandee = quantiteCommandee;
+            }
+
+            public event PropertyChangedEventHandler? PropertyChanged;
+
+            public int QuantiteCommandee
+            {
+                get 
+                { 
+                    return this.quantiteCommandee; 
+                }
+                set
+                {
+                    this.quantiteCommandee = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(QuantiteCommandee)));
+
+                }
+            }
+
+            public decimal SousTotal
+            {
+                get
+                {
+                    return this.UnProduit.PrixVente * this.QuantiteCommandee;
+                }
+            }
+        }
+
+        private void Tb_QteCommande_Changed(object sender, TextChangedEventArgs e)
+        {
+            this.PrixTotal = MettreAJourPrixTotal();
         }
     }
 }

@@ -15,7 +15,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         private decimal prix;
         private Produit unProduit;
 
-
         public ProduitCommande()
         {
         }

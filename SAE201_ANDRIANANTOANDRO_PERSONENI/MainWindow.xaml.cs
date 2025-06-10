@@ -60,7 +60,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             }
         }
 
-        Employe UtilisateurConnecte = null;
+        public Employe UtilisateurConnecte { get; set; }
 
         
         
@@ -82,13 +82,15 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcMesCommandes = new MesCommandes();
             this.UcRecapitulatifCommande = new RecapitulatifCommande();
             this.UcRecapitulatifCommande = new RecapitulatifCommande();
-            this.UcFormulaireProduit = new FormulaireProduit(); 
+            this.UcFormulaireProduit = new FormulaireProduit();
+            this.UtilisateurConnecte = new Employe();
+            this.CommandeACree = new Commande();
 
 
             this.UcAccueilCommercial.VoirDetailProduitDemande += AfficherDetailsProduit;
             this.UcAuthentification.AuthentificationReussiAvecInformationConnexion += SeConnecter_Reussi;
             this.UcBarDeNavigation.NavigationDemandee += BarDeNavigation_NavigationDemandee;
-            //this.UcCreationCommande.CreationCommandeValidation += CreationCommande_VersSelectionClient;
+            this.UcCreationCommande.CreationCommandeValidation += CreationCommande_VersSelectionClient;
             this.UcSelectionRevendeur.RevendeurActionNecessaire += SelectionRevendeur_VersActionRevendeur;
             this.UcFormulaireRevendeur.ActionRevendeurEffectuee += ActionRevendeur;
             this.UcFormulaireRevendeur.AnnulationActionRevendeur += AnnulationActionRevendeur;
@@ -109,7 +111,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
         private void SelectionRevendeurDemandee(object? sender, Revendeur revendeurSelectionnee)
         {
-           // revendeurSelectionnee.
+            this.CommandeACree.UnRevendeur = revendeurSelectionnee;
+            MessageBox.Show(this.CommandeACree.ToString());
         }
 
         private void RendreIndisponibleDemandee(object sender, Produit produitSelectionnee)
@@ -216,11 +219,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
         private void SeConnecter_Reussi (object sender, InformationConnexion informationConnexion)
         {
-            this.ConnectionString = $"Host=srv-peda-new;Port=5433;Username={informationConnexion.Login};Password={informationConnexion.MotDePasse};Database=andriane_pilot;Options='-c search_path=andriane'";
+            this.ConnectionString = $"Host=localhost;Port=5432;Username=postgres;Password=Anniversaire1906$;Database=andriane_pilot";
+            //this.ConnectionString = $"Host=srv-peda-new;Port=5433;Username={informationConnexion.Login};Password={informationConnexion.MotDePasse};Database=andriane_pilot;Options='-c search_path=andriane'";
             bool chargeDataOk = ChargeData();
             if (chargeDataOk)
             {
-                this.UtilisateurConnecte = this.LaGestion.LesEmploye.FirstOrDefault(e => e.Login == informationConnexion.Login);
+                this.UtilisateurConnecte = this.LaGestion.LesEmploye.FirstOrDefault(e => e.Login == "andriane");
 
                 if (informationConnexion.ConnexionReussi)
                 {
@@ -241,10 +245,14 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             }
         }
 
-        private void CreationCommande_VersSelectionClient(object sender, bool creationCommande)
+        private void CreationCommande_VersSelectionClient(object sender, Commande uneCommande)
         {
-            if (creationCommande)
-                conteneur_principal.Content = this.UcSelectionRevendeur;
+            this.CommandeACree.UnEmploye = this.UtilisateurConnecte;
+            this.CommandeACree.DateCommande = uneCommande.DateCommande;
+            this.CommandeACree.LesProduitCommande = uneCommande.LesProduitCommande;
+            this.CommandeACree.PrixTotal = this.UcCreationCommande.PrixTotal;
+
+            conteneur_principal.Content = this.UcSelectionRevendeur;
         }
 
         private void SelectionRevendeur_VersActionRevendeur (object sender, SelectionRevendeur.RevendeurEventArgs actionRevendeur)

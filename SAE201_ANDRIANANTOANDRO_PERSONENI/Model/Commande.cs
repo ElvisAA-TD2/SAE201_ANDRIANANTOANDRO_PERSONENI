@@ -174,5 +174,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 return DataAccess.Instance.ExecuteSet(cmdUpdate);
             }
         }
+
+        public override string? ToString()
+        {
+            return $"Num commande : {this.NumCommande} \ndateCommande : {this.DateCommande.ToShortDateString()} \nRevendeur : {this.UnRevendeur.RaisonSociale} \n" +
+                $"employe : {this.UnEmploye.Nom} \nPrix : {this.PrixTotal} \nProduitCommandé : {this.LesProduitCommande.Count()} ";
+        }
     }
 }
