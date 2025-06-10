@@ -61,7 +61,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.nomProduit = value;
+                if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("Nom produit non valide"); }
+                else
+                    this.nomProduit = value;
             }
         }
 

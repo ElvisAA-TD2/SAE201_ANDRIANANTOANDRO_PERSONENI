@@ -45,7 +45,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.nomModeTransport = value;
+                if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("value"); }
+                else
+                    this.nomModeTransport = value;
             }
         }
         public List<ModeTransport> FindAll()

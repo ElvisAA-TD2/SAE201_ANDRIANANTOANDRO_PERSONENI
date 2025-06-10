@@ -44,7 +44,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.nomRole = value;
+                if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("Nom Role non valide"); }
+                else
+                    this.nomRole = value;
             }
         }
 

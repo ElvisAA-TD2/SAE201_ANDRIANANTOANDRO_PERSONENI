@@ -49,7 +49,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.nom = value;
+                if (String.IsNullOrEmpty(value)) {throw new ArgumentNullException("Nom employer non valide");}
+                else
+                    this.nom = value;
             }
         }
 
@@ -62,7 +64,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.prenom = value;
+                if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("Prénom employer non valide"); }
+                else
+                    this.prenom = value;
             }
         }
 

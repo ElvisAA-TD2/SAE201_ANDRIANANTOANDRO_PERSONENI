@@ -44,7 +44,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.nomCategorie = value;
+                if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("Nom catégorie null"); }
+                else
+                    this.nomCategorie = value;
             }
         }
         public List<Categorie> FindAll()
