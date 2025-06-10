@@ -31,6 +31,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string ConnectionString { get; set; }
+
         public GestionPilot LaGestion { get; set; }
         private BarDeNavigation UcBarDeNavigation { get; set; }
         private CreationCommande UcCreationCommande { get; set; }
@@ -163,8 +165,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         private void SeConnecter_Reussi (object sender, InformationConnexion informationConnexion)
         {
             //Amodifier
-            
-            DataAccess.Instance.ChangeConnectionString(informationConnexion.Login, informationConnexion.MotDePasse);
+            this.ConnectionString = $"Host=srv-peda-new;Port=5433;Username={informationConnexion.Login};Password={informationConnexion.MotDePasse};Database=andriane_pilot;Options='-c search_path=andriane'";
             ChargeData();
             this.UtilisateurConnecte = this.LaGestion.LesEmploye.FirstOrDefault(e => e.Login == informationConnexion.Login);
 
