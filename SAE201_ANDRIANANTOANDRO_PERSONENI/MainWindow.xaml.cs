@@ -19,6 +19,7 @@ using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
 using System.Runtime.CompilerServices;
 using System.IO;
 using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.RecapitulatifCommande;
+using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.Authentification;
 
 
 
@@ -42,9 +43,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         private RecapitulatifCommande UcRecapitulatifCommande { get; set; }
         private FormulaireProduit UcFormulaireProduit { get; set; }
 
+        Employe UtilisateurConnecte = null;
+        
         public MainWindow()
         {
-            ChargeData();
+            //ChargeData();
             InitializeComponent();
             this.UcAuthentification = new Authentification();
             this.UcBarDeNavigation = new BarDeNavigation();
@@ -60,7 +63,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
 
             this.UcAccueilCommercial.VoirDetailProduitDemande += AfficherDetailsProduit;
-            this.UcAuthentification.AuthentificationReussi += SeConnecter_Reussi;
+            this.UcAuthentification.AuthentificationReussiAvecInformationConnexion += SeConnecter_Reussi;
             this.UcBarDeNavigation.NavigationDemandee += BarDeNavigation_NavigationDemandee;
             this.UcCreationCommande.CreationCommandeValidation += CreationCommande_VersSelectionClient;
             this.UcSelectionRevendeur.RevendeurActionNecessaire += SelectionRevendeur_VersActionRevendeur;
@@ -157,9 +160,15 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             }
         }
 
-        private void SeConnecter_Reussi (object sender, bool reponse)
+        private void SeConnecter_Reussi (object sender, InformationConnexion informationConnexion)
         {
-            if(reponse)
+            //Amodifier
+            
+            DataAccess.Instance.ChangeConnectionString(informationConnexion.Login, informationConnexion.MotDePasse);
+            ChargeData();
+            this.UtilisateurConnecte = this.LaGestion.LesEmploye.FirstOrDefault(e => e.Login == informationConnexion.Login);
+
+            if (informationConnexion.ConnexionReussi)
             {
                 conteneur_authentification.Visibility = Visibility.Collapsed;
                 conteneur_authentification.Content = null;
@@ -171,7 +180,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 conteneur_principal.Content = this.UcAccueilCommercial;
 
             }
-                
+            
         }
 
         private void CreationCommande_VersSelectionClient(object sender, bool creationCommande)
@@ -248,6 +257,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 MessageBox.Show("Image introuvable !");
             }
         }
+
+        //public class UtilisateurConnecte
 
     }
 }

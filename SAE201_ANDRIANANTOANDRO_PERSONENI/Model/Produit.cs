@@ -20,7 +20,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         private TypePointe unTypePointe;
         private Type unType;
         private List<Couleur> lesCouleurs;
-        private string nomCouleurConcatene;
 
         public Produit()
         {
