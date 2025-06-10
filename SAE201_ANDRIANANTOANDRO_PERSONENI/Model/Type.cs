@@ -47,7 +47,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.nomType = value;
+                if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("Nom type non valide"); }
+                else
+                    this.nomType = value;
             }
         }
 

@@ -46,7 +46,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.nomTypePointe = value;
+                if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("Nom typepointe non valide"); }
+                else
+                    this.nomTypePointe = value;
             }
         }
         public List<TypePointe> FindAll()
