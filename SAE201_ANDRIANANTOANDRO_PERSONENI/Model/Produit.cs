@@ -173,14 +173,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             get
             {
                 string couleurConcatene = "";
-
                 foreach (Couleur uneCouleur in LesCouleurs)
                     couleurConcatene += uneCouleur.NomCouleur + ", ";
-
                 return couleurConcatene;
             }
         }
-        
+
 
 
         public List<Produit> FindAll(GestionPilot laGestion)
@@ -225,7 +223,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         public List<CouleurProduit> FindCouleurProduit(int numProduit)
         {
             List<CouleurProduit> lesCouleurProduits = new List<CouleurProduit>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from couleurproduit where numproduit = @numproduit")) 
+            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from couleurproduit where numproduit = @numproduit"))
             {
                 cmdSelect.Parameters.AddWithValue("numproduit", numProduit);
 
@@ -234,6 +232,27 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                     lesCouleurProduits.Add(new CouleurProduit((Int32)dr["numcouleur"], (Int32)dr["numproduit"]));
             }
             return lesCouleurProduits;
+        }
+        public int Update()
+        {
+            using (var cmdUpdate = new NpgsqlCommand("update produit set nomproduit =@nomproduit ,  numtypepointe = @numtypepointe,  prixvente = @prixvente , " +
+                "qtestock =@quantitestock , numtype =@numtype  where numproduit =@numproduit;"))
+            {
+                cmdUpdate.Parameters.AddWithValue("nomproduit", this.NomProduit);
+                cmdUpdate.Parameters.AddWithValue("numtypepointe", this.UnTypePointe.CodeTypePointe);
+                cmdUpdate.Parameters.AddWithValue("prixvente", this.PrixVente);
+                cmdUpdate.Parameters.AddWithValue("qtestock", this.QteStock);
+                cmdUpdate.Parameters.AddWithValue("numtype", this.UnType.CodeType);
+                return DataAccess.Instance.ExecuteSet(cmdUpdate);
+            }
+        }
+        public int RendreIndisponible()
+        {
+            using (var cmdUpdate = new NpgsqlCommand("update produit set disponible =@disponible where numproduit =@numproduit;"))
+            {
+                cmdUpdate.Parameters.AddWithValue("disponible", this.Disponible);
+                return DataAccess.Instance.ExecuteSet(cmdUpdate);
+            }
         }
     }
 }
