@@ -46,6 +46,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         private FormulaireProduit UcFormulaireProduit { get; set; }
 
         Employe UtilisateurConnecte = null;
+        Commande CommandeACree { get; set; }
         
         public MainWindow()
         {
@@ -67,7 +68,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcAccueilCommercial.VoirDetailProduitDemande += AfficherDetailsProduit;
             this.UcAuthentification.AuthentificationReussiAvecInformationConnexion += SeConnecter_Reussi;
             this.UcBarDeNavigation.NavigationDemandee += BarDeNavigation_NavigationDemandee;
-            this.UcCreationCommande.CreationCommandeValidation += CreationCommande_VersSelectionClient;
+            //this.UcCreationCommande.CreationCommandeValidation += CreationCommande_VersSelectionClient;
             this.UcSelectionRevendeur.RevendeurActionNecessaire += SelectionRevendeur_VersActionRevendeur;
             this.UcFormulaireRevendeur.ActionRevendeurEffectuee += ActionRevendeur;
             this.UcFormulaireRevendeur.AnnulationActionRevendeur += AnnulationActionRevendeur;
@@ -75,8 +76,20 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcMesCommandes.VoirDetailsCommandes += DetailsCommandeDemandee;
             this.UcRecapitulatifCommande.ActionCommandeDemandee += ActionCommande;
             this.UcDetailsProduit.RendreIndisponible += RendreIndisponibleDemandee;
+            this.UcCreationCommande.ChoixModeDeLivraison += ChoixModeDeLivraisonDemandee;
+            this.UcSelectionRevendeur.RevendeurSelectionne += SelectionRevendeurDemandee;
 
             conteneur_authentification.Content = this.UcAuthentification;
+        }
+
+        private void ChoixModeDeLivraisonDemandee(object? sender, ModeTransport modeTransportSelectionnee)
+        {
+            this.CommandeACree.UnModeTransport = modeTransportSelectionnee;
+        }
+
+        private void SelectionRevendeurDemandee(object? sender, Revendeur revendeurSelectionnee)
+        {
+           // revendeurSelectionnee.
         }
 
         private void RendreIndisponibleDemandee(object sender, Produit produitSelectionnee)

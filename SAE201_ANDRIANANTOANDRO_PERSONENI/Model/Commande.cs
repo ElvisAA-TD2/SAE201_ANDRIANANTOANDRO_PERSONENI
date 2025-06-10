@@ -33,6 +33,16 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             this.LesProduitCommande = lesProduitCommande;
             this.PrixTotal = prixTotal;
         }
+        public Commande(Employe unEmploye, Revendeur unRevendeur, ModeTransport unModeTransport, DateTime dateCommande, DateTime dateLivraion, List<ProduitCommande> lesProduitCommande, decimal prixTotal)
+        {
+            this.DateCommande = dateCommande;
+            this.DateLivraion = dateLivraion;
+            this.UnEmploye = unEmploye;
+            this.UnModeTransport = unModeTransport;
+            this.UnRevendeur = unRevendeur;
+            this.LesProduitCommande = lesProduitCommande;
+            this.PrixTotal = prixTotal;
+        }
 
         public int NumCommande
         {

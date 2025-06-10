@@ -22,9 +22,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// </summary>
     public partial class CreationCommande : UserControl
     {
-        public event EventHandler<bool> CreationCommandeValidation;
+        public event EventHandler<Commande> CreationCommandeValidation;
+        public event EventHandler<ModeTransport> ChoixModeDeLivraison;
 
         public ObservableCollection<Produit> LesProduitsSelectionnes { get; set; } = new ObservableCollection<Produit>();
+        public ModeTransport UnModeTransport { get; set; }
+        private int prixTotal;
 
         public ModeTransport ModeTransportSelectionne
         {
@@ -39,6 +42,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             }
         }
 
+        //public int PrixTotal
+        //{
+        //    get
+        //    {
+                
+        //    }
+
+        //    set
+        //    {
+        //        this.prixTotal = value;
+        //    }
+        //}
+
         private ModeTransport modeTransportSelectionne;
         public CreationCommande()
         {
@@ -49,7 +65,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void CreationCommande_Click(object sender, RoutedEventArgs e)
         {
-            CreationCommandeValidation?.Invoke(this, true);
+            //Commande commandeACree = new Commande(null, null, this.ModeTransportSelectionne,DateTime.Now,null,this.LesProduitsSelectionnes
+            //    ,);
+            //CreationCommandeValidation?.Invoke(this, );
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -70,7 +88,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             CollectionViewSource.GetDefaultView(dg_produits_trouvés.ItemsSource).Refresh();
         }
 
-        private bool RechercheProduit(object obj)
+            private bool RechercheProduit(object obj)
         {
             Produit unProduit = (Produit)obj;
 
@@ -86,8 +104,16 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
             bool categorieOk = string.IsNullOrWhiteSpace(tb_categorie.Text) ||
                                unProduit.UnType.UneCategorie.NomCategorie.Contains(tb_categorie.Text, StringComparison.OrdinalIgnoreCase);
+            
+            bool couleurOk = string.IsNullOrEmpty(tb_couleur.Text)
+                || unProduit.LesCouleurs.Any(c => c.NomCouleur.IndexOf(tb_couleur.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
-            return motClefOk && typeOk && typePointeOk && categorieOk;
+            return motClefOk && typeOk && typePointeOk && categorieOk && couleurOk;
+        }
+
+        private void cb_ModeLivraison_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.UnModeTransport = (ModeTransport)(cb_ModeLivraison.SelectedItem);
         }
     }
 }
