@@ -18,7 +18,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// <summary>
     /// Logique d'interaction pour BarDeNavigation.xaml
     /// </summary>
-    public enum Navigation { ListeProduits, CréationCommande, MesCommandes };
+    public enum Navigation { ListeProduits, CréationCommande, MesCommandes , Deconnexion};
     public partial class BarDeNavigation : UserControl
     {
         public event EventHandler<Navigation> NavigationDemandee;
@@ -65,6 +65,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         {
             button.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom(couleurTexte));
             button.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(couleurFond));
+        }
+
+        private void DeconnexionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationDemandee?.Invoke(this, Navigation.Deconnexion);
         }
     }
 }

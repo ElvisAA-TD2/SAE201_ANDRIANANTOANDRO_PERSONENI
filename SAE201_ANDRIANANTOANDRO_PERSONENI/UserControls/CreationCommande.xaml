@@ -21,49 +21,65 @@
             FontWeight="Normal"
             Style="{DynamicResource LabelTextBox}" />
         <DataGrid
-            Style="{DynamicResource DataGridStyle}"
+            x:Name="dg_produits_trouvés"
             Margin="32,382,30,542"
             AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            ColumnWidth="*"
             HeadersVisibility="Column"
-            ColumnWidth="*" ItemsSource="{Binding LesProduits}" SelectionChanged="DataGrid_SelectionChanged" CanUserAddRows="False" x:Name="dg_produits_trouvés">
+            ItemsSource="{Binding LesProduits}"
+            Style="{DynamicResource DataGridStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding CodeProduit, ValidatesOnExceptions=True}"
-                    Header="Code Produit" IsReadOnly="True"/>
+                    Header="Code Produit"
+                    IsReadOnly="True" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding NomProduit}"
-                    Header="Nom produit"  IsReadOnly="True"/>
+                    Header="Nom produit"
+                    IsReadOnly="True" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding UnType.UneCategorie.NomCategorie}"
-                    Header="Catégorie"  IsReadOnly="True"/>
+                    Header="Catégorie"
+                    IsReadOnly="True" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding UnType.NomType}"
-                    Header="Type"  IsReadOnly="True"/>
+                    Header="Type"
+                    IsReadOnly="True" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding UnTypePointe.NomTypePointe}"
-                    Header="Type de pointe"  IsReadOnly="True"/>
+                    Header="Type de pointe"
+                    IsReadOnly="True" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding NomProduit}"
-                    Header="Couleur"  IsReadOnly="True"/>
+                    Header="Couleur"
+                    IsReadOnly="True" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding PrixVente}"
-                    Header="Prix"  IsReadOnly="True"/>
+                    Header="Prix"
+                    IsReadOnly="True" />
                 <DataGridTextColumn
                     Width="*"
                     Binding="{Binding QteStock}"
-                    Header="Qte en stock"  IsReadOnly="True"/>
-                <DataGridTemplateColumn Header="Action" Width="*">
+                    Header="Qte en stock"
+                    IsReadOnly="True" />
+                <DataGridTemplateColumn Width="*" Header="Action">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="SelectionProduit_Click" Tag="{Binding}" Padding="5" Style="{DynamicResource Button_BorderRadiud}" Width="100">
-                                <Image Source="/Images/Ajouter.png" Stretch="Uniform"/>
+                            <Button
+                                Width="100"
+                                Padding="5"
+                                Click="SelectionProduit_Click"
+                                Style="{DynamicResource Button_BorderRadiud}"
+                                Tag="{Binding}">
+                                <Image Source="/Images/Ajouter.png" Stretch="Uniform" />
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -77,21 +93,35 @@
             Content="Votre commande"
             FontSize="24"
             FontWeight="Bold"
-            Style="{DynamicResource LabelTextBox}"/>
+            Style="{DynamicResource LabelTextBox}" />
         <DataGrid
-            Style="{DynamicResource DataGridStyle}"
+            x:Name="dg_produitsSelectionnes"
+            Width="726"
+            Height="Auto"
             Margin="40,736,0,183"
+            HorizontalAlignment="Left"
             AutoGenerateColumns="False"
+            CanUserAddRows="False"
             ColumnWidth="*"
-            Height="Auto" HorizontalAlignment="Left" Width="726"
-             x:Name="dg_produitsSelectionnes" CanUserAddRows="False">
+            Style="{DynamicResource DataGridStyle}">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Nom produit" Binding="{Binding NomProduit}" IsReadOnly="True"/>
-                <DataGridTextColumn Width="*" Header="Prix" Binding="{Binding PrixVente}" IsReadOnly="True"/>
-                <DataGridTemplateColumn Header="Quantité à commander" Width="*">
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding NomProduit}"
+                    Header="Nom produit"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding PrixVente}"
+                    Header="Prix"
+                    IsReadOnly="True" />
+                <DataGridTemplateColumn Width="*" Header="Quantité à commander">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox x:Name="tb_qteCommandee" Text="0" Padding="2"/>
+                            <TextBox
+                                x:Name="tb_qteCommandee"
+                                Padding="2"
+                                Text="0" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -105,15 +135,18 @@
             FontSize="18"
             FontWeight="Bold"
             Style="{DynamicResource LabelTextBox}" />
-        <ComboBox x:Name="cb_ModeLivraison" 
+        <ComboBox
+            x:Name="cb_ModeLivraison"
             Width="188"
             Height="52"
             Margin="899,838,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            ItemsSource="{Binding LesModeTransports}"
             DisplayMemberPath="NomModeTransport"
-            SelectedItem="{Binding ModeTransportSelectionne, Mode=TwoWay}" Style="{DynamicResource ComboBoxStyle_ModeDeLivraison}" SelectionChanged="cb_ModeLivraison_SelectionChanged"/>
+            ItemsSource="{Binding LesModeTransports}"
+            SelectedItem="{Binding ModeTransportSelectionne, Mode=TwoWay}"
+            SelectionChanged="cb_ModeLivraison_SelectionChanged"
+            Style="{DynamicResource ComboBoxStyle_ModeDeLivraison}" />
         <Button
             Width="446"
             Height="61"
@@ -122,10 +155,15 @@
             VerticalAlignment="Top"
             Background="#FF335A68"
             BorderBrush="{x:Null}"
+            Click="CreationCommande_Click"
             Content="Créer une commande"
             Foreground="White"
-            Style="{DynamicResource Button_BorderRadiud}" RenderTransformOrigin="0.487,0.446" Click="CreationCommande_Click" />
-        <Label HorizontalAlignment="Left" Margin="986,1074,0,0" VerticalAlignment="Top"/>
+            RenderTransformOrigin="0.487,0.446"
+            Style="{DynamicResource Button_BorderRadiud}" />
+        <Label
+            Margin="986,1074,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
         <Label
             Margin="72,62,0,0"
             HorizontalAlignment="Left"
@@ -134,7 +172,8 @@
             FontSize="18"
             FontWeight="Bold"
             Style="{DynamicResource LabelTextBox}" />
-        <TextBox x:Name="tb_rechercheParMotClef"
+        <TextBox
+            x:Name="tb_rechercheParMotClef"
             Width="320"
             Height="44"
             Margin="72,101,0,0"
@@ -142,7 +181,8 @@
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
-            TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap" />
         <Label
             Margin="72,182,0,0"
             HorizontalAlignment="Left"
@@ -151,7 +191,8 @@
             FontSize="18"
             FontWeight="Bold"
             Style="{DynamicResource LabelTextBox}" />
-        <TextBox x:Name="tb_categorie"
+        <TextBox
+            x:Name="tb_categorie"
             Width="204"
             Height="44"
             Margin="72,221,0,0"
@@ -159,7 +200,8 @@
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
-            TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap" />
         <Label
             Margin="352,182,0,0"
             HorizontalAlignment="Left"
@@ -168,7 +210,8 @@
             FontSize="18"
             FontWeight="Bold"
             Style="{DynamicResource LabelTextBox}" />
-        <TextBox x:Name="tb_type"
+        <TextBox
+            x:Name="tb_type"
             Width="204"
             Height="44"
             Margin="352,221,0,0"
@@ -176,7 +219,8 @@
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
-            TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap" />
         <Label
             Margin="630,182,0,0"
             HorizontalAlignment="Left"
@@ -185,7 +229,8 @@
             FontSize="18"
             FontWeight="Bold"
             Style="{DynamicResource LabelTextBox}" />
-        <TextBox x:Name="tb_typePointe"
+        <TextBox
+            x:Name="tb_typePointe"
             Width="204"
             Height="44"
             Margin="630,221,0,0"
@@ -193,7 +238,8 @@
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
-            TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap" />
         <Label
             Margin="912,182,0,0"
             HorizontalAlignment="Left"
@@ -202,7 +248,8 @@
             FontSize="18"
             FontWeight="Bold"
             Style="{DynamicResource LabelTextBox}" />
-        <TextBox x:Name="tb_couleur"
+        <TextBox
+            x:Name="tb_couleur"
             Width="204"
             Height="44"
             Margin="912,221,0,0"
@@ -210,6 +257,7 @@
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
-            TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap" />
     </Grid>
 </UserControl>

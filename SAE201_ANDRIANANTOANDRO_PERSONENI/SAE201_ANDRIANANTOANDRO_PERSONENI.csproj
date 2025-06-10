@@ -10,7 +10,9 @@
 
   <ItemGroup>
     <None Remove="Images\Ajouter.png" />
+    <None Remove="Images\logout.png" />
     <None Remove="Images\Logo_pilot.png" />
+    <None Remove="Images\User.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +22,9 @@
   <ItemGroup>
     <Resource Include="Images\Ajouter.png" />
     <Resource Include="Images\logo.ico" />
+    <Resource Include="Images\logout.png" />
     <Resource Include="Images\Logo_pilot.png" />
+    <Resource Include="Images\User.png" />
   </ItemGroup>
 
   <ItemGroup>

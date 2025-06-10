@@ -46,12 +46,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         //{
         //    get
         //    {
-                
-        //    }
-
-        //    set
-        //    {
-        //        this.prixTotal = value;
+                   
         //    }
         //}
 
@@ -70,10 +65,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             //CreationCommandeValidation?.Invoke(this, );
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
         private void SelectionProduit_Click(object sender, RoutedEventArgs e)
         {
@@ -88,7 +79,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             CollectionViewSource.GetDefaultView(dg_produits_trouvés.ItemsSource).Refresh();
         }
 
-            private bool RechercheProduit(object obj)
+        private bool RechercheProduit(object obj)
         {
             Produit unProduit = (Produit)obj;
 

@@ -9,10 +9,11 @@
     Height="250"
     mc:Ignorable="d">
     <Grid Background="#FFDDF1FF">
-        <Button x:Name="listeDesProduits_btn"
-            Width="249"
+        <Button
+            x:Name="listeDesProduits_btn"
+            Width="250"
             Height="60"
-            Margin="64,117,0,0"
+            Margin="54,125,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Background="#FF3B5D68"
@@ -21,10 +22,11 @@
             Content="Liste des produits"
             FontSize="16"
             Foreground="White" />
-        <Button x:Name="creationCommande_btn"
-            Width="249"
+        <Button
+            x:Name="creationCommande_btn"
+            Width="248"
             Height="60"
-            Margin="311,117,0,0"
+            Margin="300,125,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Background="#FFADC9DC"
@@ -33,10 +35,11 @@
             Content="Créer une commande"
             FontSize="16"
             Foreground="#FF3B5D68" />
-        <Button x:Name="mesCommandes_btn"
-            Width="249"
+        <Button
+            x:Name="mesCommandes_btn"
+            Width="248"
             Height="60"
-            Margin="557,117,0,0"
+            Margin="544,125,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Background="#FFADC9DC"
@@ -46,8 +49,75 @@
             FontSize="16"
             Foreground="#FF3B5D68" />
         <Image
-            Margin="479,10,479,168"
+            Margin="39,27,919,151"
             Source="/Images/Logo_pilot.png"
+            Stretch="Fill" />
+        <Button
+            x:Name="deconnexion_btn"
+            Width="58"
+            Height="40"
+            Margin="1082,38,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="#C14347"
+            BorderBrush="{x:Null}"
+            Click="DeconnexionBtn_Click"
+            FontSize="16"
+            Foreground="White"
+            Style="{DynamicResource Button_BorderRadiud}">
+            <Image
+                Width="16"
+                Height="22"
+                Source="/Images/logout.png"
+                Stretch="Uniform" />
+        </Button>
+        <Label
+            x:Name="lb_roleUser"
+            Height="28"
+            Margin="880,106,60,116"
+            HorizontalContentAlignment="Center"
+            Content="RoleUtilisateur"
+            FontSize="16"
+            Foreground="#FF3B5D68" />
+        <Rectangle
+            Width="276"
+            Height="116"
+            Margin="872,28,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Panel.ZIndex="-1"
+            Fill="#FFADC9DC"
+            RadiusX="20"
+            RadiusY="20"
+            RenderTransformOrigin="0.497,0.49" />
+        <Rectangle
+            Width="206"
+            Height="2"
+            Margin="912,100,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            RenderTransformOrigin="0.5,0.5"
+            Stroke="#FF3B5D68">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1" />
+                    <SkewTransform />
+                    <RotateTransform />
+                    <TranslateTransform />
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <Label
+            x:Name="lb_loginUser"
+            Margin="940,44,0,168"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Content="loginUtilisateur"
+            FontSize="16"
+            Foreground="#FF3B5D68" HorizontalAlignment="Left" />
+        <Image
+            Margin="889,40,265,164"
+            Source="/Images/User.png"
             Stretch="Fill" />
     </Grid>
 </UserControl>

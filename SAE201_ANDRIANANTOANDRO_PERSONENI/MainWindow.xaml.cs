@@ -194,6 +194,23 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 case Navigation.MesCommandes:
                     conteneur_principal.Content = this.UcMesCommandes;
                     break;
+                /*case Navigation.Deconnexion:
+                    conteneur_haut.Visibility = Visibility.Collapsed;
+                    conteneur_principal.Visibility = Visibility.Collapsed;
+                    conteneur_haut.Children.Clear();
+                    conteneur_principal.Content = null;
+
+                    // S'assurer que les champs sont bien réinitialisés
+                    this.UcAuthentification.tb_login.Text = "";
+                    this.UcAuthentification.tb_mdp.Password = "";
+
+                    conteneur_authentification.Content = this.UcAuthentification;
+                    conteneur_authentification.Visibility = Visibility.Visible;
+                    conteneur_authentification.IsEnabled = true;
+                    conteneur_authentification.Focusable = true;
+                    conteneur_authentification.Focus();
+                    break;*/
+
             }
         }
 
@@ -213,8 +230,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                     conteneur_haut.Visibility = Visibility.Visible;
                     scrollViewer_conteneur_principal.Visibility = Visibility.Visible;
 
+                    this.UcBarDeNavigation.lb_loginUser.Content = this.UtilisateurConnecte.Login;
+                    this.UcBarDeNavigation.lb_roleUser.Content = this.UtilisateurConnecte.UnRole.NomRole;
                     conteneur_haut.Children.Add(this.UcBarDeNavigation);
                     conteneur_principal.Content = this.UcAccueilCommercial;
+
+
 
                 }
             }

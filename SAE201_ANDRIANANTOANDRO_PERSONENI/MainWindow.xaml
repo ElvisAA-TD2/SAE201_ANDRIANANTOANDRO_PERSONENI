@@ -8,24 +8,27 @@
     Title="Stock'Ink"
     Width="1200"
     Height="700"
+    Icon="/Images/logo.ico"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d"
-    Icon="/Images/logo.ico" ResizeMode="NoResize">
+    mc:Ignorable="d">
 
     <Grid x:Name="conteneur_Parent">
-        <ContentControl x:Name="conteneur_authentification" />
+        <ContentControl x:Name="conteneur_authentification" Panel.ZIndex="10" />
 
-        <Grid x:Name="conteneur_haut"
-          Height="200"
-          Visibility="Collapsed"
-          VerticalAlignment="Top"
-          Grid.ColumnSpan="2" />
+        <Grid
+            x:Name="conteneur_haut"
+            Grid.ColumnSpan="2"
+            Height="200"
+            VerticalAlignment="Top"
+            Visibility="Collapsed" />
 
-        <ScrollViewer Margin="0,200,0,0"
-                  VerticalScrollBarVisibility="Auto"
-                  Grid.ColumnSpan="2"
-                  Visibility="Collapsed"
-                  x:Name="scrollViewer_conteneur_principal">
+        <ScrollViewer
+            x:Name="scrollViewer_conteneur_principal"
+            Grid.ColumnSpan="2"
+            Margin="0,200,0,0"
+            VerticalScrollBarVisibility="Auto"
+            Visibility="Collapsed">
             <ContentControl x:Name="conteneur_principal" />
         </ScrollViewer>
     </Grid>
