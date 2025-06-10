@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// </summary>
     public partial class Authentification : UserControl
     {
-        public event EventHandler<bool> AuthentificationReussi;
+        public event EventHandler<InformationConnexion> AuthentificationReussiAvecInformationConnexion;
         public Authentification()
         {
             InitializeComponent();
@@ -28,7 +29,22 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void SeConnecter_Click(object sender, RoutedEventArgs e)
         {
-            AuthentificationReussi?.Invoke(this, true);
+            AuthentificationReussiAvecInformationConnexion?.Invoke(this, new InformationConnexion(tb_login.Text, tb_mdp.Password, true));
+        }
+
+        //classe pour transférer deux informations à la mainWindow (l'action et la commande associé)
+        public class InformationConnexion : EventArgs
+        {
+            public string Login { get; }
+            public string MotDePasse { get; }
+            public bool ConnexionReussi { get; }
+
+            public InformationConnexion(string login, string motDePasse, bool connexionReussi)
+            {
+                this.Login = login;
+                this.MotDePasse = motDePasse;
+                this.ConnexionReussi = connexionReussi;
+            }
         }
     }
 }

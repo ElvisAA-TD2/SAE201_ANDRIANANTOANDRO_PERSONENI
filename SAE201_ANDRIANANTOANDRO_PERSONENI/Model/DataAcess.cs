@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
     public class DataAccess
     {
         private static readonly DataAccess instance = new DataAccess();
-        private readonly string connectionString = "Host=srv-peda-new;Port=5433;Username=andriane;Password=HpwaA4;Database=andriane_pilot;Options='-c search_path=andriane'";
+        private string connectionString;
         //private readonly string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=Anniversaire1906$;Database=andriane_pilot";
         private NpgsqlConnection connection;
 
@@ -24,21 +25,40 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
+        public string ConnectionString
+        {
+            get
+            {
+                return this.connectionString;
+            }
+
+            set
+            {
+                this.connectionString = value;
+            }
+        }
+
         //  Constructeur privé pour empêcher l'instanciation multiple
         private DataAccess()
         {
+            
+            //ChangeConnectionString(login, password);
 
             try
             {
-                connection = new NpgsqlConnection(connectionString);
+                connection = new NpgsqlConnection(this.ConnectionString);
             }
             catch (Exception ex)
             {
-                LogError.Log(ex, "Pb de connexion GetConnection \n" + connectionString);
+                LogError.Log(ex, "Pb de connexion GetConnection \n" + this.ConnectionString);
                 throw;
             }
         }
 
+        public void ChangeConnectionString(string login, string password)
+        {
+            this.ConnectionString = $"Host=srv-peda-new;Port=5433;Username={login};Password={password};Database=andriane_pilot;Options='-c search_path=andriane'";
+        }
 
         // pour récupérer la connexion (et l'ouvrir si nécessaire)
         public NpgsqlConnection GetConnection()
@@ -51,12 +71,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 }
                 catch (Exception ex)
                 {
-                    LogError.Log(ex, "Pb de connexion GetConnection \n" + connectionString);
+                    LogError.Log(ex, "Pb de connexion GetConnection \n" + ConnectionString);
                     throw;
                 }
             }
-
-
             return connection;
         }
 
