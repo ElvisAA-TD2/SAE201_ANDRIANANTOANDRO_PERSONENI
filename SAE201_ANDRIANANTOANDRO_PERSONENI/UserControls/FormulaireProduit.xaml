@@ -5,9 +5,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.Utils"
     Width="1200"
     Height="550"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <utils:CouleurEstSelectionneeConverter x:Key="CouleurEstSelectionneeConverter" />
+    </UserControl.Resources>
+
     <Grid Background="#FFDDF1FF" ScrollViewer.VerticalScrollBarVisibility="Auto">
         <Label
             x:Name="label_titre"
@@ -126,13 +132,75 @@
                     Style="{DynamicResource TextBoxRecherche}"
                     Text=""
                     TextWrapping="Wrap" />-->
-                <ItemsControl ItemsSource="{Binding LesCouleurs}">
+                <!--<ItemsControl ItemsSource="{Binding LesCouleurs}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <CheckBox Content="{Binding NomCouleur}" IsChecked="{Binding ProduitAModifier.NomCouleur, Mode=TwoWay}" FontSize="16" FontStyle="Italic" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                </ItemsControl>-->
+                <ScrollViewer Height="120">
+                    <ItemsControl ItemsSource="{Binding LesCouleurs}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    Margin="0,5"
+                                    Padding="10"
+                                    Background="#BDDBF0"
+                                    CornerRadius="10">
+                                    <DockPanel LastChildFill="False">
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            DockPanel.Dock="Left"
+                                            FontSize="16"
+                                            FontWeight="SemiBold"
+                                            Foreground="Black"
+                                            Text="{Binding NomCouleur}" />
+
+                                        <StackPanel
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            DockPanel.Dock="Right"
+                                            Orientation="Horizontal">
+
+                                            <!--  Bouton Sélectionner  -->
+                                            <Button
+                                                Width="120"
+                                                Height="32"
+                                                Margin="10,0,0,0"
+                                                Cursor="Hand"
+                                                Tag="{Binding}">
+
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Background" Value="#FF00538E" />
+                                                        <Setter Property="Foreground" Value="White" />
+                                                        <Setter Property="Content" Value="Sélectionner" />
+
+                                                        <Style.Triggers>
+                                                            <DataTrigger Value="True">
+                                                                <DataTrigger.Binding>
+                                                                    <MultiBinding Converter="{StaticResource CouleurEstSelectionneeConverter}">
+                                                                        <Binding Path="NomCouleur" />
+                                                                        <Binding Path="DataContext.ProduitACommander.LesCouleurs" RelativeSource="{RelativeSource AncestorType=UserControl}" />
+                                                                    </MultiBinding>
+                                                                </DataTrigger.Binding>
+                                                                <Setter Property="Background" Value="Green" />
+                                                                <Setter Property="Content" Value="✔ Sélectionnée" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+
+                                        </StackPanel>
+                                    </DockPanel>
+
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
 
                 <Label
                     Margin="0,10,0,0"
