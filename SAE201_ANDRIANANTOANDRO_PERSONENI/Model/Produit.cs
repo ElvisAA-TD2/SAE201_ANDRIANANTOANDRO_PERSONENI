@@ -79,7 +79,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.cheminImage = value;
+                if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("Chemin image non valide"); }
+                else
+                    this.cheminImage = value;
             }
         }
 
@@ -92,7 +94,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.prixVente = value;
+                if (value <= 0) { throw new ArgumentOutOfRangeException("Prix vente négatif ou égale à 0 impossible"); }
+                else
+                    this.prixVente = value;
             }
         }
 
@@ -105,7 +109,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.qteStock = value;
+                    if (value < 0) {throw new ArgumentOutOfRangeException("Stock négatif impossible"); }
+                    else
+                        this.qteStock = value;
             }
         }
         public int NumProduit
@@ -117,6 +123,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
+                //Check de nombre négatif déja fais dans la bd
                 this.numProduit = value;
             }
         }
@@ -240,24 +247,32 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         }
         public int Update()
         {
-            using (var cmdUpdate = new NpgsqlCommand("update produit set nomproduit =@nomproduit ,  numtypepointe = @numtypepointe,  prixvente = @prixvente , " +
-                "qtestock =@quantitestock , numtype =@numtype  where numproduit =@numproduit;"))
+            try
             {
-                cmdUpdate.Parameters.AddWithValue("nomproduit", this.NomProduit);
-                cmdUpdate.Parameters.AddWithValue("numtypepointe", this.UnTypePointe.CodeTypePointe);
-                cmdUpdate.Parameters.AddWithValue("prixvente", this.PrixVente);
-                cmdUpdate.Parameters.AddWithValue("qtestock", this.QteStock);
-                cmdUpdate.Parameters.AddWithValue("numtype", this.UnType.CodeType);
-                return DataAccess.Instance.ExecuteSet(cmdUpdate);
+                using (var cmdUpdate = new NpgsqlCommand("update produit set nomproduit =@nomproduit ,  numtypepointe = @numtypepointe,  prixvente = @prixvente , " +
+    "qtestock =@quantitestock , numtype =@numtype  where numproduit =@numproduit;"))
+                {
+                    cmdUpdate.Parameters.AddWithValue("nomproduit", this.NomProduit);
+                    cmdUpdate.Parameters.AddWithValue("numtypepointe", this.UnTypePointe.CodeTypePointe);
+                    cmdUpdate.Parameters.AddWithValue("prixvente", this.PrixVente);
+                    cmdUpdate.Parameters.AddWithValue("qtestock", this.QteStock);
+                    cmdUpdate.Parameters.AddWithValue("numtype", this.UnType.CodeType);
+                    return DataAccess.Instance.ExecuteSet(cmdUpdate);
+                }
             }
+            catch (Exception ex) { throw new ArgumentException("Problème sur la requête"); }
         }
         public int RendreIndisponible()
         {
-            using (var cmdUpdate = new NpgsqlCommand("update produit set disponible =false where numproduit =@numproduit;"))
+            try
             {
-                cmdUpdate.Parameters.AddWithValue("numproduit", this.NumProduit);
-                return DataAccess.Instance.ExecuteSet(cmdUpdate);
+                using (var cmdUpdate = new NpgsqlCommand("update produit set disponible =false where numproduit =@numproduit;"))
+                {
+                    cmdUpdate.Parameters.AddWithValue("numproduit", this.NumProduit);
+                    return DataAccess.Instance.ExecuteSet(cmdUpdate);
+                }
             }
+            catch (Exception ex) { throw new ArgumentException("Problème sur la requête"); }
         }
     }
 }
