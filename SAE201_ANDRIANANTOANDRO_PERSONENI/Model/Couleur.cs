@@ -44,7 +44,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("Nom Couleur null"); }
+                if (String.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException("Nom Couleur null"); }
                 else
                     this.nomCouleur = value;
             }

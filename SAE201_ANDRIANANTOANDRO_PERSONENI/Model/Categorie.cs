@@ -44,7 +44,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("Nom catégorie null"); }
+                if (String.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException("Nom catégorie null"); }
                 else
                     this.nomCategorie = value;
             }
