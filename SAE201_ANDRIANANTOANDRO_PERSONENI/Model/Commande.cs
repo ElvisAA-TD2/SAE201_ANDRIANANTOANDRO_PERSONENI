@@ -144,7 +144,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.prixTotal = value;
+                if (value <0)
+                    throw new ArgumentOutOfRangeException("value");
+                else
+                    this.prixTotal = value;
             }
         }
 

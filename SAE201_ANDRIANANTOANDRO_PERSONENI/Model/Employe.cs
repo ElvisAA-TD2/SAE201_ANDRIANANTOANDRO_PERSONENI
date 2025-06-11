@@ -49,7 +49,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                if (String.IsNullOrEmpty(value)) {throw new ArgumentNullException("Nom employer non valide");}
+                if (String.IsNullOrWhiteSpace(value)) {throw new ArgumentNullException("Nom employer non valide");}
                 else
                     this.nom = value;
             }
@@ -64,7 +64,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("Prénom employer non valide"); }
+                if (String.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException("Prénom employer non valide"); }
                 else
                     this.prenom = value;
             }
@@ -79,7 +79,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.password = value;
+                if (String.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException("Password employer non valide"); }
+                else
+                    this.password = value;
             }
         }
 
@@ -92,7 +94,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.login = value;
+                if (String.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException("Logo employer non valide"); }
+                else
+                    this.login = value;
             }
         }
 
