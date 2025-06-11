@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.AccueilCommercial"
+    x:Class="SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.AccueilEmploye"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,7 +18,8 @@
             FontSize="18"
             FontWeight="Bold"
             Style="{DynamicResource LabelTextBox}" />
-        <TextBox x:Name="tb_rechercheParMotClef"
+        <TextBox
+            x:Name="tb_rechercheParMotClef"
             Width="320"
             Height="44"
             Margin="74,63,0,0"
@@ -26,81 +27,107 @@
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
-            TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap" />
         <Label
-            Margin="74,144,0,0"
+            Margin="78,126,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Catégorie"
             FontSize="18"
             FontWeight="Bold"
             Style="{DynamicResource LabelTextBox}" />
-        <TextBox x:Name="tb_categorie"
+        <TextBox
+            x:Name="tb_categorie"
             Width="204"
             Height="44"
-            Margin="74,183,0,0"
+            Margin="78,165,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
-            TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap" />
         <Label
-            Margin="354,144,0,0"
+            Margin="358,126,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Type"
             FontSize="18"
             FontWeight="Bold"
             Style="{DynamicResource LabelTextBox}" />
-        <TextBox x:Name="tb_type"
+        <TextBox
+            x:Name="tb_type"
             Width="204"
             Height="44"
-            Margin="354,183,0,0"
+            Margin="358,165,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
-            TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap" />
         <Label
-            Margin="632,144,0,0"
+            Margin="636,126,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Type de pointe"
             FontSize="18"
             FontWeight="Bold"
             Style="{DynamicResource LabelTextBox}" />
-        <TextBox x:Name="tb_typePointe"
+        <TextBox
+            x:Name="tb_typePointe"
             Width="204"
             Height="44"
-            Margin="632,183,0,0"
+            Margin="636,165,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
-            TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap" />
         <Label
-            Margin="914,144,0,0"
+            Margin="918,126,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Couleur"
             FontSize="18"
             FontWeight="Bold"
             Style="{DynamicResource LabelTextBox}" />
-        <TextBox x:Name="tb_couleur"
+        <TextBox
+            x:Name="tb_couleur"
             Width="204"
             Height="44"
-            Margin="914,183,0,0"
+            Margin="918,165,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Style="{DynamicResource TextBoxRecherche}"
             Text=""
-            TextWrapping="Wrap" TextChanged="TextBox_TextChanged" />
-        <DataGrid Style="{DynamicResource DataGridStyle}"
+            TextChanged="TextBox_TextChanged"
+            TextWrapping="Wrap" />
+        <Button
+            x:Name="btn_ajoutProduit"
+            Width="174"
+            Height="61"
+            Margin="996,236,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="#FF335A68"
+            BorderBrush="{x:Null}"
+            Click="AjouterProduit_Click"
+            Content="Ajouter un produit"
+            Foreground="White"
+            RenderTransformOrigin="0.487,0.446"
+            Style="{DynamicResource Button_BorderRadiud}" />
+        <DataGrid
+            x:Name="dg_produits"
             Margin="30,312,30,38"
             AutoGenerateColumns="False"
+            CanUserAddRows="False"
             ColumnWidth="*"
+            HeadersVisibility="Column"
             ItemsSource="{Binding LesProduits}"
-            HeadersVisibility="Column" CanUserAddRows="False" x:Name="dg_produits">
+            Style="{DynamicResource DataGridStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="*"
@@ -135,10 +162,16 @@
                     Width="*"
                     Binding="{Binding QteStock}"
                     Header="Qte en stock" />
-                <DataGridTemplateColumn Header="Action" Width="*">
+                <DataGridTemplateColumn Width="*" Header="Action">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Voir détails" Click="VoirDetailsProduit_Click" Tag="{Binding}" Padding="5" Style="{DynamicResource Button_BorderRadiud}" Width="100"/>
+                            <Button
+                                Width="100"
+                                Padding="5"
+                                Click="VoirDetailsProduit_Click"
+                                Content="Voir détails"
+                                Style="{DynamicResource Button_BorderRadiud}"
+                                Tag="{Binding}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
