@@ -21,6 +21,7 @@ using System.IO;
 using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.RecapitulatifCommande;
 using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.Authentification;
 using System.ComponentModel;
+using Microsoft.VisualBasic;
 
 
 
@@ -37,7 +38,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         public GestionPilot LaGestion { get; set; }
         private BarDeNavigation UcBarDeNavigation { get; set; }
         private CreationCommande UcCreationCommande { get; set; }
-        private AccueilCommercial UcAccueilCommercial { get; set; }
+        private AccueilEmploye UcAccueilEmploye { get; set; }
         private SelectionRevendeur UcSelectionRevendeur { get; set; }
         private Authentification UcAuthentification { get; set; }
         private FormulaireRevendeur UcFormulaireRevendeur { get; set; }
@@ -72,35 +73,92 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         {
             //ChargeData();
             InitializeComponent();
+            this.UtilisateurConnecte = new Employe();
+            this.CommandeACree = new Commande();
+
+
             this.UcAuthentification = new Authentification();
             this.UcBarDeNavigation = new BarDeNavigation();
             this.UcCreationCommande = new CreationCommande();
             this.UcSelectionRevendeur = new SelectionRevendeur();
-            this.UcAccueilCommercial = new AccueilCommercial();
+            this.UcAccueilEmploye = new AccueilEmploye();
             this.UcFormulaireRevendeur = new FormulaireRevendeur();
             this.UcDetailsProduit = new DetailsProduit();
             this.UcMesCommandes = new MesCommandes();
             this.UcRecapitulatifCommande = new RecapitulatifCommande();
             this.UcRecapitulatifCommande = new RecapitulatifCommande();
             this.UcFormulaireProduit = new FormulaireProduit();
-            this.UtilisateurConnecte = new Employe();
-            this.CommandeACree = new Commande();
 
 
-            this.UcAccueilCommercial.VoirDetailProduitDemande += AfficherDetailsProduit;
             this.UcAuthentification.AuthentificationReussiAvecInformationConnexion += SeConnecter_Reussi;
+
+            this.UcAccueilEmploye.VoirDetailProduitDemande += AfficherDetailsProduit;
+            this.UcAccueilEmploye.AjouterProduitDemande += AfficherAjoutProduit;
+
             this.UcBarDeNavigation.NavigationDemandee += BarDeNavigation_NavigationDemandee;
+
             this.UcCreationCommande.CreationCommandeValidation += CreationCommande_VersSelectionClient;
+
             this.UcSelectionRevendeur.RevendeurActionNecessaire += SelectionRevendeur_VersActionRevendeur;
-            this.UcFormulaireRevendeur.ActionRevendeurEffectuee += ActionRevendeur;
-            this.UcFormulaireRevendeur.AnnulationActionRevendeur += AnnulationActionRevendeur;
-            this.UcDetailsProduit.RevenirEnArrièreDemandee += RetourEnArrièreVenantVenantDeDétails;
-            this.UcMesCommandes.VoirDetailsCommandes += DetailsCommandeDemandee;
-            this.UcRecapitulatifCommande.ActionCommandeDemandee += ActionCommande;
-            this.UcDetailsProduit.RendreIndisponible += RendreIndisponibleDemandee;
             this.UcSelectionRevendeur.RevendeurSelectionne += SelectionRevendeurDemandee;
 
+            this.UcFormulaireRevendeur.ActionRevendeurEffectuee += ActionRevendeur;
+            this.UcFormulaireRevendeur.AnnulationActionRevendeur += AnnulationActionRevendeur;
+
+            this.UcDetailsProduit.RevenirEnArrièreDemandee += RetourEnArrièreVenantVenantDeDétails;
+            this.UcDetailsProduit.ModificationRendreInsponibleDemandee += ActionProduitDemandee;
+
+            this.UcMesCommandes.VoirDetailsCommandes += DetailsCommandeDemandee;
+
+            this.UcRecapitulatifCommande.ActionCommandeDemandee += ActionCommande;
+
+
             conteneur_authentification.Content = this.UcAuthentification;
+        }
+
+        private void ActionProduitDemandee(object sender, DetailsProduit.InformationProduitEventArgs uneInformationPorduit)
+        {
+            if (! uneInformationPorduit.RendreIndisponible)
+            {
+                this.UcFormulaireProduit.label_titre.Content = "Modification de produit";
+                this.UcFormulaireProduit.btn_valider.Content = ActionProduitEffectue.Modifier.ToString();
+                this.UcFormulaireProduit.btn_modifieImage.Content = "Modifier l'image";
+
+                this.UcFormulaireProduit.IdProduitAModifier = uneInformationPorduit.UnProduit.NumProduit;
+                this.UcFormulaireProduit.tb_nomProduit.Text = uneInformationPorduit.UnProduit.NomProduit;
+                this.UcFormulaireProduit.tb_categorie.Text = uneInformationPorduit.UnProduit.UnType.UneCategorie.NomCategorie;
+                this.UcFormulaireProduit.tb_couleur.Text = uneInformationPorduit.UnProduit.NomCouleurConcatene;
+                this.UcFormulaireProduit.tb_prix.Text = uneInformationPorduit.UnProduit.PrixVente.ToString();
+                this.UcFormulaireProduit.tb_qteStock.Text = uneInformationPorduit.UnProduit.QteStock.ToString();
+                this.UcFormulaireProduit.tb_type.Text = uneInformationPorduit.UnProduit.UnType.NomType;
+                this.UcFormulaireProduit.tb_typePointe.Text = uneInformationPorduit.UnProduit.UnTypePointe.NomTypePointe;
+
+                conteneur_principal.Content = this.UcFormulaireProduit;
+            }
+            else
+            {
+                uneInformationPorduit.UnProduit.RendreIndisponible();
+                this.LaGestion.LesProduits.FirstOrDefault(p => p.NumProduit == uneInformationPorduit.UnProduit.NumProduit).Disponible = false;
+                conteneur_principal.Content = this.UcAccueilEmploye;
+            }
+
+        }
+
+        private void AfficherAjoutProduit(object sender, bool reponse)
+        {
+            this.UcFormulaireProduit.label_titre.Content = "Ajout de produit";
+            this.UcFormulaireProduit.btn_valider.Content = ActionProduitEffectue.Créer.ToString();
+            this.UcFormulaireProduit.btn_modifieImage.Content = "Ajouter une image";
+
+            this.UcFormulaireProduit.tb_nomProduit.Text = "";
+            this.UcFormulaireProduit.tb_categorie.Text = "";
+            this.UcFormulaireProduit.tb_couleur.Text = "";
+            this.UcFormulaireProduit.tb_prix.Text = "";
+            this.UcFormulaireProduit.tb_qteStock.Text = "";
+            this.UcFormulaireProduit.tb_type.Text = "";
+            this.UcFormulaireProduit.tb_typePointe.Text = "";
+
+            conteneur_principal.Content = this.UcFormulaireProduit;
         }
 
         private void SelectionRevendeurDemandee(object? sender, Revendeur revendeurSelectionnee)
@@ -117,12 +175,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 
 
             MessageBox.Show(this.CommandeACree.ToString());
-        }
-
-        private void RendreIndisponibleDemandee(object sender, Produit produitSelectionnee)
-        {
-            produitSelectionnee.RendreIndisponible();
-            conteneur_principal.Content = this.UcAccueilCommercial;
         }
 
         private void DetailsCommandeDemandee(object sender, Commande commande)
@@ -147,18 +199,22 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         private void RetourEnArrièreVenantVenantDeDétails(object sender, bool reponse)
         {
             if (reponse)
-                conteneur_principal.Content = this.UcAccueilCommercial;
+                conteneur_principal.Content = this.UcAccueilEmploye;
         }
 
         private void AfficherDetailsProduit(object sender, Produit leProduitADetaille)
         {
-            if(leProduitADetaille != null)
+            this.UcDetailsProduit.FindProduitByNum(leProduitADetaille.NumProduit, this.LaGestion);
+            AfficherImage("ImagesProduits/StyloBleu.jpg");
+            //A décommenté quand on aura fini de faire les privilège
+            /*if(this.UtilisateurConnecte.UnRole.NomRole == "Commercial") 
             {
-                this.UcDetailsProduit.FindProduitByNum(leProduitADetaille.NumProduit, this.LaGestion);
-                AfficherImage("ImagesProduits/StyloBleu.jpg");
+                this.UcDetailsProduit.btn_rendreIndisponible.Visibility = Visibility.Collapsed;
+            }
+                
+            else this.UcDetailsProduit.btn_rendreIndisponible.Visibility = Visibility.Visible;*/
 
-                conteneur_principal.Content = this.UcDetailsProduit;
-            }    
+            conteneur_principal.Content = this.UcDetailsProduit;  
         }
 
         private void AnnulationActionRevendeur(object sender, bool reponse)
@@ -191,7 +247,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             switch (page)
             {
                 case Navigation.ListeProduits:
-                    conteneur_principal.Content = this.UcAccueilCommercial;
+                    conteneur_principal.Content = this.UcAccueilEmploye;
                     break;
 
                 case Navigation.CréationCommande:
@@ -242,7 +298,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                     this.UcBarDeNavigation.lb_loginUser.Content = this.UtilisateurConnecte.Login;
                     this.UcBarDeNavigation.lb_roleUser.Content = this.UtilisateurConnecte.UnRole.NomRole;
                     conteneur_haut.Children.Add(this.UcBarDeNavigation);
-                    conteneur_principal.Content = this.UcAccueilCommercial;
+                    conteneur_principal.Content = this.UcAccueilEmploye;
 
 
 

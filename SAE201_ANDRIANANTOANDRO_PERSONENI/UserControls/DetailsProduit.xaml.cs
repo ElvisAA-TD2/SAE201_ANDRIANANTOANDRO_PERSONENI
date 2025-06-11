@@ -25,7 +25,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     public partial class DetailsProduit : UserControl
     {
         public event EventHandler<bool> RevenirEnArrièreDemandee;
-        public event EventHandler<Produit> RendreIndisponible;
+        public event EventHandler<InformationProduitEventArgs> ModificationRendreInsponibleDemandee;
 
         public Produit ProduitAAfficher {  get; set; }
         public DetailsProduit()
@@ -68,9 +68,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             }
         }
 
-        private void btn_rendreIndisponible_Click(object sender, RoutedEventArgs e)
+        private void Btn_rendreIndisponible_Click(object sender, RoutedEventArgs e)
         {
-            RendreIndisponible?.Invoke(this,this.ProduitAAfficher);
+            ModificationRendreInsponibleDemandee?.Invoke(this,new InformationProduitEventArgs(this.ProduitAAfficher, true));
         }
 
         public void FindProduitByNum(int numProduit, GestionPilot gestionPilot)
@@ -82,6 +82,24 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             lb_typePointeProduit.Content = this.ProduitAAfficher.UnTypePointe.NomTypePointe;
             lb_prixProduit.Content = this.ProduitAAfficher.PrixVente + "€";
             lb_categorieProduit.Content = this.ProduitAAfficher.UnType.UneCategorie.NomCategorie;
+        }
+
+        private void ModifierProduit_Click(object sender, RoutedEventArgs e)
+        {
+            ModificationRendreInsponibleDemandee?.Invoke(this, new InformationProduitEventArgs(this.ProduitAAfficher, false));
+        }
+
+        //classe pour envoyer une info supplémentaire pour voir quel bouton a envoyé l'évènement
+        public class InformationProduitEventArgs : EventArgs
+        {
+            public InformationProduitEventArgs(Produit unProduit, bool rendreIndisponible)
+            {
+                this.UnProduit = unProduit;
+                this.RendreIndisponible = rendreIndisponible;
+            }
+
+            public Produit UnProduit { get; set; }
+            public bool RendreIndisponible {  get; set; }
         }
     }
 }

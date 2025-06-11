@@ -87,10 +87,6 @@
                         Style="{DynamicResource Button_BorderRadiud}" />
                 </StackPanel>
             </Border>
-            <Label
-                x:Name="test"
-                Content="Label"
-                FontSize="15" />
         </StackPanel>
     </Grid>
 </UserControl>
