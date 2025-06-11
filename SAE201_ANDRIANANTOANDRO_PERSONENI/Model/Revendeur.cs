@@ -37,6 +37,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
+                //Check de nombre négatif déja fais dans la bd
                 this.numRevendeur = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NumRevendeur)));
             }
@@ -121,47 +122,59 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
         public int Create()
         {
-            int nb = 0;
-            using (var cmdInsert = new NpgsqlCommand("insert into revendeur (raisonsociale, adresserue, adressecp , adresseville) " +
-                "values (@raisonsociale,@adresserue,@adressecp, @adresseville) RETURNING numrevendeur"))
+            try
             {
-                cmdInsert.Parameters.AddWithValue("raisonsociale", this.RaisonSociale);
-                cmdInsert.Parameters.AddWithValue("adresserue", this.AdresseRue);
-                cmdInsert.Parameters.AddWithValue("adressecp", this.AdresseCP);
-                cmdInsert.Parameters.AddWithValue("adresseville", this.AdresseVille);
-                nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
+                int nb = 0;
+                using (var cmdInsert = new NpgsqlCommand("insert into revendeur (raisonsociale, adresserue, adressecp , adresseville) " +
+                    "values (@raisonsociale,@adresserue,@adressecp, @adresseville) RETURNING numrevendeur"))
+                {
+                    cmdInsert.Parameters.AddWithValue("raisonsociale", this.RaisonSociale);
+                    cmdInsert.Parameters.AddWithValue("adresserue", this.AdresseRue);
+                    cmdInsert.Parameters.AddWithValue("adressecp", this.AdresseCP);
+                    cmdInsert.Parameters.AddWithValue("adresseville", this.AdresseVille);
+                    nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
+                }
+                this.NumRevendeur = nb;
+                return nb;
             }
-            this.NumRevendeur = nb;
-            return nb;
+            catch (Exception ex) { throw new ArgumentException("Problème sur la requête"); }
         }
 
         public void Read()
         {
-            using (var cmdSelect = new NpgsqlCommand("select * from  revendeur  where numrevendeur =@id;"))
+            try
             {
-                cmdSelect.Parameters.AddWithValue("id", this.NumRevendeur);
+                using (var cmdSelect = new NpgsqlCommand("select * from  revendeur  where numrevendeur =@id;"))
+                {
+                    cmdSelect.Parameters.AddWithValue("id", this.NumRevendeur);
 
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                this.RaisonSociale = (String)dt.Rows[0]["raisonsociale"];
-                this.AdresseRue = (String)dt.Rows[0]["adresserue"];
-                this.AdresseCP = (String)dt.Rows[0]["adressecp"];
-                this.adresseVille = (String)dt.Rows[0]["adresseville"];
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    this.RaisonSociale = (String)dt.Rows[0]["raisonsociale"];
+                    this.AdresseRue = (String)dt.Rows[0]["adresserue"];
+                    this.AdresseCP = (String)dt.Rows[0]["adressecp"];
+                    this.adresseVille = (String)dt.Rows[0]["adresseville"];
+                }
             }
+            catch (Exception ex) { throw new ArgumentException("Problème sur la requête"); }
 
         }
 
         public int Update()
         {
-            using (var cmdUpdate = new NpgsqlCommand("update revendeur set raisonsociale =@raisonsociale ,  adresserue = @adresserue,  adressecp = @adressecp, " +
-                "adresseville = @adresseville  where numrevendeur =@id;"))
+            try
             {
-                cmdUpdate.Parameters.AddWithValue("raisonsociale", this.RaisonSociale);
-                cmdUpdate.Parameters.AddWithValue("adresserue", this.AdresseRue);
-                cmdUpdate.Parameters.AddWithValue("adressecp", this.AdresseCP);
-                cmdUpdate.Parameters.AddWithValue("adresseville", this.AdresseVille);
-                cmdUpdate.Parameters.AddWithValue("id", this.NumRevendeur);
-                return DataAccess.Instance.ExecuteSet(cmdUpdate);
+                using (var cmdUpdate = new NpgsqlCommand("update revendeur set raisonsociale =@raisonsociale ,  adresserue = @adresserue,  adressecp = @adressecp, " +
+                "adresseville = @adresseville  where numrevendeur =@id;"))
+                {
+                    cmdUpdate.Parameters.AddWithValue("raisonsociale", this.RaisonSociale);
+                    cmdUpdate.Parameters.AddWithValue("adresserue", this.AdresseRue);
+                    cmdUpdate.Parameters.AddWithValue("adressecp", this.AdresseCP);
+                    cmdUpdate.Parameters.AddWithValue("adresseville", this.AdresseVille);
+                    cmdUpdate.Parameters.AddWithValue("id", this.NumRevendeur);
+                    return DataAccess.Instance.ExecuteSet(cmdUpdate);
+                }
             }
+            catch (Exception ex) { throw new ArgumentException("Problème sur la requête"); }
         }
     }
 }

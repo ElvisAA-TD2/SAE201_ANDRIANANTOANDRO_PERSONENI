@@ -31,6 +31,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
+                //Check de nombre négatif déja fais dans la bd
                 this.codeCouleur = value;
             }
         }
@@ -44,6 +45,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
+                //Check de nombre négatif déja fais dans la bd
                 this.codeProduit = value;
             }
         }

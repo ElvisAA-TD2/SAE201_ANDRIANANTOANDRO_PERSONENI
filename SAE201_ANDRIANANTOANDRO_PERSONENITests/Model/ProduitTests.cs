@@ -41,15 +41,35 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Produit_Nom_produit()
+        public void Produit_Nom_Test()
         {
             Produit p1 = new Produit(1, "C101", "", 12, 50, true, tp1, t1, couleurs);
         }
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void Produit_Nom_produi()
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void Produit_PrixVente_Test()
         {
-            Produit p1 = new Produit(1, "C101", "", 12, 50, true, tp1, t1, couleurs);
+            Produit p1 = new Produit(1, "C101", "Stylo", -12, 50, true, tp1, t1, couleurs);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void Produit_QteStock_Test()
+        {
+            Produit p1 = new Produit(1, "C101", "Stylo", 12, -50, true, tp1, t1, couleurs);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Produit_Update_Test()
+        {
+            Produit p1 = new Produit(-1, "C101", "Stylo", 12, 50, true, tp1, t1, couleurs);
+            p1.Update();
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Produit_RendreIndisponible_Test()
+        {
+            Produit p1 = new Produit(-1, "C101", "Stylo", 12, 50, true, tp1, t1, couleurs);
+            p1.RendreIndisponible();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         {
         }
 
-        public ProduitCommande(int numCommande, Produit unProduit, int quantiteCommande, decimal prix)
+        public ProduitCommande(int numCommande, Produit unProduit, int quantiteCommande)
         {
             this.NumCommande = numCommande;
             this.UnProduit = unProduit;
@@ -34,7 +34,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.quantiteCommande = value;
+                if (value <= 0) { throw new ArgumentOutOfRangeException("Qte commander suprérieur ou égale à 0"); }
+                else
+                    this.quantiteCommande = value;
             }
         }
 
@@ -68,6 +70,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
+                //Check de nombre négatif déja fais dans la bd
                 this.numCommande = value;
             }
         }
@@ -81,25 +84,29 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 foreach (DataRow dr in dt.Rows)
                     lesProduitsCommandes.Add(new ProduitCommande((Int32)dr["numcommande"], 
                         gestionPilot.LesProduits.SingleOrDefault(p => p.NumProduit == (Int32)dr["numproduit"]), 
-                        (Int32)dr["quantitecommande"], (Decimal)dr["prix"] ));
+                        (Int32)dr["quantitecommande"]));
             }
             return lesProduitsCommandes;
         }
 
         public int Create(int numCommande)
         {
-            int nb = 0;
-            using (var cmdInsert = new NpgsqlCommand("insert into produitcommande (numcommande, numproduit, quantitecommande, prix) " +
-                "values (@numcommande, @numproduit, @quantitecommande, @prix) RETURNING numcommande"))
+            try
             {
-                cmdInsert.Parameters.AddWithValue("numcommande", numCommande);
-                cmdInsert.Parameters.AddWithValue("numproduit", this.UnProduit.NumProduit);
-                cmdInsert.Parameters.AddWithValue("quantitecommande", this.QuantiteCommande);
-                cmdInsert.Parameters.AddWithValue("prix", this.Prix);
-                nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
+                int nb = 0;
+                using (var cmdInsert = new NpgsqlCommand("insert into produitcommande (numcommande, numproduit, quantitecommande, prix) " +
+                    "values (@numcommande, @numproduit, @quantitecommande, @prix) RETURNING numcommande"))
+                {
+                    cmdInsert.Parameters.AddWithValue("numcommande", numCommande);
+                    cmdInsert.Parameters.AddWithValue("numproduit", this.UnProduit.NumProduit);
+                    cmdInsert.Parameters.AddWithValue("quantitecommande", this.QuantiteCommande);
+                    cmdInsert.Parameters.AddWithValue("prix", this.Prix);
+                    nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
+                }
+                this.NumCommande = nb;
+                return nb;
             }
-            this.NumCommande = nb;
-            return nb;
+            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
         }
     }
 }
