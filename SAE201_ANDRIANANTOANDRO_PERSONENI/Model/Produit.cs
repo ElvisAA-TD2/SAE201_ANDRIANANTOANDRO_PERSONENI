@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 {
     public enum ActionProduit { Modifier, RendreIndisponible}
-    public class Produit
+    public class Produit : INotifyPropertyChanged
     {
         private string codeProduit, nomProduit, cheminImage;
         private decimal prixVente;
@@ -20,6 +21,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         private TypePointe unTypePointe;
         private Type unType;
         private List<Couleur> lesCouleurs;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public Produit()
         {
@@ -52,6 +55,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 if (value.Substring(0,1) != "C") { throw new ArgumentOutOfRangeException("Code produit non valide"); }
                 else                  
                     this.codeProduit = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CodeProduit)));
             }
         }
 
@@ -67,6 +71,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("Nom produit non valide"); }
                 else
                     this.nomProduit = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NomProduit)));
             }
         }
 
@@ -82,6 +87,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 if (String.IsNullOrEmpty(value)) { throw new ArgumentNullException("Chemin image non valide"); }
                 else
                     this.cheminImage = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CheminImage)));
             }
         }
 
@@ -97,6 +103,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 if (value <= 0) { throw new ArgumentOutOfRangeException("Prix vente négatif ou égale à 0 impossible"); }
                 else
                     this.prixVente = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PrixVente)));
             }
         }
 
@@ -112,6 +119,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                     if (value < 0) {throw new ArgumentOutOfRangeException("Stock négatif impossible"); }
                     else
                         this.qteStock = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(QteStock)));
             }
         }
         public int NumProduit
@@ -125,6 +133,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             {
                 //Check de nombre négatif déja fais dans la bd
                 this.numProduit = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NumProduit)));
             }
         }
 
@@ -138,6 +147,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             set
             {
                 this.disponible = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Disponible)));
             }
         }
 
@@ -151,6 +161,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             set
             {
                 this.unTypePointe = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UnTypePointe)));
             }
         }
 
@@ -164,6 +175,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             set
             {
                 this.unType = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UnType)));
             }
         }
 
@@ -177,6 +189,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             set
             {
                 this.lesCouleurs = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(LesCouleurs)));
             }
         }
 
@@ -185,7 +198,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             get
             {
                 string couleurConcatene = "";
-                foreach (Couleur uneCouleur in LesCouleurs)
+                foreach (Couleur uneCouleur in this.LesCouleurs)
                     couleurConcatene += uneCouleur.NomCouleur + ", ";
                 return couleurConcatene;
             }

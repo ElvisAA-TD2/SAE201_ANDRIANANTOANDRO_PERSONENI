@@ -5,8 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="950"
-    d:DesignWidth="1200"
+    Width="1200"
+    Height="550"
     mc:Ignorable="d">
     <Grid Background="#FFDDF1FF" ScrollViewer.VerticalScrollBarVisibility="Auto">
         <Label
@@ -35,12 +35,42 @@
             </Rectangle.RenderTransform>
         </Rectangle>
 
-        <StackPanel Orientation="Horizontal">
-            <StackPanel Orientation="Vertical">
-                <Label
-                    Margin="0,20,0,0"
-                    Content="Nom produit"
-                    Style="{DynamicResource LabelTextBox}" />
+        <StackPanel
+            Width="1200"
+            Height="372"
+            Margin="0,75,0,0"
+            VerticalAlignment="Top"
+            Orientation="Horizontal">
+            <StackPanel
+                x:Name="stackPanel_image"
+                Height="292"
+                Margin="50,0,0,0"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <Image
+                    Name="image_produit"
+                    Width="238"
+                    Height="169" />
+                <Button
+                    x:Name="btn_modifieImage"
+                    Width="200"
+                    Height="61"
+                    Margin="0,50,0,0"
+                    HorizontalAlignment="Center"
+                    Background="#FF335A68"
+                    BorderBrush="{x:Null}"
+                    Content="Modifier l'image"
+                    FontSize="15"
+                    Foreground="White"
+                    RenderTransformOrigin="0.487,0.446"
+                    Style="{DynamicResource Button_BorderRadiud}" />
+            </StackPanel>
+            <StackPanel
+                Width="350"
+                Height="378"
+                Margin="50,0,0,0"
+                Orientation="Vertical">
+                <Label Content="Nom produit" Style="{DynamicResource LabelTextBox}" />
                 <TextBox
                     x:Name="tb_nomProduit"
                     Style="{DynamicResource TextBoxRecherche}"
@@ -80,94 +110,85 @@
                     ItemsSource="{Binding LesTypePointes}"
                     Style="{DynamicResource ComboBoxStyle}" />
             </StackPanel>
+            <StackPanel
+                Width="350"
+                Height="360"
+                Margin="100,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Background="#FFDDF1FF"
+                Orientation="Vertical">
+
+
+                <Label Content="Couleur" Style="{DynamicResource LabelTextBox}" />
+                <!--<TextBox
+                    x:Name="tb_couleur"
+                    Style="{DynamicResource TextBoxRecherche}"
+                    Text=""
+                    TextWrapping="Wrap" />-->
+                <ItemsControl ItemsSource="{Binding LesCouleurs}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Content="{Binding NomCouleur}" IsChecked="{Binding ProduitAModifier.NomCouleur, Mode=TwoWay}" FontSize="16" FontStyle="Italic" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Label
+                    Margin="0,10,0,0"
+                    Content="Prix"
+                    Style="{DynamicResource LabelTextBox}" />
+                <TextBox
+                    x:Name="tb_prix"
+                    Style="{DynamicResource TextBoxRecherche}"
+                    Text=""
+                    TextWrapping="Wrap" />
+                <Label
+                    Margin="0,10,0,0"
+                    Content="Quantité en stock"
+                    Style="{DynamicResource LabelTextBox}" />
+                <TextBox
+                    x:Name="tb_qteStock"
+                    Style="{DynamicResource TextBoxRecherche}"
+                    Text=""
+                    TextWrapping="Wrap" />
+                <StackPanel Orientation="Horizontal" />
+            </StackPanel>
+
+
         </StackPanel>
         <StackPanel
-            Width="500"
-            Background="#FFDDF1FF"
-            Orientation="Vertical">
-
-
-            <Label
-                Margin="0,10,0,0"
-                Content="Couleur"
-                Style="{DynamicResource LabelTextBox}" />
-            <TextBox
-                x:Name="tb_couleur"
-                Style="{DynamicResource TextBoxRecherche}"
-                Text=""
-                TextWrapping="Wrap" />
-            <Label
-                Margin="0,10,0,0"
-                Content="Prix"
-                Style="{DynamicResource LabelTextBox}" />
-            <TextBox
-                x:Name="tb_prix"
-                Style="{DynamicResource TextBoxRecherche}"
-                Text=""
-                TextWrapping="Wrap" />
-            <Label
-                Margin="0,10,0,0"
-                Content="Quantité en stock"
-                Style="{DynamicResource LabelTextBox}" />
-            <TextBox
-                x:Name="tb_qteStock"
-                Style="{DynamicResource TextBoxRecherche}"
-                Text=""
-                TextWrapping="Wrap" />
-            <Label
-                Margin="0,10,0,0"
-                Content="Image"
-                Style="{DynamicResource LabelTextBox}" />
-            <StackPanel Orientation="Horizontal">
-                <Image
-                    Width="200"
-                    Height="100"
-                    HorizontalAlignment="Left" />
-                <Button
-                    x:Name="btn_modifieImage"
-                    Width="200"
-                    Height="61"
-                    Margin="30"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    Background="#FF335A68"
-                    BorderBrush="{x:Null}"
-                    Content="Modifier l'image"
-                    FontSize="15"
-                    Foreground="White"
-                    RenderTransformOrigin="0.487,0.446"
-                    Style="{DynamicResource Button_BorderRadiud}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button
-                    x:Name="btn_annulation"
-                    Width="200"
-                    Height="61"
-                    HorizontalAlignment="Left"
-                    Background="#C14347"
-                    BorderBrush="{x:Null}"
-                    Click="Annuler_Click"
-                    Content="Annuler"
-                    FontSize="15"
-                    Foreground="White"
-                    RenderTransformOrigin="0.487,0.446"
-                    Style="{DynamicResource Button_BorderRadiud}" />
-                <Button
-                    x:Name="btn_valider"
-                    Width="200"
-                    Height="61"
-                    Margin="30"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    Background="#FF335A68"
-                    BorderBrush="{x:Null}"
-                    Click="Validation_Click"
-                    Content="Terminer"
-                    FontSize="15"
-                    Foreground="White"
-                    RenderTransformOrigin="0.487,0.446"
-                    Style="{DynamicResource Button_BorderRadiud}" />
-            </StackPanel>
+            Width="720"
+            Margin="0,467,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Orientation="Horizontal">
+            <Button
+                x:Name="btn_annulation"
+                Width="300"
+                Height="61"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Background="#C14347"
+                BorderBrush="{x:Null}"
+                Click="Annuler_Click"
+                Content="Annuler"
+                FontSize="15"
+                Foreground="White"
+                Style="{DynamicResource Button_BorderRadiud}" />
+            <Button
+                x:Name="btn_valider"
+                Width="300"
+                Height="61"
+                Margin="120,0,0,0"
+                Background="#FF335A68"
+                BorderBrush="{x:Null}"
+                Click="Validation_Click"
+                Content="Terminer"
+                FontSize="15"
+                Foreground="White"
+                RenderTransformOrigin="0.487,0.446"
+                Style="{DynamicResource Button_BorderRadiud}" />
         </StackPanel>
     </Grid>
 </UserControl>
