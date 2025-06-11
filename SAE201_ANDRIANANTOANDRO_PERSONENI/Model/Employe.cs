@@ -116,15 +116,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
         public List<Employe> FindAll(GestionPilot gestionPilot)
         {
-            List<Employe> lesEmployes = new List<Employe>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from employe ;"))
+            try
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                foreach (DataRow dr in dt.Rows)
-                    lesEmployes.Add(new Employe((Int32)dr["numemploye"], (String)dr["nom"], (String)dr["prenom"],
-                        (String)dr["password"], (String)dr["login"], gestionPilot.LesRoles.SingleOrDefault(r => r.NumRole == (Int32)dr["numrole"])));
+                List<Employe> lesEmployes = new List<Employe>();
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from employe ;"))
+                {
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    foreach (DataRow dr in dt.Rows)
+                        lesEmployes.Add(new Employe((Int32)dr["numemploye"], (String)dr["nom"], (String)dr["prenom"],
+                            (String)dr["password"], (String)dr["login"], gestionPilot.LesRoles.SingleOrDefault(r => r.NumRole == (Int32)dr["numrole"])));
+                }
+                return lesEmployes;
             }
-            return lesEmployes;
+            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
         }
     }
 }

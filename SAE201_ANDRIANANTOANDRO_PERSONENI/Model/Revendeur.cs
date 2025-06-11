@@ -53,7 +53,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             set
             {
                 if (String.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("La raison sociale ne peut pas être vide");
+                    throw new ArgumentNullException("La raison sociale ne peut pas être vide");
                 this.raisonSociale = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(RaisonSociale)));
             }
@@ -69,7 +69,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             set
             {
                 if (String.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("L'adresse rue ne peut pas être vide");
+                    throw new ArgumentNullException("L'adresse rue ne peut pas être vide");
                 this.adresseRue = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AdresseRue)));
             }
@@ -85,7 +85,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             set
             {
                 if (String.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Le codePostal ne peut pas être vide");
+                    throw new ArgumentNullException("Le codePostal ne peut pas être vide");
                 this.adresseCP = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AdresseCP)));
             }
@@ -101,7 +101,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             set
             {
                 if (String.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("La ville ne peut pas être vide");
+                    throw new ArgumentNullException("La ville ne peut pas être vide");
                 this.adresseVille = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AdresseVille)));
             }

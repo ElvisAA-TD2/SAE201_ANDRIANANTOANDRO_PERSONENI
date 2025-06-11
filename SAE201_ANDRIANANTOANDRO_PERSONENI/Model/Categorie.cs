@@ -52,14 +52,18 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         }
         public List<Categorie> FindAll()
         {
-            List<Categorie> lesCategories = new List<Categorie>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from categorie ;"))
+            try
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                foreach (DataRow dr in dt.Rows)
-                    lesCategories.Add(new Categorie((Int32)dr["numcategorie"], (String)dr["libellecategorie"]));
+                List<Categorie> lesCategories = new List<Categorie>();
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from categorie ;"))
+                {
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    foreach (DataRow dr in dt.Rows)
+                        lesCategories.Add(new Categorie((Int32)dr["numcategorie"], (String)dr["libellecategorie"]));
+                }
+                return lesCategories;
             }
-            return lesCategories;
+            catch (Exception ex) {throw new ArgumentException("problème sur la requête"); }
         }
     }
 }

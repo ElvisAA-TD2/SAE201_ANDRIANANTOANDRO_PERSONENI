@@ -17,5 +17,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
         {
             TypePointe tp1 = new TypePointe(2,"");
         }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TypePointe_FindAll_Test()
+        {
+            TypePointe tp = new TypePointe(-1,"roller");
+            tp.FindAll();
+        }
     }
 }

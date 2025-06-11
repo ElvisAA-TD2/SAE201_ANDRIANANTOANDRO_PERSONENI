@@ -156,20 +156,25 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
         public List<Commande> FindAll(GestionPilot gestionPilot)
         {
-            List<Commande> lesCommandes = new List<Commande>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from commande ;"))
+            try
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                foreach (DataRow dr in dt.Rows)
-                    lesCommandes.Add(new Commande((Int32)dr["numcommande"], gestionPilot.LesEmploye.FirstOrDefault(e => e.NumEmploye == (Int32)dr["numemploye"]),
-                        gestionPilot.LesRevendeurs.SingleOrDefault(r => r.NumRevendeur == (Int32)dr["numrevendeur"]),
-                        gestionPilot.LesModeTransports.FirstOrDefault(tr => tr.NumModeTransport == (Int32)dr["numtransport"]),
-                        (DateTime)dr["datecommande"],
-                        (DateTime)dr["datelivraison"],
-                        gestionPilot.LesProduitCommandes.Where(pc => pc.NumCommande == (Int32)dr["numcommande"]).ToList(), 
-                        (Decimal)dr["prixtotal"]));
+                List<Commande> lesCommandes = new List<Commande>();
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from commande ;"))
+                {
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    foreach (DataRow dr in dt.Rows)
+                        lesCommandes.Add(new Commande((Int32)dr["numcommande"], gestionPilot.LesEmploye.FirstOrDefault(e => e.NumEmploye == (Int32)dr["numemploye"]),
+                            gestionPilot.LesRevendeurs.SingleOrDefault(r => r.NumRevendeur == (Int32)dr["numrevendeur"]),
+                            gestionPilot.LesModeTransports.FirstOrDefault(tr => tr.NumModeTransport == (Int32)dr["numtransport"]),
+                            (DateTime)dr["datecommande"],
+                            (DateTime)dr["datelivraison"],
+                            gestionPilot.LesProduitCommandes.Where(pc => pc.NumCommande == (Int32)dr["numcommande"]).ToList(),
+                            (Decimal)dr["prixtotal"]));
+                }
+                return lesCommandes;
             }
-            return lesCommandes;
+            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
+
         }
 
         public int Delete()

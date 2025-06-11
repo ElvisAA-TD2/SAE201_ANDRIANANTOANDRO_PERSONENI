@@ -11,6 +11,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
     [TestClass()]
     public class EmployeTests
     {
+        public GestionPilot LaGestion { get; set; }
         private Role r1;
         [TestInitialize()]
         public void init()
@@ -40,6 +41,13 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
         public void Employe_Login_Test()
         {
             Employe e1 = new Employe(1, "Personeni", "Nathan", "password", "", r1);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Employe_FindAll_Test()
+        {
+            Employe e = new Employe(-1,"Personeni","Nathan","password","login",r1);
+            e.FindAll(LaGestion);
         }
     }
 }

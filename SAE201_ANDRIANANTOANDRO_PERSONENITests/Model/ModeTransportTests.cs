@@ -17,5 +17,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
         {
             ModeTransport mt1 = new ModeTransport(1,"");
         }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ModeTransport_FindAll_Test()
+        {
+            ModeTransport mt1 = new ModeTransport(-1, "Chronopost");
+            mt1.FindAll();
+        }
     }
 }

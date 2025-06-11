@@ -54,14 +54,18 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         }
         public List<TypePointe> FindAll()
         {
-            List<TypePointe> lesTypePointes = new List<TypePointe>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from typepointe ;"))
+            try
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                foreach (DataRow dr in dt.Rows)
-                    lesTypePointes.Add(new TypePointe((Int32)dr["numtypepointe"], (String)dr["libelletypepointe"]));
+                List<TypePointe> lesTypePointes = new List<TypePointe>();
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from typepointe ;"))
+                {
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    foreach (DataRow dr in dt.Rows)
+                        lesTypePointes.Add(new TypePointe((Int32)dr["numtypepointe"], (String)dr["libelletypepointe"]));
+                }
+                return lesTypePointes;
             }
-            return lesTypePointes;
+            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
         }
     }
 }

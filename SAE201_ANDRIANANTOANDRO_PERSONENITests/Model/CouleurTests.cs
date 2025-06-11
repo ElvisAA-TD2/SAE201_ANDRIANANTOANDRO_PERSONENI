@@ -17,5 +17,13 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
         {
             Couleur c1 = new Couleur(2, "");
         }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Couleur_FindAll_Test()
+        {
+            Couleur c1 = new Couleur(-1, "rouge");
+            c1.FindAll();
+        }
     }
+
 }

@@ -17,5 +17,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
         {
             Role r1 = new Role(1, "");
         }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Role_FindAll_Test()
+        {
+            Role r = new Role(-2, "test");
+            r.FindAll();
+        }
     }
 }

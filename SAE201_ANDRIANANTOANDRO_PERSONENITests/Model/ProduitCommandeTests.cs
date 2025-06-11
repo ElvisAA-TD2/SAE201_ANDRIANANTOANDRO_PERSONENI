@@ -11,6 +11,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
     [TestClass()]
     public class ProduitCommandeTests
     {
+        public GestionPilot LaGestion { get; set; }
         private TypePointe tp1;
         private Categorie c1;
         private Type t1;
@@ -53,6 +54,13 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
         {
             pc = new ProduitCommande(-1, p1, 20);
             pc.Create(1);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ProduitCommande_FindAll_Test()
+        {
+            ProduitCommande pc = new ProduitCommande(-1, p1,10);
+            pc.FindAll(LaGestion);
         }
     }
 }

@@ -52,14 +52,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         }
         public List<ModeTransport> FindAll()
         {
-            List<ModeTransport> lesModesDeTransport = new List<ModeTransport>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from modetransport ;"))
+            try
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                foreach (DataRow dr in dt.Rows)
-                    lesModesDeTransport.Add(new ModeTransport((Int32)dr["numtransport"], (String)dr["libelletransport"]));
+                List<ModeTransport> lesModesDeTransport = new List<ModeTransport>();
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from modetransport ;"))
+                {
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    foreach (DataRow dr in dt.Rows)
+                        lesModesDeTransport.Add(new ModeTransport((Int32)dr["numtransport"], (String)dr["libelletransport"]));
+                }
+                return lesModesDeTransport;
             }
-            return lesModesDeTransport;
+            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
+
         }
     }
 }

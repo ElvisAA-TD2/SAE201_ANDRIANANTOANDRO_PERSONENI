@@ -53,14 +53,18 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
         public List<Role> FindAll ()
         {
-            List<Role> lesRoles = new List<Role>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from role ;"))
+            try
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                foreach (DataRow dr in dt.Rows)
-                    lesRoles.Add(new Role((Int32)dr["numrole"], (String)dr["libellerole"]));
+                List<Role> lesRoles = new List<Role>();
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from role ;"))
+                {
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    foreach (DataRow dr in dt.Rows)
+                        lesRoles.Add(new Role((Int32)dr["numrole"], (String)dr["libellerole"]));
+                }
+                return lesRoles;
             }
-            return lesRoles;
+            catch(Exception ex) { throw new ArgumentException("problème sur la requête"); }
         }
     }
 }

@@ -12,6 +12,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
     [TestClass()]
     public class ProduitTests
     {
+        public GestionPilot LaGestion { get; set; }
         private TypePointe tp1;
         private Categorie c1;
         private Type t1;
@@ -70,6 +71,20 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
         {
             Produit p1 = new Produit(-1, "C101", "Stylo", 12, 50, true, tp1, t1, couleurs);
             p1.RendreIndisponible();
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Produit_FindAll_Test()
+        {
+            Produit p1 = new Produit(-1,"C101","Stylo",12,200,true,tp1,t1,couleurs);
+            p1.FindAll(LaGestion);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Produit_FindCouleurProduit_Test()
+        {
+            Produit p1 = new Produit(-1, "C101", "Stylo", 12, 200, true, tp1, t1, couleurs);
+            p1.FindCouleurProduit(-1);
         }
     }
 }

@@ -68,15 +68,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         }
         public List<Type> FindAll(GestionPilot gestionPilot)
         {
-            List<Type> lesTypes = new List<Type>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from type ;"))
+            try
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                foreach (DataRow dr in dt.Rows)
-                    lesTypes.Add(new Type((Int32)dr["numtype"], (String)dr["libelletype"],
-                        gestionPilot.LesCategories.SingleOrDefault(c => c.CodeCategorie == (Int32)dr["numcategorie"])));
+                List<Type> lesTypes = new List<Type>();
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from type ;"))
+                {
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    foreach (DataRow dr in dt.Rows)
+                        lesTypes.Add(new Type((Int32)dr["numtype"], (String)dr["libelletype"],
+                            gestionPilot.LesCategories.SingleOrDefault(c => c.CodeCategorie == (Int32)dr["numcategorie"])));
+                }
+                return lesTypes;
             }
-            return lesTypes;
+            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
         }
     }
 }

@@ -208,55 +208,65 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
         public List<Produit> FindAll(GestionPilot laGestion)
         {
-            List<Produit> lesProduits = new List<Produit>();
-
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("SELECT * FROM produit"))
+            try
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                List<Produit> lesProduits = new List<Produit>();
 
-                foreach (DataRow dr in dt.Rows)
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("SELECT * FROM produit"))
                 {
-                    var produitAInstancier = new Produit(
-                        (int)dr["numproduit"],
-                        (string)dr["codeproduit"],
-                        (string)dr["nomproduit"],
-                        (decimal)dr["prixvente"],
-                        (int)dr["quantitestock"],
-                        (bool)dr["disponible"],
-                        laGestion.LesTypePointes.FirstOrDefault(tp => tp.CodeTypePointe == (int)dr["numtypepointe"]),
-                        laGestion.LesTypes.FirstOrDefault(t => t.CodeType == (int)dr["numtype"]),
-                        new List<Couleur>() // Important : liste vide pour pouvoir ajouter ensuite
-                    );
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
 
-                    // Ajout des couleurs liées au produit
-                    var couleursAssociees = FindCouleurProduit(produitAInstancier.NumProduit);
-                    foreach (var cp in couleursAssociees)
+                    foreach (DataRow dr in dt.Rows)
                     {
-                        var couleur = laGestion.LesCouleurs.FirstOrDefault(c => c.NumCouleur == cp.CodeCouleur);
-                        if (couleur != null)
-                            produitAInstancier.LesCouleurs.Add(couleur);
+                        var produitAInstancier = new Produit(
+                            (int)dr["numproduit"],
+                            (string)dr["codeproduit"],
+                            (string)dr["nomproduit"],
+                            (decimal)dr["prixvente"],
+                            (int)dr["quantitestock"],
+                            (bool)dr["disponible"],
+                            laGestion.LesTypePointes.FirstOrDefault(tp => tp.CodeTypePointe == (int)dr["numtypepointe"]),
+                            laGestion.LesTypes.FirstOrDefault(t => t.CodeType == (int)dr["numtype"]),
+                            new List<Couleur>() // Important : liste vide pour pouvoir ajouter ensuite
+                        );
+
+                        // Ajout des couleurs liées au produit
+                        var couleursAssociees = FindCouleurProduit(produitAInstancier.NumProduit);
+                        foreach (var cp in couleursAssociees)
+                        {
+                            var couleur = laGestion.LesCouleurs.FirstOrDefault(c => c.NumCouleur == cp.CodeCouleur);
+                            if (couleur != null)
+                                produitAInstancier.LesCouleurs.Add(couleur);
+                        }
+
+                        lesProduits.Add(produitAInstancier);
                     }
-
-                    lesProduits.Add(produitAInstancier);
                 }
-            }
 
-            return lesProduits;
+                return lesProduits;
+            }
+            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
+            
         }
 
 
         public List<CouleurProduit> FindCouleurProduit(int numProduit)
         {
-            List<CouleurProduit> lesCouleurProduits = new List<CouleurProduit>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from couleurproduit where numproduit = @numproduit"))
+            try
             {
-                cmdSelect.Parameters.AddWithValue("numproduit", numProduit);
+                List<CouleurProduit> lesCouleurProduits = new List<CouleurProduit>();
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from couleurproduit where numproduit = @numproduit"))
+                {
+                    cmdSelect.Parameters.AddWithValue("numproduit", numProduit);
 
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                foreach (DataRow dr in dt.Rows)
-                    lesCouleurProduits.Add(new CouleurProduit((Int32)dr["numcouleur"], (Int32)dr["numproduit"]));
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    foreach (DataRow dr in dt.Rows)
+                        lesCouleurProduits.Add(new CouleurProduit((Int32)dr["numcouleur"], (Int32)dr["numproduit"]));
+                }
+                return lesCouleurProduits;
             }
-            return lesCouleurProduits;
+            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
+
         }
         public int Update()
         {

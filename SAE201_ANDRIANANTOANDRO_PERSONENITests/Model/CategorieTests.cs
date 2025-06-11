@@ -17,5 +17,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
         {
             Categorie c1 = new Categorie(2, "");
         }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Categorie_FindAll_Test()
+        {
+            Categorie c1 = new Categorie(-2, "stylo");
+            c1.FindAll();
+        }
     }
 }

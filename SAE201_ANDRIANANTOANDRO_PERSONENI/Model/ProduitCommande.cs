@@ -77,16 +77,20 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
         public List<ProduitCommande> FindAll(GestionPilot gestionPilot)
         {
-            List<ProduitCommande> lesProduitsCommandes = new List<ProduitCommande>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from produitcommande ;"))
+            try
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                foreach (DataRow dr in dt.Rows)
-                    lesProduitsCommandes.Add(new ProduitCommande((Int32)dr["numcommande"], 
-                        gestionPilot.LesProduits.SingleOrDefault(p => p.NumProduit == (Int32)dr["numproduit"]), 
-                        (Int32)dr["quantitecommande"]));
+                List<ProduitCommande> lesProduitsCommandes = new List<ProduitCommande>();
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from produitcommande ;"))
+                {
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    foreach (DataRow dr in dt.Rows)
+                        lesProduitsCommandes.Add(new ProduitCommande((Int32)dr["numcommande"],
+                            gestionPilot.LesProduits.SingleOrDefault(p => p.NumProduit == (Int32)dr["numproduit"]),
+                            (Int32)dr["quantitecommande"]));
+                }
+                return lesProduitsCommandes;
             }
-            return lesProduitsCommandes;
+            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
         }
 
         public int Create(int numCommande)

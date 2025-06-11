@@ -52,14 +52,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
         public List<CouleurProduit> FindAll()
         {
-            List<CouleurProduit> lesCouleurProduits = new List<CouleurProduit>();
-            using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from couleurproduit ;"))
+            try
             {
-                DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
-                foreach (DataRow dr in dt.Rows)
-                    lesCouleurProduits.Add(new CouleurProduit((Int32)dr["numcouleur"], (Int32)dr["numproduit"]));
+                List<CouleurProduit> lesCouleurProduits = new List<CouleurProduit>();
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from couleurproduit ;"))
+                {
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    foreach (DataRow dr in dt.Rows)
+                        lesCouleurProduits.Add(new CouleurProduit((Int32)dr["numcouleur"], (Int32)dr["numproduit"]));
+                }
+                return lesCouleurProduits;
             }
-            return lesCouleurProduits;
+            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
+
         }
     }
 }
