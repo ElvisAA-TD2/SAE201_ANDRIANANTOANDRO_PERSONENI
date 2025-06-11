@@ -70,7 +70,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         {
             List<ProduitCommande> lesProduitsCommandes = new List<ProduitCommande>();
             foreach (ProduitACommande unProduitACommande in this.LesProduitsSelectionnes)
-                lesProduitsCommandes.Add(new ProduitCommande(0, unProduitACommande.UnProduit, unProduitACommande.QuantiteCommandee, unProduitACommande.SousTotal));
+                lesProduitsCommandes.Add(new ProduitCommande(0, unProduitACommande.UnProduit, unProduitACommande.QuantiteCommandee));
 
             Commande commandeACree = new Commande(null, null, this.ModeTransportSelectionne, DateTime.Now, DateTime.Now, lesProduitsCommandes, this.PrixTotal);
             CreationCommandeValidation?.Invoke(this, commandeACree);
