@@ -115,11 +115,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             return motClefOk && typeOk && typePointeOk && categorieOk && couleurOk;
         }
 
-        /*private void cb_ModeLivraison_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            this.UnModeTransport = (ModeTransport)(cb_ModeLivraison.SelectedItem);
-        }*/
-
         private decimal MettreAJourPrixTotal ()
         {
             decimal prixTotal = 0;

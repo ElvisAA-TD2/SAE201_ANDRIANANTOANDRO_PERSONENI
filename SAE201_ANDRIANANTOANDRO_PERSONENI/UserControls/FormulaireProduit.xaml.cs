@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,8 +22,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     public enum ActionProduitEffectue { Modifier, Créer, Annuler}
     public partial class FormulaireProduit : UserControl
     {
-        public event EventHandler<ActionProduitEffectue> ActionProduitDemande;
-        public int IdProduitAModifier { get; set; }
+        public event EventHandler<Produit> ActionProduitDemande;
+        public static MainWindow laMainWindow = (MainWindow)Application.Current.MainWindow;
+        public Produit ProduitAModifier { get; set; }
         public FormulaireProduit()
         {
             InitializeComponent();
@@ -30,15 +32,21 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void Annuler_Click(object sender, RoutedEventArgs e)
         {
-            ActionProduitDemande?.Invoke(this, ActionProduitEffectue.Annuler);
+            ActionProduitDemande?.Invoke(this, null);
         }
 
         private void Validation_Click(object sender, RoutedEventArgs e)
         {
-            if (btn_valider.Content == ActionProduitEffectue.Créer.ToString())
+           /* Produit produitAEnvoye = new Produit(this.ProduitAModifier.NumProduit, this.ProduitAModifier.CodeProduit,
+                tb_nomProduit.Text, decimal.Parse(tb_prix.Text), int.Parse(tb_qteStock.Text), this.ProduitAModifier.Disponible,
+                laMainWindow.LaGestion.LesTypePointes.FirstOrDefault(tp => tp.NomTypePointe == tb_typePointe.Text), 
+                laMainWindow.LaGestion.LesTypes.FirstOrDefault(t => t.NomType == tb_type.Text), null);*/
+
+
+            /*if (btn_valider.Content == ActionProduitEffectue.Créer.ToString())
                 ActionProduitDemande?.Invoke(this, ActionProduitEffectue.Créer);
-            else 
-                ActionProduitDemande?.Invoke(this, ActionProduitEffectue.Modifier);
+            else
+                ActionProduitDemande?.Invoke(this, ActionProduitEffectue.Modifier);*/
         }
     }
 }
