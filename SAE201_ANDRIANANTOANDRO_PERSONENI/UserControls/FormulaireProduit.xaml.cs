@@ -1,6 +1,8 @@
-﻿using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
+﻿using Microsoft.Win32;
+using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +49,59 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
                 ActionProduitDemande?.Invoke(this, ActionProduitEffectue.Créer);
             else
                 ActionProduitDemande?.Invoke(this, ActionProduitEffectue.Modifier);*/
+        }
+
+        private void CheckBox_Couleur_Checked(object sender, RoutedEventArgs e)
+        {
+            if(sender is CheckBox checkBox && checkBox.DataContext is Couleur couleur)
+            {
+                if (ProduitAModifier != null && !ProduitAModifier.LesCouleurs.Contains(couleur))
+                {
+                    ProduitAModifier.LesCouleurs.Add(couleur);
+                }
+            }
+        }
+
+        private void CheckBox_Couleur_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (sender is CheckBox checkBox && checkBox.DataContext is Couleur couleur)
+            {
+                if (ProduitAModifier != null)
+                {
+                    ProduitAModifier.LesCouleurs.Remove(couleur);
+                }
+            }
+        }
+
+        private void ModifierImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.Filter = "Images|*.jpg;*.png;*.jpeg";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string imageSource = openFileDialog.FileName;
+                string dossierImages = "ImagesProduits";
+
+                if (!Directory.Exists(dossierImages))
+                    Directory.CreateDirectory(dossierImages);
+
+                string nouveauNom = System.IO.Path.GetFileName(imageSource);
+                string destination = System.IO.Path.Combine(dossierImages, nouveauNom);
+
+                File.Copy(imageSource, destination, true);
+
+                //Devrait etre la mise à jour de la propriété dans ton produit mais je fais encore un test
+                string cheminImage = System.IO.Path.Combine(dossierImages, nouveauNom);
+                this.ProduitAModifier.CheminImage = cheminImage;
+
+                BitmapImage img = new BitmapImage();
+                img.BeginInit();
+                img.UriSource = new Uri(cheminImage, UriKind.Relative);
+                img.CacheOption = BitmapCacheOption.OnLoad;
+                img.EndInit();
+                image_produit.Source = img;
+            }
         }
     }
 }

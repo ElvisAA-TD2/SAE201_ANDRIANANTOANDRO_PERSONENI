@@ -11,7 +11,7 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <utils:CouleurEstSelectionneeConverter x:Key="CouleurEstSelectionneeConverter" />
+        <utils:CouleurEstDansProduitConverter x:Key="CouleurEstDansProduitConverter" />
     </UserControl.Resources>
 
     <Grid Background="#FFDDF1FF" ScrollViewer.VerticalScrollBarVisibility="Auto">
@@ -69,7 +69,7 @@
                     FontSize="15"
                     Foreground="White"
                     RenderTransformOrigin="0.487,0.446"
-                    Style="{DynamicResource Button_BorderRadiud}" />
+                    Style="{DynamicResource Button_BorderRadiud}" Click="ModifierImage_Click" />
             </StackPanel>
             <StackPanel
                 Width="350"
@@ -92,7 +92,7 @@
                     DisplayMemberPath="NomCategorie"
                     FontSize="16"
                     ItemsSource="{Binding LesCategories}"
-                    Style="{DynamicResource ComboBoxStyle}" />
+                    Style="{DynamicResource ComboBoxStyle}" SelectedItem="{Binding LesCategorie.Count}"/>
                 <Label
                     Margin="0,10,0,0"
                     Content="Type"
@@ -107,14 +107,14 @@
                 <Label
                     Margin="0,10,0,0"
                     Content="Type de pointe"
-                    Style="{DynamicResource LabelTextBox}" />
+                    Style="{DynamicResource LabelTextBox}"/>
 
                 <ComboBox
                     Height="43"
                     DisplayMemberPath="NomTypePointe"
                     FontSize="16"
                     ItemsSource="{Binding LesTypePointes}"
-                    Style="{DynamicResource ComboBoxStyle}" />
+                    Style="{DynamicResource ComboBoxStyle}" x:Name="cb_typePointe" SelectedIndex="0"/>
             </StackPanel>
             <StackPanel
                 Width="350"
@@ -132,75 +132,57 @@
                     Style="{DynamicResource TextBoxRecherche}"
                     Text=""
                     TextWrapping="Wrap" />-->
-                <!--<ItemsControl ItemsSource="{Binding LesCouleurs}">
+                <ItemsControl ItemsSource="{Binding LesCouleurs}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox Content="{Binding NomCouleur}" IsChecked="{Binding ProduitAModifier.NomCouleur, Mode=TwoWay}" FontSize="16" FontStyle="Italic" />
+                            <CheckBox Content="{Binding NomCouleur}" Checked="CheckBox_Couleur_Checked" Unchecked="CheckBox_Couleur_Unchecked" x:Name="cb_couleurProduit">
+                                <CheckBox.IsChecked>
+                                    <MultiBinding Converter="{StaticResource CouleurEstDansProduitConverter}">
+                                        <Binding Path="NomCouleur" />
+                                        <!-- On récupère la liste des couleurs sélectionnées dans le DataContext du UserControl parent -->
+                                        <Binding Path="ProduitAModifier.LesCouleurs" RelativeSource="{RelativeSource AncestorType={x:Type local:FormulaireProduit}}" />
+                                    </MultiBinding>
+                                </CheckBox.IsChecked>
+                            </CheckBox>
+
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-                </ItemsControl>-->
-                <ScrollViewer Height="120">
+                </ItemsControl>
+                <!--<ScrollViewer Height="120">
                     <ItemsControl ItemsSource="{Binding LesCouleurs}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border
-                                    Margin="0,5"
+                                <Button
+                                    Content="{Binding NomCouleur}"
+                                    Margin="5"
                                     Padding="10"
-                                    Background="#BDDBF0"
-                                    CornerRadius="10">
-                                    <DockPanel LastChildFill="False">
-                                        <TextBlock
-                                            VerticalAlignment="Center"
-                                            DockPanel.Dock="Left"
-                                            FontSize="16"
-                                            FontWeight="SemiBold"
-                                            Foreground="Black"
-                                            Text="{Binding NomCouleur}" />
+                                    Tag="{Binding}"
+                                    FontWeight="Bold"
+                                    Width="120"
+                                    Height="32">        
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="#FF00538E"/>
+                                            <Setter Property="Foreground" Value="White"/>
 
-                                        <StackPanel
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
-                                            DockPanel.Dock="Right"
-                                            Orientation="Horizontal">
-
-                                            <!--  Bouton Sélectionner  -->
-                                            <Button
-                                                Width="120"
-                                                Height="32"
-                                                Margin="10,0,0,0"
-                                                Cursor="Hand"
-                                                Tag="{Binding}">
-
-                                                <Button.Style>
-                                                    <Style TargetType="Button">
-                                                        <Setter Property="Background" Value="#FF00538E" />
-                                                        <Setter Property="Foreground" Value="White" />
-                                                        <Setter Property="Content" Value="Sélectionner" />
-
-                                                        <Style.Triggers>
-                                                            <DataTrigger Value="True">
-                                                                <DataTrigger.Binding>
-                                                                    <MultiBinding Converter="{StaticResource CouleurEstSelectionneeConverter}">
-                                                                        <Binding Path="NomCouleur" />
-                                                                        <Binding Path="DataContext.ProduitACommander.LesCouleurs" RelativeSource="{RelativeSource AncestorType=UserControl}" />
-                                                                    </MultiBinding>
-                                                                </DataTrigger.Binding>
-                                                                <Setter Property="Background" Value="Green" />
-                                                                <Setter Property="Content" Value="✔ Sélectionnée" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Button.Style>
-                                            </Button>
-
-                                        </StackPanel>
-                                    </DockPanel>
-
-                                </Border>
+                                            <Style.Triggers>
+                                                <DataTrigger Value="True">
+                                                    <DataTrigger.Binding>
+                                                        <MultiBinding Converter="{StaticResource CouleurEstSelectionneeConverter}">
+                                                            <Binding Path="NomCouleur"/>
+                                                            <Binding Path="DataContext.UnProduit.LesCouleurs" RelativeSource="{RelativeSource AncestorType={x:Type local:FormulaireProduit}}"/>
+                                                        </MultiBinding>
+                                                    </DataTrigger.Binding>
+                                                    <Setter Property="Background" Value="DarkBlue"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </ScrollViewer>
+                </ScrollViewer>-->
 
                 <Label
                     Margin="0,10,0,0"
