@@ -11,32 +11,34 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
     [TestClass()]
     public class EmployeTests
     {
-        [TestMethod()]
+        private Role r1;
+        [TestInitialize()]
+        public void init()
+        {
+            r1 = new Role(1, "test");
+        }
+            [TestMethod()]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Employe_Nom_Test()
         {
-            Role r1 = new Role(1, "test");
             Employe e1 = new Employe(1, "", "Nathan", "password", "login", r1);
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Employe_Prenom_Test()
         {
-            Role r1 = new Role(1, "test");
             Employe e1 = new Employe(1, "Personeni", "", "password", "login", r1);
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Employe_Password_Test()
         {
-            Role r1 = new Role(1, "test");
             Employe e1 = new Employe(1, "Personeni", "Nathan", "", "login", r1);
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Employe_Login_Test()
         {
-            Role r1 = new Role(1, "test");
             Employe e1 = new Employe(1, "Personeni", "Nathan", "password", "", r1);
         }
     }

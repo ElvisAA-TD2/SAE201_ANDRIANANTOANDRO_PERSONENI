@@ -79,7 +79,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.dateLivraison = value;
+                if (value < this.DateCommande) { throw new ArgumentOutOfRangeException("Date de livraison inférieur à la date de la commande"); }
+                else
+                    this.dateLivraison = value;
             }
         }
 
@@ -171,29 +173,38 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
         public int Delete()
         {
-            using (var cmdUpdate = new NpgsqlCommand("delete from commande  where numcommande =@numcommande;"))
+            try
             {
-                cmdUpdate.Parameters.AddWithValue("numcommande", this.NumCommande);
-                return DataAccess.Instance.ExecuteSet(cmdUpdate);
+                using (var cmdUpdate = new NpgsqlCommand("delete from commande  where numcommande =@numcommande;"))
+                {
+                    cmdUpdate.Parameters.AddWithValue("numcommande", this.NumCommande);
+                    return DataAccess.Instance.ExecuteSet(cmdUpdate);
+                }
             }
+            catch { throw new ArgumentException("Problème sur la requête"); }
+
         }
 
         public int Create()
         {
-            int nb = 0;
-            using (var cmdInsert = new NpgsqlCommand("insert into commande (numemploye,numtransport,numrevendeur,datecommande, datelivraison, prixtotal) " +
-                "values ( @numemploye, @numtransport, @numrevendeur, @datecommande, @datelivraison, @prixtotal) RETURNING numcommande"))
+            try
             {
-                cmdInsert.Parameters.AddWithValue("numemploye", this.UnEmploye.NumEmploye);
-                cmdInsert.Parameters.AddWithValue("numtransport", this.UnModeTransport.NumModeTransport);
-                cmdInsert.Parameters.AddWithValue("numrevendeur", this.UnRevendeur.NumRevendeur);
-                cmdInsert.Parameters.AddWithValue("datecommande", this.DateCommande);
-                cmdInsert.Parameters.AddWithValue("datelivraison", this.DateLivraison);
-                cmdInsert.Parameters.AddWithValue("prixtotal", this.PrixTotal);
-                nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
+                int nb = 0;
+                using (var cmdInsert = new NpgsqlCommand("insert into commande (numemploye,numtransport,numrevendeur,datecommande, datelivraison, prixtotal) " +
+                    "values ( @numemploye, @numtransport, @numrevendeur, @datecommande, @datelivraison, @prixtotal) RETURNING numcommande"))
+                {
+                    cmdInsert.Parameters.AddWithValue("numemploye", this.UnEmploye.NumEmploye);
+                    cmdInsert.Parameters.AddWithValue("numtransport", this.UnModeTransport.NumModeTransport);
+                    cmdInsert.Parameters.AddWithValue("numrevendeur", this.UnRevendeur.NumRevendeur);
+                    cmdInsert.Parameters.AddWithValue("datecommande", this.DateCommande);
+                    cmdInsert.Parameters.AddWithValue("datelivraison", this.DateLivraison);
+                    cmdInsert.Parameters.AddWithValue("prixtotal", this.PrixTotal);
+                    nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
+                }
+                this.NumCommande = nb;
+                return nb;
             }
-            this.NumCommande = nb;
-            return nb;
+            catch (Exception ex) { throw new ArgumentException("Problème sur la requête"); }
         }
 
         public override string? ToString()

@@ -48,7 +48,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                this.codeProduit = value;
+                if (String.IsNullOrWhiteSpace(value)) { throw new ArgumentNullException("code produit null"); }
+                if (value.Substring(0,1) != "C") { throw new ArgumentOutOfRangeException("Code produit non valide"); }
+                else                  
+                    this.codeProduit = value;
             }
         }
 
