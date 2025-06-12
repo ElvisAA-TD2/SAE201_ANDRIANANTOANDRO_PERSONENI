@@ -243,7 +243,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
                 return lesProduits;
             }
-            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
+            catch (Exception ex) 
+            {
+                LogError.Log(ex, "Erreur");
+                throw new ArgumentException("problème sur la requête"); 
+            }
             
         }
 
@@ -263,7 +267,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 }
                 return lesCouleurProduits;
             }
-            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
+            catch (Exception ex) 
+            {
+                LogError.Log(ex, "Erreur");
+                throw new ArgumentException("problème sur la requête"); }
 
         }
         public int Update()
@@ -306,7 +313,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                     return DataAccess.Instance.ExecuteSet(cmdUpdate);
                 }
             }
-            catch (Exception ex) { throw new ArgumentException("Problème sur la requête"); }
+            catch (Exception ex) 
+            {
+                LogError.Log(ex, "Erreur");
+                throw new ArgumentException("Problème sur la requête"); 
+            }
         }
 
         public int Create()
@@ -361,6 +372,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
         public static string GenererCodeProduit()
         {
+           
             string dernierCode = "";
 
             using (var cmdSelect = new NpgsqlCommand("select codeproduit from produit where numproduit = (select max(numproduit) from produit)"))

@@ -29,8 +29,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
             cou1 = new Couleur(1, "noir");
             couleurs = new List<Couleur>();
             couleurs.Add(cou1);
-            p1 = new Produit(1, "C101", "stylo", 12, 500, true, tp1, t1, couleurs);
-            p2 = new Produit(1, "C101", "stylo", 5, 500, true, tp1, t1, couleurs);
+            p1 = new Produit(1, "C101", "stylo", 12, 500, true, tp1, t1, couleurs, "../img.png");
+            p2 = new Produit(1, "C101", "stylo", 5, 500, true, tp1, t1, couleurs, "../img.png");
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]

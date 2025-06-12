@@ -32,59 +32,73 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void Produit_Code_Null_Test()
         {
-            Produit p1 = new Produit(1, "", "stylo", 12, 50, true, tp1, t1, couleurs);
+            Produit p1 = new Produit(1, "", "stylo", 12, 50, true, tp1, t1, couleurs,"../img.png");
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Produit_Code_MauvaisFormat_Test()
         {
-            Produit p1 = new Produit(1, "A101", "stylo", 12, 50, true, tp1, t1, couleurs);
+            Produit p1 = new Produit(1, "A101", "stylo", 12, 50, true, tp1, t1, couleurs, "../img.png");
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Produit_Nom_Test()
         {
-            Produit p1 = new Produit(1, "C101", "", 12, 50, true, tp1, t1, couleurs);
+            Produit p1 = new Produit(1, "C101", "", 12, 50, true, tp1, t1, couleurs, "../img.png");
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Produit_PrixVente_Test()
         {
-            Produit p1 = new Produit(1, "C101", "Stylo", -12, 50, true, tp1, t1, couleurs);
+            Produit p1 = new Produit(1, "C101", "Stylo", -12, 50, true, tp1, t1, couleurs, "../img.png");
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Produit_QteStock_Test()
         {
-            Produit p1 = new Produit(1, "C101", "Stylo", 12, -50, true, tp1, t1, couleurs);
+            Produit p1 = new Produit(1, "C101", "Stylo", 12, -50, true, tp1, t1, couleurs, "../img.png");
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
         public void Produit_Update_Test()
         {
-            Produit p1 = new Produit(-1, "C101", "Stylo", 12, 50, true, tp1, t1, couleurs);
+            Produit p1 = new Produit(-1, "C101", "Stylo", 12, 50, true, tp1, t1, couleurs, "../img.png");
             p1.Update();
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
         public void Produit_RendreIndisponible_Test()
         {
-            Produit p1 = new Produit(-1, "C101", "Stylo", 12, 50, true, tp1, t1, couleurs);
+            Produit p1 = new Produit(-1, "C101", "Stylo", 12, 50, true, tp1, t1, couleurs, "../img.png");
             p1.RendreIndisponible();
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
         public void Produit_FindAll_Test()
         {
-            Produit p1 = new Produit(-1,"C101","Stylo",12,200,true,tp1,t1,couleurs);
+            Produit p1 = new Produit(-1,"C101","Stylo",12,200,true,tp1,t1,couleurs, "../img.png");
             p1.FindAll(LaGestion);
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
         public void Produit_FindCouleurProduit_Test()
         {
-            Produit p1 = new Produit(-1, "C101", "Stylo", 12, 200, true, tp1, t1, couleurs);
+            Produit p1 = new Produit(-1, "C101", "Stylo", 12, 200, true, tp1, t1, couleurs, "../img.png");
             p1.FindCouleurProduit(-1);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Produit_Create_Test()
+        {
+            Produit p1 = new Produit(-1, "C101", "Stylo", 12, 200, true, tp1, t1, couleurs, "../img.png");
+            p1.Create();
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Produit_InsertIntoCouleurProduit_Test()
+        {
+            Produit p1 = new Produit(-1, "C101", "Stylo", 12, 200, true, tp1, t1, couleurs, "../img.png");
+            p1.InsertIntoCouleurProduit();
         }
     }
 }

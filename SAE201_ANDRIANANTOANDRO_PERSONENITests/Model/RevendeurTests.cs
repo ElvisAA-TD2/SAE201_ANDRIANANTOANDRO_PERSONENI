@@ -11,6 +11,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
     [TestClass()]
     public class RevendeurTests
     {
+        public GestionPilot LaGestion {  get; set; }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Revendeur_RaisonSociale_test()

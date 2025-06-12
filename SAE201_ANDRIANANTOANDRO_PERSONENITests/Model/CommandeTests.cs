@@ -34,7 +34,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
             cou1 = new Couleur(1, "noir");
             couleurs = new List<Couleur>();
             couleurs.Add(cou1);
-            p1 = new Produit(1, "C101", "stylo", 12, 50, true, tp1, t1, couleurs);
+            p1 = new Produit(1, "C101", "stylo", 12, 50, true, tp1, t1, couleurs, "../img.png");
             pc = new ProduitCommande(1, p1, 20);
             lesProduits = new List<ProduitCommande>();
             lesProduits.Add(pc);
@@ -77,6 +77,13 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
         {
             Commande c1 = new Commande(-2, e1,re1,m1, DateTime.Today, new DateTime(2025, 07, 01), lesProduits,100);
             c1.FindAll(LaGestion);
+        }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Commannde_Update_Test()
+        {
+            Commande c1 = new Commande(-2, e1, re1, m1, DateTime.Today, new DateTime(2025, 07, 01), lesProduits, 100);
+            c1.Update();
         }
     }
 }

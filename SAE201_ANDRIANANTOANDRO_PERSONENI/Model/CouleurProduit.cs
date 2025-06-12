@@ -63,7 +63,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 }
                 return lesCouleurProduits;
             }
-            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
+            catch (Exception ex) 
+            {
+                LogError.Log(ex, "Erreur");
+                throw new ArgumentException("problème sur la requête"); 
+            }
 
         }
 

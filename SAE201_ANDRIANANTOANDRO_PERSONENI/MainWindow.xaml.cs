@@ -345,7 +345,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
         private void SeConnecter_Reussi (object sender, InformationConnexion informationConnexion)
         {
-            this.ConnectionString = $"Host=localhost;Port=5432;Username=postgres;Password=Anniversaire1906$;Database=andriane_pilot";
+            this.ConnectionString = $"Host=localhost;Port=5432;Username=postgres;Password=Naox.2006;Database=SAE";
             //this.ConnectionString = $"Host=srv-peda-new;Port=5433;Username={informationConnexion.Login};Password={informationConnexion.MotDePasse};Database=andriane_pilot;Options='-c search_path=andriane'";
             bool chargeDataOk = ChargeData();
             if (chargeDataOk)

@@ -90,7 +90,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 }
                 return lesProduitsCommandes;
             }
-            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
+            catch (Exception ex) 
+            {
+                LogError.Log(ex, "Erreur");
+                throw new ArgumentException("problème sur la requête"); 
+            }
         }
 
         public int Create(int numCommande)
@@ -110,7 +114,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 this.NumCommande = nb;
                 return nb;
             }
-            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
+            catch (Exception ex) 
+            {
+                LogError.Log(ex, "Erreur");
+                throw new ArgumentException("problème sur la requête"); 
+            }
         }
     }
 }

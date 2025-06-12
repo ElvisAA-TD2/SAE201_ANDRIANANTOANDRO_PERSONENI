@@ -65,7 +65,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 }
                 return lesTypePointes;
             }
-            catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
+            catch (Exception ex) 
+            {
+                LogError.Log(ex, "Erreur");
+                throw new ArgumentException("problème sur la requête"); 
+            }
         }
     }
 }
