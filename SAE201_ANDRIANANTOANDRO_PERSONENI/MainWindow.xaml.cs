@@ -108,12 +108,46 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcDetailsProduit.RevenirEnArrièreDemandee += RetourEnArrièreVenantVenantDeDétails;
             this.UcDetailsProduit.ModificationRendreInsponibleDemandee += ActionProduitDemandee;
 
+            this.UcFormulaireProduit.ActionProduitDemande += ActionProduitTerminee;
+
             this.UcMesCommandes.VoirDetailsCommandes += DetailsCommandeDemandee;
 
             this.UcRecapitulatifCommande.ActionCommandeDemandee += ActionCommande;
 
 
             conteneur_authentification.Content = this.UcAuthentification;
+        }
+
+        private void ActionProduitTerminee(object sender, Produit unProduit)
+        {
+            if(unProduit.NumProduit == 0)
+            {
+                int idProduit = unProduit.Create();
+                unProduit.NumProduit = idProduit;
+
+                this.LaGestion.LesProduits.Add(unProduit);
+            }
+            else
+            {
+                Produit produitAModifie = this.LaGestion.LesProduits.FirstOrDefault(p => p.NumProduit == unProduit.NumProduit);
+
+                produitAModifie.NomProduit = unProduit.NomProduit;
+                produitAModifie.CodeProduit = unProduit.CodeProduit;
+                produitAModifie.UnType = unProduit.UnType;
+                produitAModifie.UnTypePointe = unProduit.UnTypePointe;
+                produitAModifie.CheminImage = unProduit.CheminImage;
+                produitAModifie.Disponible = unProduit.Disponible;
+                produitAModifie.PrixVente = unProduit.PrixVente;
+                produitAModifie.LesCouleurs = unProduit.LesCouleurs;
+                produitAModifie.QteStock = unProduit.QteStock;
+
+                produitAModifie.Update();
+
+                this.UcDetailsProduit.ProduitAAfficher = produitAModifie;
+            }
+
+            conteneur_principal.Content = this.UcDetailsProduit;
+
         }
 
         private void ActionProduitDemandee(object sender, DetailsProduit.InformationProduitEventArgs uneInformationPorduit)
@@ -134,6 +168,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 this.UcFormulaireProduit.tb_nomProduit.Text = uneInformationPorduit.UnProduit.NomProduit;                 
                 this.UcFormulaireProduit.tb_prix.Text = uneInformationPorduit.UnProduit.PrixVente.ToString();
                 this.UcFormulaireProduit.tb_qteStock.Text = uneInformationPorduit.UnProduit.QteStock.ToString();
+                this.UcFormulaireProduit.image_produit.Source = AfficherImage(uneInformationPorduit.UnProduit.CheminImage);
 
                 conteneur_principal.Content = this.UcFormulaireProduit;
             }
@@ -210,7 +245,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         private void AfficherDetailsProduit(object sender, Produit leProduitADetaille)
         {
             this.UcDetailsProduit.FindProduitByNum(leProduitADetaille.NumProduit, this.LaGestion);
-            AfficherImage("ImagesProduits/StyloBleu.jpg");
+            this.UcDetailsProduit.image_produit.Source = AfficherImage(leProduitADetaille.CheminImage);
             //A décommenté quand on aura fini de faire les privilège
             /*if(this.UtilisateurConnecte.UnRole.NomRole == "Commercial") 
             {
@@ -284,8 +319,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
         private void SeConnecter_Reussi (object sender, InformationConnexion informationConnexion)
         {
-            this.ConnectionString = $"Host=localhost;Port=5432;Username=postgres;Password=Anniversaire1906$;Database=andriane_pilot";
-            //this.ConnectionString = $"Host=srv-peda-new;Port=5433;Username={informationConnexion.Login};Password={informationConnexion.MotDePasse};Database=andriane_pilot;Options='-c search_path=andriane'";
+            //this.ConnectionString = $"Host=localhost;Port=5432;Username=postgres;Password=Anniversaire1906$;Database=andriane_pilot";
+            this.ConnectionString = $"Host=srv-peda-new;Port=5433;Username={informationConnexion.Login};Password={informationConnexion.MotDePasse};Database=andriane_pilot;Options='-c search_path=andriane'";
             bool chargeDataOk = ChargeData();
             if (chargeDataOk)
             {
@@ -374,7 +409,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             
         }
 
-        private void AfficherImage (string cheminImage)
+        private BitmapImage AfficherImage (string cheminImage)
         {
             if (File.Exists(cheminImage))
             {
@@ -383,11 +418,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 img.UriSource = new Uri(cheminImage, UriKind.Relative);
                 img.CacheOption = BitmapCacheOption.OnLoad;
                 img.EndInit();
-                this.UcDetailsProduit.image_produit.Source = img;
+                return img;
             }
             else
             {
                 MessageBox.Show("Image introuvable !");
+                return null;
             }
         }
     }

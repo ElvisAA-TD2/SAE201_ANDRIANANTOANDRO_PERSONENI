@@ -27,19 +27,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         public Produit()
         {
         }
-
-        public Produit(int numProduit, string codeProduit, string nomProduit, decimal prixVente, int qteStock, bool disponible, TypePointe unTypePointe, Type unType, List<Couleur> lesCouleur)
-        {
-            this.CodeProduit = codeProduit;
-            this.NomProduit = nomProduit;
-            this.PrixVente = prixVente;
-            this.QteStock = qteStock;
-            this.NumProduit = numProduit;
-            this.Disponible = disponible;
-            this.UnTypePointe = unTypePointe;
-            this.UnType = unType;
-            this.LesCouleurs = lesCouleur;
-        }
         public Produit(int numProduit, string codeProduit, string nomProduit, decimal prixVente, int qteStock, bool disponible, TypePointe unTypePointe, Type unType, List<Couleur> lesCouleur, string cheminImage)
         {
             this.CodeProduit = codeProduit;
@@ -239,14 +226,15 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                             (bool)dr["disponible"],
                             laGestion.LesTypePointes.FirstOrDefault(tp => tp.CodeTypePointe == (int)dr["numtypepointe"]),
                             laGestion.LesTypes.FirstOrDefault(t => t.CodeType == (int)dr["numtype"]),
-                            new List<Couleur>()
+                            new List<Couleur>(),
+                            (string)dr["cheminimage"]
                         );
 
                         // Ajout des couleurs liées au produit
-                        var couleursAssociees = FindCouleurProduit(produitAInstancier.NumProduit);
-                        foreach (var cp in couleursAssociees)
+                        List<CouleurProduit> couleursAssociees = FindCouleurProduit(produitAInstancier.NumProduit);
+                        foreach (CouleurProduit uneCouleurProduit in couleursAssociees)
                         {
-                            var couleur = laGestion.LesCouleurs.FirstOrDefault(c => c.NumCouleur == cp.CodeCouleur);
+                            Couleur couleur = laGestion.LesCouleurs.FirstOrDefault(c => c.NumCouleur == uneCouleurProduit.CodeCouleur);
                             if (couleur != null)
                                 produitAInstancier.LesCouleurs.Add(couleur);
                         }
@@ -267,7 +255,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             try
             {
                 List<CouleurProduit> lesCouleurProduits = new List<CouleurProduit>();
-                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from couleurproduit where numproduit = @numproduit"))
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from couleurproduit where numproduit = @numproduit;"))
                 {
                     cmdSelect.Parameters.AddWithValue("numproduit", numProduit);
 
@@ -284,18 +272,37 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         {
             try
             {
+                using (var cmdDelete = new NpgsqlCommand("delete from couleurproduit where numproduit =@numproduit;"))
+                {
+                    cmdDelete.Parameters.AddWithValue("numproduit", this.NumProduit);
+                }
+
+                foreach (Couleur uneCouleur in this.LesCouleurs)
+                {
+                    using (var cmdInsert = new NpgsqlCommand("insert into couleurproduit values (numproduit, numcouleur) values (@numproduit, @numcouleur);"))
+                    {
+                        cmdInsert.Parameters.AddWithValue("numproduit", this.NumProduit);
+                        cmdInsert.Parameters.AddWithValue("numcouleur", uneCouleur);
+                    }
+                }
+                
+
                 using (var cmdUpdate = new NpgsqlCommand("update produit set nomproduit =@nomproduit ,  numtypepointe = @numtypepointe,  prixvente = @prixvente , " +
-    "qtestock =@quantitestock , numtype =@numtype  where numproduit =@numproduit;"))
+                    "quantitestock =@quantitestock , numtype =@numtype  where numproduit =@numproduit;"))
                 {
                     cmdUpdate.Parameters.AddWithValue("nomproduit", this.NomProduit);
                     cmdUpdate.Parameters.AddWithValue("numtypepointe", this.UnTypePointe.CodeTypePointe);
                     cmdUpdate.Parameters.AddWithValue("prixvente", this.PrixVente);
-                    cmdUpdate.Parameters.AddWithValue("qtestock", this.QteStock);
+                    cmdUpdate.Parameters.AddWithValue("quantitestock", this.QteStock);
                     cmdUpdate.Parameters.AddWithValue("numtype", this.UnType.CodeType);
+                    cmdUpdate.Parameters.AddWithValue("numproduit", this.NumProduit);
                     return DataAccess.Instance.ExecuteSet(cmdUpdate);
                 }
             }
-            catch (Exception ex) { throw new ArgumentException("Problème sur la requête"); }
+            catch (Exception ex) {
+                LogError.Log(ex, "Erreur");
+                throw new ArgumentException("Problème sur la requête"); 
+            }
         }
         public int RendreIndisponible()
         {
@@ -306,6 +313,31 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                     cmdUpdate.Parameters.AddWithValue("numproduit", this.NumProduit);
                     return DataAccess.Instance.ExecuteSet(cmdUpdate);
                 }
+            }
+            catch (Exception ex) { throw new ArgumentException("Problème sur la requête"); }
+        }
+
+        public int Create()
+        {
+            try
+            {
+                int nb = 0;
+                using (var cmdInsert = new NpgsqlCommand("insert into produit (numtypepointe, numtype, codeproduit, nomproduit, prixvente, quantitestock, disponible, cheminimage) " +
+                    "values (@numtypepointe, @numtype, @codeproduit, @nomproduit, @prixvente, @quantitestock, @disponible, @cheminimage) " +
+                    "RETURNING numrevendeur;"))
+                {
+                    cmdInsert.Parameters.AddWithValue("numtypepointe", this.UnTypePointe.CodeTypePointe);
+                    cmdInsert.Parameters.AddWithValue("numtype", this.UnType.NomType);
+                    cmdInsert.Parameters.AddWithValue("codeproduit", this.CodeProduit);
+                    cmdInsert.Parameters.AddWithValue("nomproduit", this.NomProduit);
+                    cmdInsert.Parameters.AddWithValue("prixvente", this.PrixVente);
+                    cmdInsert.Parameters.AddWithValue("quantitestock", this.QteStock);
+                    cmdInsert.Parameters.AddWithValue("disponible", this.Disponible);
+                    cmdInsert.Parameters.AddWithValue("cheminimage", this.CheminImage);
+                    nb = DataAccess.Instance.ExecuteInsert(cmdInsert);
+                }
+                this.NumProduit = nb;
+                return nb;
             }
             catch (Exception ex) { throw new ArgumentException("Problème sur la requête"); }
         }

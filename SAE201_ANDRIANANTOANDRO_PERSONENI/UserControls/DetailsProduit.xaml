@@ -128,7 +128,7 @@
                 Margin="0,50,0,0"
                 Background="#C14347"
                 BorderBrush="{x:Null}"
-                Click="RevenirEnArriere_Click"
+                Click="Btn_rendreIndisponible_Click"
                 Content="Rendre Indisponible"
                 FontSize="15"
                 Foreground="White"

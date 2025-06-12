@@ -11,21 +11,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Utils
 {
     public class CouleurEstDansProduitConverter : IMultiValueConverter
     {
-        /*public object Convert(object[] values, System.Type targetType, object parameter, CultureInfo culture)
-        {
-            var nomCouleur = values[0] as string;
-            var liste = values[1] as List<Couleur>;
-
-            if (nomCouleur == null || liste == null)
-                return false;
-
-            return liste.Any(c => c.NomCouleur == nomCouleur);
-        }
-
-        public object[] ConvertBack(object value, System.Type[] targetTypes, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }*/
         public object Convert(object[] values, System.Type targetType, object parameter, CultureInfo culture)
         {
             string nomCouleurAVerifier = values[0] as string;

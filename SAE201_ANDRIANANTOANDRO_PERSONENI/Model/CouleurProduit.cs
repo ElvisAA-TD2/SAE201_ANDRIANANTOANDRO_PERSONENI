@@ -66,5 +66,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             catch (Exception ex) { throw new ArgumentException("problème sur la requête"); }
 
         }
+
+        public void Update ()
+        {
+
+        }
     }
 }
