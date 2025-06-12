@@ -29,7 +29,7 @@
             </Rectangle.RenderTransform>
         </Rectangle>
         <StackPanel
-            x:Name="stackPanel_Principal"
+            x:Name="stackPanel_principal"
             Width="630"
             Margin="150,0,0,40"
             HorizontalAlignment="Left"
@@ -104,6 +104,7 @@
             </StackPanel>
         </StackPanel>
         <StackPanel
+            x:Name="stackPanel_modifierindisponible"
             Height="184"
             Margin="900,0,0,0"
             HorizontalAlignment="Left"

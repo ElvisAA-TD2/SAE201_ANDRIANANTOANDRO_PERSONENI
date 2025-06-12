@@ -2,6 +2,7 @@
 using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,12 +23,30 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// <summary>
     /// Logique d'interaction pour RecapitulatifProduit.xaml
     /// </summary>
-    public partial class DetailsProduit : UserControl
+    public partial class DetailsProduit : UserControl, INotifyPropertyChanged
     {
         public event EventHandler<bool> RevenirEnArrièreDemandee;
         public event EventHandler<InformationProduitEventArgs> ModificationRendreInsponibleDemandee;
 
-        public Produit ProduitAAfficher {  get; set; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private Produit produitAAfficher;
+
+        public Produit ProduitAAfficher
+        {
+            get
+            {
+                return this.produitAAfficher;
+            }
+
+            set
+            {
+                this.produitAAfficher = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ProduitAAfficher)));
+            }
+        }
+
         public DetailsProduit()
         {
             InitializeComponent();
@@ -53,6 +72,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             lb_prixProduit.Content = this.ProduitAAfficher.PrixVente + "€";
             lb_categorieProduit.Content = this.ProduitAAfficher.UnType.UneCategorie.NomCategorie;
             lb_couleurProduit.Content = this.ProduitAAfficher.NomCouleurConcatene;
+            image_produit.Source = MainWindow.AfficherImage(this.ProduitAAfficher.CheminImage);
         }
 
         private void ModifierProduit_Click(object sender, RoutedEventArgs e)

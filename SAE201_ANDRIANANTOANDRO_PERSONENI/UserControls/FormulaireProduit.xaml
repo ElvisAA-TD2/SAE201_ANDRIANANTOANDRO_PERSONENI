@@ -56,7 +56,8 @@
                 <Image
                     x:Name="image_produit"
                     Width="238"
-                    Height="169" Panel.ZIndex="10" />
+                    Height="169"
+                    Panel.ZIndex="10" />
                 <Button
                     x:Name="btn_modifieImage"
                     Width="200"
@@ -65,11 +66,12 @@
                     HorizontalAlignment="Center"
                     Background="#FF335A68"
                     BorderBrush="{x:Null}"
+                    Click="ModifierImage_Click"
                     Content="Modifier l'image"
                     FontSize="15"
                     Foreground="White"
                     RenderTransformOrigin="0.487,0.446"
-                    Style="{DynamicResource Button_BorderRadiud}" Click="ModifierImage_Click" />
+                    Style="{DynamicResource Button_BorderRadiud}" />
             </StackPanel>
             <StackPanel
                 Width="350"
@@ -87,34 +89,38 @@
                     Content="Catégorie"
                     Style="{DynamicResource LabelTextBox}" />
 
-                <ComboBox
-                    Height="43"
-                    DisplayMemberPath="NomCategorie"
-                    FontSize="16"
-                    ItemsSource="{Binding LesCategories}" x:Name="cb_categorie"
-                    Style="{DynamicResource ComboBoxStyle}" SelectedIndex="{Binding IndexCategorieSelectionnee, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:FormulaireProduit}}}"/>
+                <TextBox
+                    x:Name="tb_categorieProduit"
+                    IsReadOnly="True"
+                    Style="{DynamicResource TextBoxRecherche}"
+                    Text=""
+                    TextWrapping="Wrap" />
                 <Label
                     Margin="0,10,0,0"
                     Content="Type"
                     Style="{DynamicResource LabelTextBox}" />
 
                 <ComboBox
+                    x:Name="cb_type"
                     Height="43"
                     DisplayMemberPath="NomType"
-                    FontSize="16" x:Name="cb_type"
+                    FontSize="16"
                     ItemsSource="{Binding LesTypes}"
-                    Style="{DynamicResource ComboBoxStyle}" SelectedIndex="{Binding IndexTypeSelectionne, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:FormulaireProduit}}}"/>
+                    SelectedIndex="{Binding IndexTypeSelectionne, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:FormulaireProduit}}}"
+                    Style="{DynamicResource ComboBoxStyle}" />
                 <Label
                     Margin="0,10,0,0"
                     Content="Type de pointe"
-                    Style="{DynamicResource LabelTextBox}"/>
+                    Style="{DynamicResource LabelTextBox}" />
 
                 <ComboBox
+                    x:Name="cb_typePointe"
                     Height="43"
                     DisplayMemberPath="NomTypePointe"
                     FontSize="16"
                     ItemsSource="{Binding LesTypePointes}"
-                    Style="{DynamicResource ComboBoxStyle}" x:Name="cb_typePointe" SelectedIndex="{Binding IndexTypePointeSelectionne, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:FormulaireProduit}}}"/>
+                    SelectedIndex="{Binding IndexTypePointeSelectionne, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:FormulaireProduit}}}"
+                    Style="{DynamicResource ComboBoxStyle}" />
             </StackPanel>
             <StackPanel
                 Width="350"
@@ -135,11 +141,15 @@
                 <ItemsControl ItemsSource="{Binding LesCouleurs}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox Content="{Binding NomCouleur}" Checked="CheckBox_Couleur_Checked" Unchecked="CheckBox_Couleur_Unchecked" x:Name="cb_couleurProduit">
+                            <CheckBox
+                                x:Name="cb_couleurProduit"
+                                Checked="CheckBox_Couleur_Checked"
+                                Content="{Binding NomCouleur}"
+                                Unchecked="CheckBox_Couleur_Unchecked">
                                 <CheckBox.IsChecked>
                                     <MultiBinding Converter="{StaticResource CouleurEstDansProduitConverter}">
                                         <Binding Path="NomCouleur" />
-                                        <!-- On récupère la liste des couleurs sélectionnées dans le DataContext du UserControl parent -->
+                                        <!--  On récupère la liste des couleurs sélectionnées dans le DataContext du UserControl parent  -->
                                         <Binding Path="ProduitAModifier.LesCouleurs" RelativeSource="{RelativeSource AncestorType={x:Type local:FormulaireProduit}}" />
                                     </MultiBinding>
                                 </CheckBox.IsChecked>
@@ -159,7 +169,7 @@
                                     Tag="{Binding}"
                                     FontWeight="Bold"
                                     Width="120"
-                                    Height="32">        
+                                    Height="32">
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Background" Value="#FF00538E"/>

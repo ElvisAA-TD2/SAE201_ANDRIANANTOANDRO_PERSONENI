@@ -209,7 +209,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             {
                 List<Produit> lesProduits = new List<Produit>();
 
-                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("SELECT * FROM produit"))
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("SELECT * FROM produit order by numproduit"))
                 {
                     DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
 

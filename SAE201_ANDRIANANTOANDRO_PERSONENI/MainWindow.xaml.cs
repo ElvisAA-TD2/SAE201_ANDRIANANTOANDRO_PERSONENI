@@ -152,9 +152,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
                 this.UcDetailsProduit.FindProduitByNum(produitAModifie.NumProduit, this.LaGestion);
                 AfficherImage(produitAModifie.CheminImage);
+
+                conteneur_principal.Content = this.UcDetailsProduit;
             }
 
-            conteneur_principal.Content = this.UcDetailsProduit;
+            
 
         }
 
@@ -169,13 +171,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 this.UcFormulaireProduit.ProduitAModifier = uneInformationPorduit.UnProduit;
                 this.UcFormulaireProduit.IndexTypeSelectionne = this.LaGestion.LesTypes.IndexOf(uneInformationPorduit.UnProduit.UnType);
                 this.UcFormulaireProduit.IndexTypePointeSelectionne = this.LaGestion.LesTypePointes.IndexOf(uneInformationPorduit.UnProduit.UnTypePointe);
-                this.UcFormulaireProduit.IndexCategorieSelectionnee = this.LaGestion.LesCategories.IndexOf(uneInformationPorduit.UnProduit.UnType.UneCategorie);
-
 
 
                 this.UcFormulaireProduit.tb_nomProduit.Text = uneInformationPorduit.UnProduit.NomProduit;                 
                 this.UcFormulaireProduit.tb_prix.Text = uneInformationPorduit.UnProduit.PrixVente.ToString();
                 this.UcFormulaireProduit.tb_qteStock.Text = uneInformationPorduit.UnProduit.QteStock.ToString();
+                this.UcFormulaireProduit.tb_categorieProduit.Text = uneInformationPorduit.UnProduit.UnType.UneCategorie.NomCategorie.ToString();
                 this.UcFormulaireProduit.image_produit.Source = AfficherImage(uneInformationPorduit.UnProduit.CheminImage);
 
                 conteneur_principal.Content = this.UcFormulaireProduit;
@@ -257,13 +258,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         {
             this.UcDetailsProduit.FindProduitByNum(leProduitADetaille.NumProduit, this.LaGestion);
             this.UcDetailsProduit.image_produit.Source = AfficherImage(leProduitADetaille.CheminImage);
-            //A décommenté quand on aura fini de faire les privilège
-            /*if(this.UtilisateurConnecte.UnRole.NomRole == "Commercial") 
+
+            if (this.UtilisateurConnecte.UnRole.NomRole == this.LaGestion.LesRoles[0].NomRole)
             {
-                this.UcDetailsProduit.btn_rendreIndisponible.Visibility = Visibility.Collapsed;
+                this.UcDetailsProduit.stackPanel_modifierindisponible.Visibility = Visibility.Collapsed;
+                this.UcDetailsProduit.stackPanel_principal.HorizontalAlignment = HorizontalAlignment.Center;
+                this.UcDetailsProduit.stackPanel_principal.Margin = new Thickness(0);
             }
-                
-            else this.UcDetailsProduit.btn_rendreIndisponible.Visibility = Visibility.Visible;*/
+            else
+            {
+                this.UcDetailsProduit.stackPanel_modifierindisponible.Visibility = Visibility.Visible;
+                this.UcDetailsProduit.stackPanel_principal.HorizontalAlignment = HorizontalAlignment.Left;
+                this.UcDetailsProduit.stackPanel_principal.Margin = new Thickness(left: 150, right:0, top:0, bottom:40);
+            }
 
             conteneur_principal.Content = this.UcDetailsProduit;  
         }
@@ -347,11 +354,25 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
                     this.UcBarDeNavigation.lb_loginUser.Content = this.UtilisateurConnecte.Login;
                     this.UcBarDeNavigation.lb_roleUser.Content = this.UtilisateurConnecte.UnRole.NomRole;
+
+                    //Gestion de l'affichage par rapport au role de l'utilisateur (ici c'est la bouton ajouter produit)
+                    if(this.UtilisateurConnecte.UnRole.NomRole == this.LaGestion.LesRoles[0].NomRole)
+                    {
+                        this.UcAccueilEmploye.btn_ajoutProduit.Visibility = Visibility.Collapsed;
+                        this.UcBarDeNavigation.listeDesProduits_btn.Visibility = Visibility.Visible;
+                        this.UcBarDeNavigation.creationCommande_btn.Visibility = Visibility.Visible;
+                        this.UcBarDeNavigation.mesCommandes_btn.Visibility = Visibility.Visible;
+                    } 
+                    else
+                    {
+                        this.UcAccueilEmploye.btn_ajoutProduit.Visibility = Visibility.Visible;
+                        this.UcBarDeNavigation.listeDesProduits_btn.Visibility = Visibility.Collapsed;
+                        this.UcBarDeNavigation.creationCommande_btn.Visibility = Visibility.Collapsed;
+                        this.UcBarDeNavigation.mesCommandes_btn.Visibility = Visibility.Collapsed;
+                    }
+                        
                     conteneur_haut.Children.Add(this.UcBarDeNavigation);
                     conteneur_principal.Content = this.UcAccueilEmploye;
-
-
-
                 }
             }
         }
@@ -420,11 +441,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             
         }
 
-        private BitmapImage AfficherImage (string cheminImage)
+        public static BitmapImage AfficherImage (string cheminImage)
         {
             if (File.Exists(cheminImage))
             {
-                var img = new BitmapImage();
+                BitmapImage img = new BitmapImage();
                 img.BeginInit();
                 img.UriSource = new Uri(cheminImage, UriKind.Relative);
                 img.CacheOption = BitmapCacheOption.OnLoad;
