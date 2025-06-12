@@ -144,9 +144,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         {
             try
             {
-                using (var cmdSelect = new NpgsqlCommand("select * from  revendeur  where numrevendeur =@id;"))
+                using (var cmdSelect = new NpgsqlCommand("select * from  revendeur  where numrevendeur =@numrevendeur;"))
                 {
-                    cmdSelect.Parameters.AddWithValue("id", this.NumRevendeur);
+                    cmdSelect.Parameters.AddWithValue("numrevendeur", this.NumRevendeur);
 
                     DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
                     this.RaisonSociale = (String)dt.Rows[0]["raisonsociale"];
@@ -164,13 +164,13 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             try
             {
                 using (var cmdUpdate = new NpgsqlCommand("update revendeur set raisonsociale =@raisonsociale ,  adresserue = @adresserue,  adressecp = @adressecp, " +
-                "adresseville = @adresseville  where numrevendeur =@id;"))
+                "adresseville = @adresseville  where numrevendeur =@numrevendeur;"))
                 {
                     cmdUpdate.Parameters.AddWithValue("raisonsociale", this.RaisonSociale);
                     cmdUpdate.Parameters.AddWithValue("adresserue", this.AdresseRue);
                     cmdUpdate.Parameters.AddWithValue("adressecp", this.AdresseCP);
                     cmdUpdate.Parameters.AddWithValue("adresseville", this.AdresseVille);
-                    cmdUpdate.Parameters.AddWithValue("id", this.NumRevendeur);
+                    cmdUpdate.Parameters.AddWithValue("numrevendeur", this.NumRevendeur);
                     return DataAccess.Instance.ExecuteSet(cmdUpdate);
                 }
             }

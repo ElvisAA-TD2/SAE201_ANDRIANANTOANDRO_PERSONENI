@@ -57,7 +57,7 @@
                     IsReadOnly="True" />
                 <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding NomProduit}"
+                    Binding="{Binding NomCouleurConcatene}"
                     Header="Couleur"
                     IsReadOnly="True" />
                 <DataGridTextColumn

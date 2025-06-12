@@ -52,6 +52,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             lb_typePointeProduit.Content = this.ProduitAAfficher.UnTypePointe.NomTypePointe;
             lb_prixProduit.Content = this.ProduitAAfficher.PrixVente + "€";
             lb_categorieProduit.Content = this.ProduitAAfficher.UnType.UneCategorie.NomCategorie;
+            lb_couleurProduit.Content = this.ProduitAAfficher.NomCouleurConcatene;
         }
 
         private void ModifierProduit_Click(object sender, RoutedEventArgs e)

@@ -120,12 +120,18 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
         private void ActionProduitTerminee(object sender, Produit unProduit)
         {
-            if(unProduit.NumProduit == 0)
+            if(unProduit == null)
+                conteneur_principal.Content = this.UcDetailsProduit;
+
+            else if (unProduit.NumProduit == 0)
             {
                 int idProduit = unProduit.Create();
                 unProduit.NumProduit = idProduit;
 
+                unProduit.InsertIntoCouleurProduit();
                 this.LaGestion.LesProduits.Add(unProduit);
+
+                conteneur_principal.Content = this.UcAccueilEmploye;
             }
             else
             {
@@ -135,6 +141,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 produitAModifie.CodeProduit = unProduit.CodeProduit;
                 produitAModifie.UnType = unProduit.UnType;
                 produitAModifie.UnTypePointe = unProduit.UnTypePointe;
+                produitAModifie.UnType.UneCategorie = unProduit.UnType.UneCategorie;
                 produitAModifie.CheminImage = unProduit.CheminImage;
                 produitAModifie.Disponible = unProduit.Disponible;
                 produitAModifie.PrixVente = unProduit.PrixVente;
@@ -143,7 +150,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
                 produitAModifie.Update();
 
-                this.UcDetailsProduit.ProduitAAfficher = produitAModifie;
+                this.UcDetailsProduit.FindProduitByNum(produitAModifie.NumProduit, this.LaGestion);
+                AfficherImage(produitAModifie.CheminImage);
             }
 
             conteneur_principal.Content = this.UcDetailsProduit;
@@ -188,17 +196,20 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcFormulaireProduit.btn_modifieImage.Content = "Ajouter une image";
 
             this.UcFormulaireProduit.tb_nomProduit.Text = "";
-            
-            
+
+            this.UcFormulaireProduit.ProduitAModifier = null;
+
+            this.UcFormulaireProduit.IndexTypeSelectionne = -1;
+            this.UcFormulaireProduit.IndexTypePointeSelectionne = -1;
+            this.UcFormulaireProduit.IndexCategorieSelectionnee = -1;
+
             this.UcFormulaireProduit.tb_prix.Text = "";
             this.UcFormulaireProduit.tb_qteStock.Text = "";
+            AfficherImage("");
 
-            //this.UcFormulaireProduit.tb_couleur.Text = "";
-            //this.UcFormulaireProduit.tb_categorie.Text = "";
-            //this.UcFormulaireProduit.tb_type.Text = "";
-            //this.UcFormulaireProduit.tb_typePointe.Text = "";
-
+            this.UcFormulaireProduit.ProduitAModifier = new Produit();
             conteneur_principal.Content = this.UcFormulaireProduit;
+            
         }
 
         private void SelectionRevendeurDemandee(object? sender, Revendeur revendeurSelectionnee)
@@ -422,7 +433,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             }
             else
             {
-                MessageBox.Show("Image introuvable !");
                 return null;
             }
         }

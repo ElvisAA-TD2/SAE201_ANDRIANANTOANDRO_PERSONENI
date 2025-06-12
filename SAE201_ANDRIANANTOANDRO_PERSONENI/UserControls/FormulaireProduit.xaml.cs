@@ -2,6 +2,7 @@
 using SAE201_ANDRIANANTOANDRO_PERSONENI.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,14 +23,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// Logique d'interaction pour FormulaireProduit.xaml
     /// </summary>
     public enum ActionProduitEffectue { Modifier, Créer, Annuler}
-    public partial class FormulaireProduit : UserControl
+    public partial class FormulaireProduit : UserControl, INotifyPropertyChanged
     {
-        public event EventHandler<Produit> ActionProduitDemande;
         public static MainWindow laMainWindow = (MainWindow)Application.Current.MainWindow;
-        public int IndexTypeSelectionne { get; set; }
-        public int IndexTypePointeSelectionne { get; set; }
-        public int IndexCategorieSelectionnee { get; set; }
-        public Produit ProduitAModifier { get; set; }
+
+        public event EventHandler<Produit> ActionProduitDemande;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private int indexTypeSelectionne;
+        private int indexTypePointeSelectionne;
+        private int indexCategorieSelectionnee;
+        private Produit produitAModifier;
+
         public FormulaireProduit()
         {
             InitializeComponent();
@@ -42,30 +48,38 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void Validation_Click(object sender, RoutedEventArgs e)
         {
-            Produit produitAEnvoye = new Produit(this.ProduitAModifier.NumProduit, this.ProduitAModifier.CodeProduit, tb_nomProduit.Text, decimal.Parse(tb_prix.Text),
+            Produit produitAEnvoye = new Produit(this.ProduitAModifier.NumProduit, "CodeProduit", tb_nomProduit.Text, decimal.Parse(tb_prix.Text),
                 int.Parse(tb_qteStock.Text), this.ProduitAModifier.Disponible,
                 laMainWindow.LaGestion.LesTypePointes.FirstOrDefault(tp => tp.NomTypePointe == ((TypePointe)cb_typePointe.SelectedItem).NomTypePointe),
                 laMainWindow.LaGestion.LesTypes.FirstOrDefault(t => t.NomType == ((Model.Type)cb_type.SelectedItem).NomType),
                 this.ProduitAModifier.LesCouleurs, this.ProduitAModifier.CheminImage);
 
-
-            if (btn_valider.Content == ActionProduitEffectue.Créer.ToString())
+            if (btn_valider.Content.ToString() == ActionProduitEffectue.Créer.ToString())
             {
                 produitAEnvoye.NumProduit = 0;
+                produitAEnvoye.CodeProduit = Produit.GenererCodeProduit();
                 ActionProduitDemande?.Invoke(this, produitAEnvoye);
             }  
             else
+            {
+                produitAEnvoye.CodeProduit = this.ProduitAModifier.CodeProduit;
                 ActionProduitDemande?.Invoke(this, produitAEnvoye);
+            }
+                
         }
 
         private void CheckBox_Couleur_Checked(object sender, RoutedEventArgs e)
         {
             if(sender is CheckBox checkBox && checkBox.DataContext is Couleur couleur)
             {
-                if (ProduitAModifier != null && !ProduitAModifier.LesCouleurs.Contains(couleur))
+                if (ProduitAModifier.LesCouleurs == null)
+                    ProduitAModifier.LesCouleurs = new List<Couleur>();
+
+                else if (ProduitAModifier != null && !ProduitAModifier.LesCouleurs.Contains(couleur))
                 {
                     ProduitAModifier.LesCouleurs.Add(couleur);
                 }
+                
             }
         }
 
@@ -108,6 +122,64 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
                 img.CacheOption = BitmapCacheOption.OnLoad;
                 img.EndInit();
                 image_produit.Source = img;
+            }
+        }
+
+
+
+        public int IndexTypeSelectionne
+        {
+            get
+            {
+                return this.indexTypeSelectionne;
+            }
+
+            set
+            {
+                this.indexTypeSelectionne = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IndexTypeSelectionne)));
+            }
+        }
+
+        public int IndexTypePointeSelectionne
+        {
+            get
+            {
+                return this.indexTypePointeSelectionne;
+            }
+
+            set
+            {
+                this.indexTypePointeSelectionne = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IndexTypePointeSelectionne)));
+            }
+        }
+
+        public int IndexCategorieSelectionnee
+        {
+            get
+            {
+                return this.indexCategorieSelectionnee;
+            }
+
+            set
+            {
+                this.indexCategorieSelectionnee = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IndexCategorieSelectionnee)));
+            }
+        }
+
+        public Produit ProduitAModifier
+        {
+            get
+            {
+                return this.produitAModifier;
+            }
+
+            set
+            {
+                this.produitAModifier = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ProduitAModifier)));
             }
         }
     }

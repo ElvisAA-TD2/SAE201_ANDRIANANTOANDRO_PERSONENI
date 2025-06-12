@@ -13,10 +13,20 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Utils
     {
         public object Convert(object[] values, System.Type targetType, object parameter, CultureInfo culture)
         {
-            string nomCouleurAVerifier = values[0] as string;
-            List<Couleur> lesCouleurs = (List<Couleur>)values[1];
+            if (values == null || values.Length < 2 || values[0] == null || values[1] == null)
+                return false;
 
-            return lesCouleurs.Any(cp => cp.NomCouleur == nomCouleurAVerifier);
+            string nomCouleurAVerifier = values[0] as string;
+            if (string.IsNullOrWhiteSpace(nomCouleurAVerifier))
+                return false;
+
+            if (values[1] is List<Couleur> lesCouleurs)
+            {
+                return lesCouleurs.Any(c =>
+                    string.Equals(c.NomCouleur, nomCouleurAVerifier, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return false;
         }
 
         public object[] ConvertBack(object value, System.Type[] targetTypes, object parameter, CultureInfo culture)
