@@ -182,5 +182,15 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ProduitAModifier)));
             }
         }
+
+        private void Cb_TypeProduit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cb_type.SelectedItem is Model.Type type)
+            {
+                ProduitAModifier.UnType = type;
+
+                tb_categorieProduit.Text = type.UneCategorie.NomCategorie;
+            }
+        }
     }
 }

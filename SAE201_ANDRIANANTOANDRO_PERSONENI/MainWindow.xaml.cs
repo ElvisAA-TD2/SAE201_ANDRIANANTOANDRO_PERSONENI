@@ -197,15 +197,14 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcFormulaireProduit.btn_modifieImage.Content = "Ajouter une image";
 
             this.UcFormulaireProduit.tb_nomProduit.Text = "";
-
-            this.UcFormulaireProduit.ProduitAModifier = null;
+            this.UcFormulaireProduit.tb_prix.Text = "";
+            this.UcFormulaireProduit.tb_qteStock.Text = "";
+            this.UcFormulaireProduit.tb_categorieProduit.Text = "";
 
             this.UcFormulaireProduit.IndexTypeSelectionne = -1;
             this.UcFormulaireProduit.IndexTypePointeSelectionne = -1;
-            this.UcFormulaireProduit.IndexCategorieSelectionnee = -1;
 
-            this.UcFormulaireProduit.tb_prix.Text = "";
-            this.UcFormulaireProduit.tb_qteStock.Text = "";
+            
             AfficherImage("");
 
             this.UcFormulaireProduit.ProduitAModifier = new Produit();
@@ -342,7 +341,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             bool chargeDataOk = ChargeData();
             if (chargeDataOk)
             {
-                this.UtilisateurConnecte = this.LaGestion.LesEmploye.FirstOrDefault(e => e.Login == "andriane");
+                this.UtilisateurConnecte = this.LaGestion.LesEmploye.FirstOrDefault(e => e.Login == informationConnexion.Login);
 
                 if (informationConnexion.ConnexionReussi)
                 {

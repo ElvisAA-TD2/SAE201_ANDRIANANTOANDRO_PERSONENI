@@ -107,7 +107,7 @@
                     FontSize="16"
                     ItemsSource="{Binding LesTypes}"
                     SelectedIndex="{Binding IndexTypeSelectionne, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:FormulaireProduit}}}"
-                    Style="{DynamicResource ComboBoxStyle}" />
+                    Style="{DynamicResource ComboBoxStyle}" SelectionChanged="Cb_TypeProduit_SelectionChanged"/>
                 <Label
                     Margin="0,10,0,0"
                     Content="Type de pointe"
@@ -133,11 +133,7 @@
 
 
                 <Label Content="Couleur" Style="{DynamicResource LabelTextBox}" />
-                <!--<TextBox
-                    x:Name="tb_couleur"
-                    Style="{DynamicResource TextBoxRecherche}"
-                    Text=""
-                    TextWrapping="Wrap" />-->
+
                 <ItemsControl ItemsSource="{Binding LesCouleurs}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
