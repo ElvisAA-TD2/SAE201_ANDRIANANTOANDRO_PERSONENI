@@ -46,7 +46,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
                 int.Parse(tb_qteStock.Text), this.ProduitAModifier.Disponible,
                 laMainWindow.LaGestion.LesTypePointes.FirstOrDefault(tp => tp.NomTypePointe == ((TypePointe)cb_typePointe.SelectedItem).NomTypePointe),
                 laMainWindow.LaGestion.LesTypes.FirstOrDefault(t => t.NomType == ((Model.Type)cb_type.SelectedItem).NomType),
-                this.ProduitAModifier.LesCouleurs);
+                this.ProduitAModifier.LesCouleurs, this.ProduitAModifier.CheminImage);
 
 
             if (btn_valider.Content == ActionProduitEffectue.Créer.ToString())
@@ -98,7 +98,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
                 File.Copy(imageSource, destination, true);
 
-                //Devrait etre la mise à jour de la propriété dans ton produit mais je fais encore un test
+
                 string cheminImage = System.IO.Path.Combine(dossierImages, nouveauNom);
                 this.ProduitAModifier.CheminImage = cheminImage;
 

@@ -39,7 +39,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             this.UnTypePointe = unTypePointe;
             this.UnType = unType;
             this.LesCouleurs = lesCouleur;
-
+        }
+        public Produit(int numProduit, string codeProduit, string nomProduit, decimal prixVente, int qteStock, bool disponible, TypePointe unTypePointe, Type unType, List<Couleur> lesCouleur, string cheminImage)
+        {
+            this.CodeProduit = codeProduit;
+            this.NomProduit = nomProduit;
+            this.PrixVente = prixVente;
+            this.QteStock = qteStock;
+            this.NumProduit = numProduit;
+            this.Disponible = disponible;
+            this.UnTypePointe = unTypePointe;
+            this.UnType = unType;
+            this.LesCouleurs = lesCouleur;
+            this.CheminImage = cheminImage;
         }
 
         public string CodeProduit
@@ -218,7 +230,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
                     foreach (DataRow dr in dt.Rows)
                     {
-                        var produitAInstancier = new Produit(
+                        Produit produitAInstancier = new Produit(
                             (int)dr["numproduit"],
                             (string)dr["codeproduit"],
                             (string)dr["nomproduit"],
@@ -227,7 +239,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                             (bool)dr["disponible"],
                             laGestion.LesTypePointes.FirstOrDefault(tp => tp.CodeTypePointe == (int)dr["numtypepointe"]),
                             laGestion.LesTypes.FirstOrDefault(t => t.CodeType == (int)dr["numtype"]),
-                            new List<Couleur>() // Important : liste vide pour pouvoir ajouter ensuite
+                            new List<Couleur>()
                         );
 
                         // Ajout des couleurs liées au produit
