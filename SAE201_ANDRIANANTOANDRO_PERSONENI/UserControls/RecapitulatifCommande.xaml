@@ -129,11 +129,11 @@
                 Background="#FF335A68"
                 BorderBrush="{x:Null}"
                 Click="RevenirEnArriere_Click"
-                Content="Revenir en arrière"
+                Content="Retour"
                 FontSize="16"
                 Foreground="White"
                 RenderTransformOrigin="0.487,0.446"
-                Style="{DynamicResource Button_BorderRadiud}" />
+                Style="{DynamicResource Button_BorderRadiud}" x:Name="btn_retour"/>
             <Button
                 Width="250"
                 Height="61"

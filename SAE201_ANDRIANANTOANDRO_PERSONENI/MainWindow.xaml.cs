@@ -244,7 +244,16 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 commande.UneCommande.Delete();
                 this.LaGestion.LesCommandes.Remove(commande.UneCommande);
                 conteneur_principal.Content = this.UcMesCommandes;
-            }   
+            }
+            else
+            {
+                Commande commandeAModifier = this.LaGestion.LesCommandes.FirstOrDefault(c => c.NumCommande == commande.UneCommande.NumCommande);
+
+                commandeAModifier.DateLivraison = commande.UneCommande.DateLivraison;
+
+                commandeAModifier.Update();
+                conteneur_principal.Content = this.UcMesCommandes;
+            }
         }
 
         private void RetourEnArrièreVenantVenantDeDétails(object sender, bool reponse)
@@ -336,12 +345,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
         private void SeConnecter_Reussi (object sender, InformationConnexion informationConnexion)
         {
-            //this.ConnectionString = $"Host=localhost;Port=5432;Username=postgres;Password=Anniversaire1906$;Database=andriane_pilot";
-            this.ConnectionString = $"Host=srv-peda-new;Port=5433;Username={informationConnexion.Login};Password={informationConnexion.MotDePasse};Database=andriane_pilot;Options='-c search_path=andriane'";
+            this.ConnectionString = $"Host=localhost;Port=5432;Username=postgres;Password=Anniversaire1906$;Database=andriane_pilot";
+            //this.ConnectionString = $"Host=srv-peda-new;Port=5433;Username={informationConnexion.Login};Password={informationConnexion.MotDePasse};Database=andriane_pilot;Options='-c search_path=andriane'";
             bool chargeDataOk = ChargeData();
             if (chargeDataOk)
             {
-                this.UtilisateurConnecte = this.LaGestion.LesEmploye.FirstOrDefault(e => e.Login == informationConnexion.Login);
+                this.UtilisateurConnecte = this.LaGestion.LesEmploye.FirstOrDefault(e => e.Login == "andriane");
 
                 if (informationConnexion.ConnexionReussi)
                 {

@@ -127,7 +127,7 @@
             ColumnWidth="*"
             HeadersVisibility="Column"
             ItemsSource="{Binding LesProduits}"
-            Style="{DynamicResource DataGridStyle}">
+            Style="{DynamicResource DataGridStyle}" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="*"

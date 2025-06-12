@@ -159,7 +159,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             try
             {
                 List<Commande> lesCommandes = new List<Commande>();
-                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from commande ;"))
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from commande order by numcommande;"))
                 {
                     DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
                     foreach (DataRow dr in dt.Rows)
@@ -191,6 +191,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
         }
 
+
         public int Create()
         {
             try
@@ -213,10 +214,18 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             catch (Exception ex) { throw new ArgumentException("Problème sur la requête"); }
         }
 
-        public override string? ToString()
+        public int Update()
         {
-            return $"Num commande : {this.NumCommande} \ndateCommande : {this.DateCommande.ToShortDateString()} \nRevendeur : {this.UnRevendeur.RaisonSociale} \n" +
-                $"employe : {this.UnEmploye.Nom} \nPrix : {this.PrixTotal} \nProduitCommandé : {this.LesProduitCommande.Count()}\nMode de transport : {this.UnModeTransport.NomModeTransport} ";
+            try
+            {
+                using (var cmdUpdate = new NpgsqlCommand("update commande set datelivraison = @datelivraison where numcommande = @numcommande"))
+                {
+                    cmdUpdate.Parameters.AddWithValue("datelivraison", this.DateLivraison);
+                    cmdUpdate.Parameters.AddWithValue("numcommande", this.NumCommande);
+                    return DataAccess.Instance.ExecuteSet(cmdUpdate);
+                }
+            }
+            catch (Exception ex) { throw new ArgumentException("Problème sur la requête"); }
         }
     }
 }

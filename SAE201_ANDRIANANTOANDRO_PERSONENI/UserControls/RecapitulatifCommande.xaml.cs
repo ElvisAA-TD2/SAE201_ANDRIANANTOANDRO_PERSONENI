@@ -19,7 +19,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// <summary>
     /// Logique d'interaction pour RecapitulatifCommande.xaml
     /// </summary>
-    public enum ActionCommande { Supprimer, Annuler}
+    public enum ActionCommande { Supprimer, Annuler, Modifier };
     public partial class RecapitulatifCommande : UserControl
     {
         public event EventHandler<RecapitulatifCommandeEventArgs> ActionCommandeDemandee;
@@ -32,7 +32,14 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void RevenirEnArriere_Click(object sender, RoutedEventArgs e)
         {
-            ActionCommandeDemandee?.Invoke(this, new RecapitulatifCommandeEventArgs(ActionCommande.Annuler, null));
+            if(btn_retour.Content == "Retour")
+                ActionCommandeDemandee?.Invoke(this, new RecapitulatifCommandeEventArgs(ActionCommande.Annuler, null));
+            else
+            {
+                this.CommandeAAfficher.DateLivraison = DateTime.Parse(tb_dateLivraison.Text);
+                ActionCommandeDemandee?.Invoke(this, new RecapitulatifCommandeEventArgs(ActionCommande.Modifier, this.CommandeAAfficher));
+            }
+               
         }
 
         private void SupprimerCommande_Click(object sender, RoutedEventArgs e)
@@ -66,7 +73,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void Tb_DateLivraison_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            if (tb_dateLivraison.Text != this.CommandeAAfficher.DateLivraison.ToShortDateString())
+                btn_retour.Content = "Modifier commande";
+            else
+                btn_retour.Content = "Retour";
         }
     }
 }
