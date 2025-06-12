@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Categorie">
+    <Position X="16.75" Y="10.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAgAAAAYAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Categorie.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Type">
+    <Position X="12.25" Y="10.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>gAAAAQAAAAEAAAAAgAAQAAAAAAAAAAAEAAAABAAAAAA=</HashCode>
+      <FileName>Model\Type.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Produit">
+    <Position X="14" Y="11" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AJQAAAQAAIAAAJAABgCRAAQigYAAgEAAAABAAAQSEAA=</HashCode>
+      <FileName>Model\Produit.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Couleur">
+    <Position X="21" Y="8.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAABQAAAAAAEAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Model\Couleur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.TypePointe">
+    <Position X="8.75" Y="8" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAgAAIAIAAAAAAACAAA=</HashCode>
+      <FileName>Model\TypePointe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Commande">
+    <Position X="12.75" Y="3.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IAAAABABAEAYAABECAQYAAAAKAEAAEAAAAUAACAAIAA=</HashCode>
+      <FileName>Model\Commande.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Revendeur">
+    <Position X="17.75" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAEAAAAAACAgAQAgAgkAAAAEGAAAABgAAAAAA=</HashCode>
+      <FileName>Model\Revendeur.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Employe">
+    <Position X="9.5" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEACAABAAAAQIAAAACACIAACACAQAgAAEAA=</HashCode>
+      <FileName>Model\Employe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Role">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAgAAAAAQAAAAAAAAAgAAAAgAAAAAAAA=</HashCode>
+      <FileName>Model\Role.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.ModeTransport">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAABQAEAAAAAAAAQAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ModeTransport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.ProduitCommande">
+    <Position X="22.25" Y="4.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAACAAABAAAAAAAAAAAQAAAAAAAAAEAAAYEAAQAAAAE=</HashCode>
+      <FileName>Model\ProduitCommande.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.CouleurProduit">
+    <Position X="15.25" Y="7" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAQAAAAMAAAACQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\CouleurProduit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Utils.CouleurEstDansProduitConverter">
+    <Position X="25.5" Y="8.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utils\CouleurEstDansProduitConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Enum Name="SAE201_ANDRIANANTOANDRO_PERSONENI.Model.ActionProduit" Collapsed="true">
+    <Position X="12.75" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Produit.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

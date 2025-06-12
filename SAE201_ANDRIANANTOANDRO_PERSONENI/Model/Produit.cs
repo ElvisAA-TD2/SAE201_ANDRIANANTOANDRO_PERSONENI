@@ -203,8 +203,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
-
-
         public List<Produit> FindAll(GestionPilot laGestion)
         {
             try
