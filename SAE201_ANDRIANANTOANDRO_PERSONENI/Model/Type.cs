@@ -66,6 +66,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 this.uneCategorie = value;
             }
         }
+
         public List<Type> FindAll(GestionPilot gestionPilot)
         {
             try
