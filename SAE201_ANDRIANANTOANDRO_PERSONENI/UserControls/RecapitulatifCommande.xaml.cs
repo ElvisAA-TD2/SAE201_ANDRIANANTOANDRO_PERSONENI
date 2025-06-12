@@ -48,7 +48,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             lb_dateCreation_commande.Content = this.CommandeAAfficher.DateCommande.ToLongDateString().Substring(0, 1).ToUpper() + CommandeAAfficher.DateCommande.ToLongDateString().Substring(1).ToLower();
             lb_modeTransport_commande.Content = this.CommandeAAfficher.UnModeTransport.NomModeTransport;
             lb_prixTotal_commande.Content = this.CommandeAAfficher.PrixTotal.ToString()+ " €";
-
+            tb_dateLivraison.Text = this.CommandeAAfficher.DateLivraison.ToShortDateString();
         }
 
         //classe pour transférer deux informations à la mainWindow (l'action et la commande associé)
@@ -62,6 +62,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
                 UneAction = action;
                 UneCommande = commande;
             }
+        }
+
+        private void Tb_DateLivraison_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
         }
     }
 }
