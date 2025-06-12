@@ -26,6 +26,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     {
         public event EventHandler<Produit> ActionProduitDemande;
         public static MainWindow laMainWindow = (MainWindow)Application.Current.MainWindow;
+        public int IndexTypeSelectionne { get; set; }
+        public int IndexTypePointeSelectionne { get; set; }
+        public int IndexCategorieSelectionnee { get; set; }
         public Produit ProduitAModifier { get; set; }
         public FormulaireProduit()
         {
@@ -39,16 +42,20 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void Validation_Click(object sender, RoutedEventArgs e)
         {
-           /* Produit produitAEnvoye = new Produit(this.ProduitAModifier.NumProduit, this.ProduitAModifier.CodeProduit,
-                tb_nomProduit.Text, decimal.Parse(tb_prix.Text), int.Parse(tb_qteStock.Text), this.ProduitAModifier.Disponible,
-                laMainWindow.LaGestion.LesTypePointes.FirstOrDefault(tp => tp.NomTypePointe == tb_typePointe.Text), 
-                laMainWindow.LaGestion.LesTypes.FirstOrDefault(t => t.NomType == tb_type.Text), null);*/
+            Produit produitAEnvoye = new Produit(this.ProduitAModifier.NumProduit, this.ProduitAModifier.CodeProduit, tb_nomProduit.Text, decimal.Parse(tb_prix.Text),
+                int.Parse(tb_qteStock.Text), this.ProduitAModifier.Disponible,
+                laMainWindow.LaGestion.LesTypePointes.FirstOrDefault(tp => tp.NomTypePointe == ((TypePointe)cb_typePointe.SelectedItem).NomTypePointe),
+                laMainWindow.LaGestion.LesTypes.FirstOrDefault(t => t.NomType == ((Model.Type)cb_type.SelectedItem).NomType),
+                this.ProduitAModifier.LesCouleurs);
 
 
-            /*if (btn_valider.Content == ActionProduitEffectue.Créer.ToString())
-                ActionProduitDemande?.Invoke(this, ActionProduitEffectue.Créer);
+            if (btn_valider.Content == ActionProduitEffectue.Créer.ToString())
+            {
+                produitAEnvoye.NumProduit = 0;
+                ActionProduitDemande?.Invoke(this, produitAEnvoye);
+            }  
             else
-                ActionProduitDemande?.Invoke(this, ActionProduitEffectue.Modifier);*/
+                ActionProduitDemande?.Invoke(this, produitAEnvoye);
         }
 
         private void CheckBox_Couleur_Checked(object sender, RoutedEventArgs e)

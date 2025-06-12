@@ -125,20 +125,15 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 this.UcFormulaireProduit.btn_modifieImage.Content = "Modifier l'image";
 
                 this.UcFormulaireProduit.ProduitAModifier = uneInformationPorduit.UnProduit;
+                this.UcFormulaireProduit.IndexTypeSelectionne = this.LaGestion.LesTypes.IndexOf(uneInformationPorduit.UnProduit.UnType);
+                this.UcFormulaireProduit.IndexTypePointeSelectionne = this.LaGestion.LesTypePointes.IndexOf(uneInformationPorduit.UnProduit.UnTypePointe);
+                this.UcFormulaireProduit.IndexCategorieSelectionnee = this.LaGestion.LesCategories.IndexOf(uneInformationPorduit.UnProduit.UnType.UneCategorie);
 
-                /*this.UcFormulaireProduit.tb_nomProduit.Text = uneInformationPorduit.UnProduit.NomProduit;
 
 
-                
-                
+                this.UcFormulaireProduit.tb_nomProduit.Text = uneInformationPorduit.UnProduit.NomProduit;                 
                 this.UcFormulaireProduit.tb_prix.Text = uneInformationPorduit.UnProduit.PrixVente.ToString();
-                this.UcFormulaireProduit.tb_qteStock.Text = uneInformationPorduit.UnProduit.QteStock.ToString();*/
-
-
-                //this.UcFormulaireProduit.tb_couleur.Text = uneInformationPorduit.UnProduit.NomCouleurConcatene;
-                //this.UcFormulaireProduit.tb_categorie.Text = uneInformationPorduit.UnProduit.UnType.UneCategorie.NomCategorie;
-                //this.UcFormulaireProduit.tb_type.Text = uneInformationPorduit.UnProduit.UnType.NomType;
-                //this.UcFormulaireProduit.tb_typePointe.Text = uneInformationPorduit.UnProduit.UnTypePointe.NomTypePointe;
+                this.UcFormulaireProduit.tb_qteStock.Text = uneInformationPorduit.UnProduit.QteStock.ToString();
 
                 conteneur_principal.Content = this.UcFormulaireProduit;
             }

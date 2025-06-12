@@ -54,9 +54,9 @@
                 VerticalAlignment="Center"
                 Orientation="Vertical">
                 <Image
-                    Name="image_produit"
+                    x:Name="image_produit"
                     Width="238"
-                    Height="169" />
+                    Height="169" Panel.ZIndex="10" />
                 <Button
                     x:Name="btn_modifieImage"
                     Width="200"
@@ -91,8 +91,8 @@
                     Height="43"
                     DisplayMemberPath="NomCategorie"
                     FontSize="16"
-                    ItemsSource="{Binding LesCategories}"
-                    Style="{DynamicResource ComboBoxStyle}" SelectedItem="{Binding LesCategorie.Count}"/>
+                    ItemsSource="{Binding LesCategories}" x:Name="cb_categorie"
+                    Style="{DynamicResource ComboBoxStyle}" SelectedIndex="{Binding IndexCategorieSelectionnee, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:FormulaireProduit}}}"/>
                 <Label
                     Margin="0,10,0,0"
                     Content="Type"
@@ -101,9 +101,9 @@
                 <ComboBox
                     Height="43"
                     DisplayMemberPath="NomType"
-                    FontSize="16"
+                    FontSize="16" x:Name="cb_type"
                     ItemsSource="{Binding LesTypes}"
-                    Style="{DynamicResource ComboBoxStyle}" />
+                    Style="{DynamicResource ComboBoxStyle}" SelectedIndex="{Binding IndexTypeSelectionne, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:FormulaireProduit}}}"/>
                 <Label
                     Margin="0,10,0,0"
                     Content="Type de pointe"
@@ -114,7 +114,7 @@
                     DisplayMemberPath="NomTypePointe"
                     FontSize="16"
                     ItemsSource="{Binding LesTypePointes}"
-                    Style="{DynamicResource ComboBoxStyle}" x:Name="cb_typePointe" SelectedIndex="0"/>
+                    Style="{DynamicResource ComboBoxStyle}" x:Name="cb_typePointe" SelectedIndex="{Binding IndexTypePointeSelectionne, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:FormulaireProduit}}}"/>
             </StackPanel>
             <StackPanel
                 Width="350"
