@@ -58,5 +58,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model.Tests
             Revendeur r1 = new Revendeur(-1, "Papeterie test", "rue de l'arc en ciel", "74000", "Annecy");
             r1.Update();
         }
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Revendeur_FindAll_test()
+        {
+            Revendeur r1 = new Revendeur(-1, "Papeterie test", "rue de l'arc en ciel", "74000", "Annecy");
+            r1.FindAll();
+        }
     }
 }
