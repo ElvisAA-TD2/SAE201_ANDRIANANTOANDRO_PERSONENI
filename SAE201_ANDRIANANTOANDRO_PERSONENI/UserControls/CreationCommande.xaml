@@ -129,7 +129,7 @@
         </DataGrid>
         <Label
             Margin="933,698,0,0"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Content="Mode de livraison"
             FontSize="18"
@@ -140,16 +140,14 @@
             Width="188"
             Height="52"
             Margin="920,736,0,0"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             VerticalAlignment="Top"
             DisplayMemberPath="NomModeTransport"
-            ItemsSource="{Binding LesModeTransports}"
-            Style="{DynamicResource ComboBoxStyle_ModeDeLivraison}" SelectionChanged="ModeLivraison_SelectionChanged" />
+            ItemsSource="{Binding LesModeTransports}"  SelectionChanged="ModeLivraison_SelectionChanged" />
         <Button
             Width="446"
             Height="61"
-            Margin="388,1072,0,0"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Background="#FF335A68"
             BorderBrush="{x:Null}"
@@ -157,7 +155,7 @@
             Content="Créer une commande"
             Foreground="White"
             RenderTransformOrigin="0.487,0.446"
-            Style="{DynamicResource Button_BorderRadiud}" />
+            Style="{DynamicResource Button_BorderRadiud}" Margin="0,1079,0,0" />
         <Label
             Margin="986,1074,0,0"
             HorizontalAlignment="Left"
@@ -257,7 +255,7 @@
             Text=""
             TextChanged="TextBox_TextChanged"
             TextWrapping="Wrap" />
-        <Label Content="Coût de la commande : " HorizontalAlignment="Left" Margin="912,905,0,0" VerticalAlignment="Top" Style="{DynamicResource LabelTextBox}"/>
-        <Label Content="0.0 €" HorizontalAlignment="Left" Margin="984,944,0,0" VerticalAlignment="Top"  x:Name="lb_cout_commande" FontSize="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{DynamicResource LabelTextBox}" FontWeight="Bold" Foreground="#FF043F68"/>
+        <Label Content="Coût de la commande : " HorizontalAlignment="Center" Margin="912,905,0,0" VerticalAlignment="Top" Style="{DynamicResource LabelTextBox}"/>
+        <Label Content="0.0 €" Margin="963,944,51,0" VerticalAlignment="Top"  x:Name="lb_cout_commande" FontSize="22" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{DynamicResource LabelTextBox}" FontWeight="Bold" Foreground="#FF043F68"/>
     </Grid>
 </UserControl>

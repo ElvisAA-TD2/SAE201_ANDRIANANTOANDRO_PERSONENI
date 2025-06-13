@@ -5,11 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
-    d:DesignWidth="1200"
+    Width="Auto"
+    Height="Auto"
     mc:Ignorable="d">
     <Grid Background="#FFDDF1FF">
-        <StackPanel Width="500" Background="#FFDDF1FF">
+        <StackPanel Width="800" Background="#FFDDF1FF">
             <Label
                 HorizontalAlignment="Center"
                 Content="Selection du revendeur"
@@ -28,6 +28,19 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
+            <Button
+                Width="222"
+                Height="66"
+                Margin="10,0,10,10"
+                Padding="0"
+                HorizontalAlignment="Left"
+                Background="#FF335A68"
+                BorderBrush="Transparent"
+                Click="Retour_Click"
+                Content="Retour"
+                FontSize="20"
+                Foreground="White"
+                Style="{DynamicResource Button_BorderRadiud}" />
             <Label
                 Margin="0,25,0,0"
                 Content="Rechercher"
@@ -42,8 +55,8 @@
                 TextChanged="TextBox_TextChanged"
                 TextWrapping="Wrap" />
             <Button
-                Width="118"
-                Height="35"
+                Width="222"
+                Height="66"
                 Margin="10,0,10,10"
                 Padding="0"
                 HorizontalAlignment="Right"
@@ -51,9 +64,13 @@
                 BorderBrush="Transparent"
                 Click="CreationRevendeur_Click"
                 Content="Créer un revendeur"
+                FontSize="20"
                 Foreground="White"
                 Style="{DynamicResource Button_BorderRadiud}" />
-            <ScrollViewer Height="280" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer
+                Height="500"
+                Margin="0,40,0,0"
+                VerticalScrollBarVisibility="Auto">
                 <ItemsControl
                     x:Name="listeRevendeurs"
                     Margin="0,20"

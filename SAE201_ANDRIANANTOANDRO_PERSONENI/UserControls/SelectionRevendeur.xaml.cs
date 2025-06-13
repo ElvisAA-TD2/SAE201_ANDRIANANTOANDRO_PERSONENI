@@ -19,13 +19,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// <summary>
     /// Logique d'interaction pour SelectionClient.xaml
     /// </summary>
-    public enum ActionRevendeur { Ajouter, Modifier };
+    public enum ActionRevendeur { Ajouter, Modifier, Annuler };
     public partial class SelectionRevendeur : UserControl
     {
         public event EventHandler<Revendeur> RevendeurSelectionne;
         public event EventHandler<RevendeurEventArgs> RevendeurActionNecessaire;
 
-        
         public SelectionRevendeur()
         {
             InitializeComponent();
@@ -73,6 +72,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
                 Action = action;
                 Revendeur = revendeur;
             }
+        }
+
+        private void Retour_Click(object sender, RoutedEventArgs e)
+        {
+            RevendeurActionNecessaire?.Invoke(this, new RevendeurEventArgs(ActionRevendeur.Annuler, null));
         }
     }
 }
