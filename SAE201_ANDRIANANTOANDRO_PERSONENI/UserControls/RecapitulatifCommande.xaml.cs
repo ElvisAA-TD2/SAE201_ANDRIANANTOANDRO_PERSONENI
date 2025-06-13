@@ -36,10 +36,23 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
                 ActionCommandeDemandee?.Invoke(this, new RecapitulatifCommandeEventArgs(ActionCommande.Annuler, null));
             else
             {
-                this.CommandeAAfficher.DateLivraison = DateTime.Parse(tb_dateLivraison.Text);
-                ActionCommandeDemandee?.Invoke(this, new RecapitulatifCommandeEventArgs(ActionCommande.Modifier, this.CommandeAAfficher));
-            }
-               
+                DateTime nouvelleDateLivraison;
+                try
+                {
+                    if (DateTime.TryParse(tb_dateLivraison.Text, out nouvelleDateLivraison))
+                    {
+                        this.CommandeAAfficher.DateLivraison = nouvelleDateLivraison;
+                        ActionCommandeDemandee?.Invoke(this, new RecapitulatifCommandeEventArgs(ActionCommande.Modifier, this.CommandeAAfficher));
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Date de livraison invalide, Veuillez entrer une date au format DD/MM/YYYY", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                
+                    
+                    
+            }  
         }
 
         private void SupprimerCommande_Click(object sender, RoutedEventArgs e)
