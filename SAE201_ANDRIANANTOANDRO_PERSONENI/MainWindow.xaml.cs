@@ -117,6 +117,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
 
             conteneur_authentification.Content = this.UcAuthentification;
+            conteneur_authentification.Content = this.UcAuthentification;
         }
 
         private void ActionProduitTerminee(object sender, Produit unProduit)
@@ -208,6 +209,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcFormulaireProduit.tb_prix.Text = "";
             this.UcFormulaireProduit.tb_qteStock.Text = "";
             this.UcFormulaireProduit.tb_categorieProduit.Text = "";
+            this.UcFormulaireProduit.image_produit.Source = null;
 
             this.UcFormulaireProduit.IndexTypeSelectionne = -1;
             this.UcFormulaireProduit.IndexTypePointeSelectionne = -1;
@@ -344,7 +346,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 case Navigation.MesCommandes:
                     conteneur_principal.Content = this.UcMesCommandes;
                     break;
-                /*case Navigation.Deconnexion:
+                case Navigation.Deconnexion:
                     conteneur_haut.Visibility = Visibility.Collapsed;
                     conteneur_principal.Visibility = Visibility.Collapsed;
                     conteneur_haut.Children.Clear();
@@ -359,7 +361,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                     conteneur_authentification.IsEnabled = true;
                     conteneur_authentification.Focusable = true;
                     conteneur_authentification.Focus();
-                    break;*/
+                    break;
 
             }
         }
@@ -380,6 +382,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
                     conteneur_haut.Visibility = Visibility.Visible;
                     scrollViewer_conteneur_principal.Visibility = Visibility.Visible;
+                    conteneur_principal.Visibility = Visibility.Visible;
 
                     this.UcBarDeNavigation.lb_loginUser.Content = this.UtilisateurConnecte.Login;
                     this.UcBarDeNavigation.lb_roleUser.Content = this.UtilisateurConnecte.UnRole.NomRole;
