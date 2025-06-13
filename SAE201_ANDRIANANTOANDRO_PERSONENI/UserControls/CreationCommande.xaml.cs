@@ -72,10 +72,25 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         {
             List<ProduitCommande> lesProduitsCommandes = new List<ProduitCommande>();
             foreach (ProduitACommande unProduitACommande in this.LesProduitsSelectionnes)
-                lesProduitsCommandes.Add(new ProduitCommande(0, unProduitACommande.UnProduit, unProduitACommande.QuantiteCommandee));
+            {
+                bool result = int.TryParse(unProduitACommande.QuantiteCommandee.ToString(), out int res);
+                bool qteintOk = true, pasproduit = true;
+                if (unProduitACommande.QuantiteCommandee <= 0 || result)
+                {
+                    MessageBox.Show("Quantite sur le " + unProduitACommande.UnProduit.NomProduit + " non valide", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                    qteintOk = false;
+                }
+                if (this.LesProduitsSelectionnes.Count() == 0 || this.LesProduitsSelectionnes == null) 
+                    pasproduit = false;
+                if (qteintOk && pasproduit)
+                {
+                    foreach (ProduitACommande unProduitACommande1 in this.LesProduitsSelectionnes)
+                        lesProduitsCommandes.Add(new ProduitCommande(0, unProduitACommande.UnProduit, unProduitACommande.QuantiteCommandee));
 
-            Commande commandeACree = new Commande(null, null, this.ModeTransportSelectionne, DateTime.Now, DateTime.Now, lesProduitsCommandes, this.PrixTotal);
-            CreationCommandeValidation?.Invoke(this, commandeACree);
+                    Commande commandeACree = new Commande(null, null, this.ModeTransportSelectionne, DateTime.Now, DateTime.Now, lesProduitsCommandes, this.PrixTotal);
+                    CreationCommandeValidation?.Invoke(this, commandeACree);
+                }
+            }
         }
 
         private void SelectionProduit_Click(object sender, RoutedEventArgs e)
@@ -120,7 +135,16 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         {
             decimal prixTotal = 0;
             foreach (ProduitACommande unProduitACommande in this.LesProduitsSelectionnes)
-                prixTotal += unProduitACommande.SousTotal;
+            {
+                if (unProduitACommande.SousTotal < 0)
+                {
+
+                }
+                else
+                    prixTotal += unProduitACommande.SousTotal;
+            }
+               
+
             
             lb_cout_commande.Content = prixTotal.ToString() + " €";
             return prixTotal;

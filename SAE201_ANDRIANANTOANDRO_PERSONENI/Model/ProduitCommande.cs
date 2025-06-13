@@ -34,7 +34,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                if (value <= 0) { throw new ArgumentOutOfRangeException("Qte commander suprérieur ou égale à 0"); }
+                if (value < 0) { throw new ArgumentOutOfRangeException("Qte commander suprérieur à 0"); }
                 else
                     this.quantiteCommande = value;
             }
