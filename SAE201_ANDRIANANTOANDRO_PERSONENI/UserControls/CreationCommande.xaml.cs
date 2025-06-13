@@ -75,7 +75,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             {
                 bool result = int.TryParse(unProduitACommande.QuantiteCommandee.ToString(), out int res);
                 bool qteintOk = true, pasproduit = true;
-                if (unProduitACommande.QuantiteCommandee <= 0 || result == false)
+                if (unProduitACommande.QuantiteCommandee <= 0 || res == 0 || unProduitACommande.QuantiteCommandee > 100) // Sujet ennonce  pas plus de 100 produit commander
                 {
                     MessageBox.Show("Quantite sur le " + unProduitACommande.UnProduit.NomProduit + " non valide", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                     qteintOk = false;
