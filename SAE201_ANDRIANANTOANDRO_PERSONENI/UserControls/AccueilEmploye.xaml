@@ -109,8 +109,8 @@
             x:Name="btn_ajoutProduit"
             Width="174"
             Height="61"
-            Margin="996,236,0,0"
-            HorizontalAlignment="Left"
+            Margin="986,248,0,0"
+            HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Background="#FF335A68"
             BorderBrush="{x:Null}"
@@ -118,19 +118,20 @@
             Content="Ajouter un produit"
             Foreground="White"
             RenderTransformOrigin="0.487,0.446"
-            Style="{DynamicResource Button_BorderRadiud}" />
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            Style="{DynamicResource Button_BorderRadiud}"
+            TabIndex="10" />
+        <ScrollViewer Margin="0,338,0,0" VerticalScrollBarVisibility="Auto">
             <DataGrid
                 x:Name="dg_produits"
                 Width="Auto"
-                Margin="30,312,30,38"
+                HorizontalAlignment="Center"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False"
                 ColumnWidth="*"
                 HeadersVisibility="Column"
                 IsReadOnly="True"
                 ItemsSource="{Binding LesProduits}"
-                Style="{DynamicResource DataGridStyle}">
+                Style="{DynamicResource DataGridStyle}" Margin="20">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Width="*"

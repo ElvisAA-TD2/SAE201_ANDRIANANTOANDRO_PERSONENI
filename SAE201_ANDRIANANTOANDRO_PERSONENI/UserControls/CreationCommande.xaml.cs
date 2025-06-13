@@ -124,6 +124,16 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             return prixTotal;
         }
 
+        private void Tb_QteCommande_Changed(object sender, TextChangedEventArgs e)
+        {
+            this.PrixTotal = MettreAJourPrixTotal();
+        }
+
+        private void ModeLivraison_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.ModeTransportSelectionne = (ModeTransport)cb_ModeLivraison.SelectedItem;
+        }
+
 
         //class pour avoir les info nécessaire
         public class ProduitACommande : INotifyPropertyChanged
@@ -163,14 +173,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             }
         }
 
-        private void Tb_QteCommande_Changed(object sender, TextChangedEventArgs e)
-        {
-            this.PrixTotal = MettreAJourPrixTotal();
-        }
-
-        private void ModeLivraison_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            this.ModeTransportSelectionne = (ModeTransport)cb_ModeLivraison.SelectedItem;
-        }
+        
     }
 }

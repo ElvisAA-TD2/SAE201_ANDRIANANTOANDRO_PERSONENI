@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.Utils"
     Width="Auto"
-    Height="550"
+    Height="Auto"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -107,7 +107,8 @@
                     FontSize="16"
                     ItemsSource="{Binding LesTypes}"
                     SelectedIndex="{Binding IndexTypeSelectionne, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:FormulaireProduit}}}"
-                    Style="{DynamicResource ComboBoxStyle}" SelectionChanged="Cb_TypeProduit_SelectionChanged"/>
+                    SelectionChanged="Cb_TypeProduit_SelectionChanged"
+                    Style="{DynamicResource ComboBoxStyle}" />
                 <Label
                     Margin="0,10,0,0"
                     Content="Type de pointe"

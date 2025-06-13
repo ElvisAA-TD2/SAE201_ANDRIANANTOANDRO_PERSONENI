@@ -6,11 +6,14 @@
     xmlns:local="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="Auto"
-    d:DesignHeight="450"
+    Height="Auto"
     mc:Ignorable="d">
     <Grid Background="#FFDDF1FF">
-        <StackPanel Width="900" HorizontalAlignment="Center">
-            <StackPanel Width="550" Orientation="Horizontal">
+        <StackPanel Width="1200" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel
+                Width="Auto"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
                 <StackPanel Width="250">
                     <Label Content="Date" Style="{DynamicResource LabelTextBox}" />
                     <TextBox
@@ -18,7 +21,7 @@
                         Style="{DynamicResource TextBoxRecherche}"
                         TextChanged="TextBox_Changed" />
                 </StackPanel>
-                <StackPanel Width="250" Margin="40,0,0,0">
+                <StackPanel Width="Auto" Margin="40,0,0,0">
                     <Label Content="Raison sociale du revendeur" Style="{DynamicResource LabelTextBox}" />
                     <TextBox
                         x:Name="tb_raisonSociale_revendeur"
@@ -33,7 +36,7 @@
                     CanUserAddRows="False"
                     IsReadOnly="True"
                     ItemsSource="{Binding LesCommandes}"
-                    Style="{DynamicResource DataGridStyle}">
+                    Style="{DynamicResource DataGridStyle}" Margin="20">
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Width="*"

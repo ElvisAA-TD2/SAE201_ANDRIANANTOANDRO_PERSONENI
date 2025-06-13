@@ -6,148 +6,155 @@
     xmlns:local="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="Auto"
+    Height="Auto"
     mc:Ignorable="d">
     <Grid Background="#FFDDF1FF">
-        <Label
-            HorizontalAlignment="Center"
-            Content="Récapitulatif commande"
-            Style="{DynamicResource LabelTextBox}" />
-        <Rectangle
-            Width="329"
-            Height="1"
-            Margin="0,46,0,403"
-            HorizontalAlignment="Center"
-            RenderTransformOrigin="0.5,0.5"
-            Stroke="#FF00538E">
-            <Rectangle.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleY="-1" />
-                    <SkewTransform />
-                    <RotateTransform />
-                    <TranslateTransform />
-                </TransformGroup>
-            </Rectangle.RenderTransform>
-        </Rectangle>
-        <StackPanel
-            Width="1000"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <StackPanel
-                Width="397"
-                Height="251"
-                VerticalAlignment="Center">
-                <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
-                    <Label Content="Revendeur :" Style="{DynamicResource LabelTextBox}" />
-                    <Label
-                        x:Name="lb_raisonSociale_revendeur"
-                        VerticalAlignment="Center"
-                        Content="revendeurRaisonSociale"
-                        FontSize="18" />
-                </StackPanel>
-                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                    <Label Content="Date de création : " Style="{DynamicResource LabelTextBox}" />
-                    <Label
-                        x:Name="lb_dateCreation_commande"
-                        VerticalAlignment="Center"
-                        Content="datecreation"
-                        FontSize="18" />
-                </StackPanel>
-                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                    <Label
-                        VerticalAlignment="Center"
-                        Content="Date de livraison : "
-                        Style="{DynamicResource LabelTextBox}" />
-                    <TextBox
-                        x:Name="tb_dateLivraison"
-                        Width="201"
-                        Style="{DynamicResource TextBoxRecherche}"
-                        TextChanged="Tb_DateLivraison_TextChanged" />
-                </StackPanel>
-                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                    <Label Content="Mode de transport : " Style="{DynamicResource LabelTextBox}" />
-                    <Label
-                        x:Name="lb_modeTransport_commande"
-                        VerticalAlignment="Center"
-                        Content="modeTransport"
-                        FontSize="18" />
-                </StackPanel>
-
-                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                    <Label Content="Prix total : " Style="{DynamicResource LabelTextBox}" />
-                    <Label
-                        x:Name="lb_prixTotal_commande"
-                        VerticalAlignment="Center"
-                        Content="prixTotal"
-                        FontSize="18" />
-                </StackPanel>
-            </StackPanel>
-            <StackPanel
-                Width="588"
-                Height="250"
-                VerticalAlignment="Center">
+        <StackPanel Margin="0,10,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Margin="0,0,0,50">
                 <Label
-                    VerticalAlignment="Top"
-                    Content="Produit(s) commandé(s) : "
+                    HorizontalAlignment="Center"
+                    Content="Récapitulatif commande"
                     Style="{DynamicResource LabelTextBox}" />
-                <DataGrid
-                    x:Name="dg_produitCommandes"
-                    AutoGenerateColumns="False"
-                    CanUserAddRows="False"
-                    IsReadOnly="True"
-                    Style="{DynamicResource DataGridStyle}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding UnProduit.NomProduit}"
-                            Header="Nom produit" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding UnProduit.PrixVente}"
-                            Header="Prix Unitaire" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding QuantiteCommande}"
-                            Header="Qte commandée" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding Prix}"
-                            Header="Prix" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                <Rectangle
+                    Width="329"
+                    Height="1"
+                    HorizontalAlignment="Center"
+                    Stroke="#FF00538E">
+                    <Rectangle.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </Rectangle.RenderTransform>
+                </Rectangle>
             </StackPanel>
-        </StackPanel>
-        <StackPanel
-            Margin="0,0,0,20"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Bottom"
-            Orientation="Horizontal">
-            <Button
-                Width="250"
-                Height="61"
+            <StackPanel
+                Width="Auto"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Background="#FF335A68"
-                BorderBrush="{x:Null}"
-                Click="RevenirEnArriere_Click"
-                Content="Retour"
-                FontSize="16"
-                Foreground="White"
-                RenderTransformOrigin="0.487,0.446"
-                Style="{DynamicResource Button_BorderRadiud}" x:Name="btn_retour"/>
-            <Button
-                Width="250"
-                Height="61"
-                Margin="50,0,0,0"
+                Orientation="Horizontal">
+
+                <StackPanel
+                    Width="Auto"
+                    Height="251"
+                    Margin="50,0,50,0"
+                    VerticalAlignment="Center">
+                    <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                        <Label Content="Revendeur :" Style="{DynamicResource LabelTextBox}" />
+                        <Label
+                            x:Name="lb_raisonSociale_revendeur"
+                            VerticalAlignment="Center"
+                            Content="revendeurRaisonSociale"
+                            FontSize="18" />
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <Label Content="Date de création : " Style="{DynamicResource LabelTextBox}" />
+                        <Label
+                            x:Name="lb_dateCreation_commande"
+                            VerticalAlignment="Center"
+                            Content="datecreation"
+                            FontSize="18" />
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <Label
+                            VerticalAlignment="Center"
+                            Content="Date de livraison : "
+                            Style="{DynamicResource LabelTextBox}" />
+                        <TextBox
+                            x:Name="tb_dateLivraison"
+                            Width="201"
+                            Style="{DynamicResource TextBoxRecherche}"
+                            TextChanged="Tb_DateLivraison_TextChanged" />
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <Label Content="Mode de transport : " Style="{DynamicResource LabelTextBox}" />
+                        <Label
+                            x:Name="lb_modeTransport_commande"
+                            VerticalAlignment="Center"
+                            Content="modeTransport"
+                            FontSize="18" />
+                    </StackPanel>
+
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <Label Content="Prix total : " Style="{DynamicResource LabelTextBox}" />
+                        <Label
+                            x:Name="lb_prixTotal_commande"
+                            VerticalAlignment="Center"
+                            Content="prixTotal"
+                            FontSize="18" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel
+                    Width="588"
+                    Height="250"
+                    Margin="0,0,50,0"
+                    VerticalAlignment="Center">
+                    <Label
+                        VerticalAlignment="Top"
+                        Content="Produit(s) commandé(s) : "
+                        Style="{DynamicResource LabelTextBox}" />
+                    <DataGrid
+                        x:Name="dg_produitCommandes"
+                        AutoGenerateColumns="False"
+                        CanUserAddRows="False"
+                        IsReadOnly="True"
+                        Style="{DynamicResource DataGridStyle}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding UnProduit.NomProduit}"
+                                Header="Nom produit" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding UnProduit.PrixVente}"
+                                Header="Prix Unitaire" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding QuantiteCommande}"
+                                Header="Qte commandée" />
+                            <DataGridTextColumn
+                                Width="*"
+                                Binding="{Binding Prix}"
+                                Header="Prix" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel
+                Margin="0,0,0,20"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Background="#B70909"
-                BorderBrush="{x:Null}"
-                Click="SupprimerCommande_Click"
-                Content="Supprimer"
-                FontSize="16"
-                Foreground="White"
-                RenderTransformOrigin="0.487,0.446"
-                Style="{DynamicResource Button_BorderRadiud}" />
+                VerticalAlignment="Bottom"
+                Orientation="Horizontal">
+                <Button
+                    x:Name="btn_retour"
+                    Width="250"
+                    Height="61"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Background="#FF335A68"
+                    BorderBrush="{x:Null}"
+                    Click="RevenirEnArriere_Click"
+                    Content="Retour"
+                    FontSize="16"
+                    Foreground="White"
+                    RenderTransformOrigin="0.487,0.446"
+                    Style="{DynamicResource Button_BorderRadiud}" />
+                <Button
+                    Width="250"
+                    Height="61"
+                    Margin="50,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Background="#B70909"
+                    BorderBrush="{x:Null}"
+                    Click="SupprimerCommande_Click"
+                    Content="Supprimer"
+                    FontSize="16"
+                    Foreground="White"
+                    RenderTransformOrigin="0.487,0.446"
+                    Style="{DynamicResource Button_BorderRadiud}" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

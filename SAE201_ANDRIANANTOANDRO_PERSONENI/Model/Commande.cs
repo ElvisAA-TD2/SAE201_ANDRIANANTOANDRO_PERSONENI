@@ -154,54 +154,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
-        public ProduitCommande ProduitCommande
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public ModeTransport ModeTransport
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public Employe Employe
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
-        public Revendeur Revendeur
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
-        }
-
         public List<Commande> FindAll(GestionPilot gestionPilot)
         {
             try

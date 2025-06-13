@@ -52,7 +52,14 @@
             Margin="39,27,919,151"
             Source="/Images/Logo_pilot.png"
             Stretch="Uniform" />
-        <Border BorderThickness="2" Width="276" Height="116" Background="#FFADC9DC" HorizontalAlignment="Right" CornerRadius="20" Margin="0,0,40,0">
+        <Border
+            Width="276"
+            Height="116"
+            Margin="0,0,40,0"
+            HorizontalAlignment="Right"
+            Background="#FFADC9DC"
+            BorderThickness="2"
+            CornerRadius="20">
             <StackPanel
                 Width="276"
                 Height="116"
@@ -60,31 +67,32 @@
                 VerticalAlignment="Top"
                 Orientation="Vertical">
                 <StackPanel
+                    Width="247"
+                    Margin="20,5,0,0"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Orientation="Horizontal" Margin="20,5,0,0">
+                    Orientation="Horizontal">
                     <Image Source="/Images/User.png" Stretch="Uniform" />
                     <Label
                         x:Name="lb_loginUser"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
                         Content="loginUtilisateur"
                         FontSize="16"
-                        Foreground="#FF3B5D68" Margin="0,20,0,0" />
+                        Foreground="#FF3B5D68" />
                     <Button
                         x:Name="deconnexion_btn"
                         Width="58"
                         Height="40"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
                         Background="#C14347"
                         BorderBrush="{x:Null}"
                         Click="DeconnexionBtn_Click"
                         FontSize="16"
                         Foreground="White"
-                        Style="{DynamicResource Button_BorderRadiud}" Margin="40,5,0,0">
+                        Style="{DynamicResource Button_BorderRadiud}">
                         <Image
                             Width="16"
                             Height="22"
@@ -95,11 +103,12 @@
                 <Rectangle
                     Width="206"
                     Height="2"
+                    Margin="0,5,0,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
                     RenderTransformOrigin="0.5,0.5"
                     Stretch="Fill"
-                    Stroke="#FF3B5D68" Margin="0,5,0,0">
+                    Stroke="#FF3B5D68">
                     <Rectangle.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleY="1" />

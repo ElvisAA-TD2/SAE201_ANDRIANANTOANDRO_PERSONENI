@@ -6,151 +6,154 @@
     xmlns:local="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="Auto"
-    d:DesignHeight="450"
     mc:Ignorable="d">
     <Grid Background="#FFDDF1FF">
-        <Label
-            HorizontalAlignment="Center"
-            Content="Détails produit"
-            Style="{DynamicResource LabelTextBox}" />
-        <Rectangle
-            Width="267"
-            Height="1"
-            Margin="466,46,467,403"
-            RenderTransformOrigin="0.5,0.5"
-            Stroke="#FF00538E">
-            <Rectangle.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleY="-1" />
-                    <SkewTransform />
-                    <RotateTransform />
-                    <TranslateTransform />
-                </TransformGroup>
-            </Rectangle.RenderTransform>
-        </Rectangle>
-        <StackPanel
-            x:Name="stackPanel_principal"
-            Width="630"
-            Margin="150,0,0,40"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-            <StackPanel Width="214" Height="244">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Label
-                    x:Name="lb_nomProduit"
-                    Margin="0,20,0,0"
                     HorizontalAlignment="Center"
-                    Content="nomProduit"
-                    FontSize="18"
-                    FontStyle="Italic"
-                    Foreground="#335A68" />
-                <Image
-                    x:Name="image_produit"
-                    Width="Auto"
-                    Height="170"
-                    Stretch="Uniform" />
+                    Content="Détails produit"
+                    Style="{DynamicResource LabelTextBox}" />
+                <Rectangle
+                    Width="267"
+                    Height="1"
+                    Stroke="#FF00538E">
+                    <Rectangle.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </Rectangle.RenderTransform>
+                </Rectangle>
             </StackPanel>
 
-            <StackPanel Margin="100,0,0,0">
-                <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
-                    <Label Content="Catégorie :" Style="{DynamicResource LabelTextBox}" />
+            <StackPanel
+                x:Name="stackPanel_principal"
+                Margin="150,0,0,40"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <StackPanel Width="214" Height="244">
                     <Label
-                        x:Name="lb_categorieProduit"
-                        VerticalAlignment="Center"
-                        Content="catégorieProduit"
-                        FontSize="18" />
-                </StackPanel>
-                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                    <Label Content="Type :" Style="{DynamicResource LabelTextBox}" />
-                    <Label
-                        x:Name="lb_typeProduit"
-                        VerticalAlignment="Center"
-                        Content="typeProduit"
-                        FontSize="18" />
-                </StackPanel>
-                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                    <Label Content="Type de Pointe : " Style="{DynamicResource LabelTextBox}" />
-                    <Label
-                        x:Name="lb_typePointeProduit"
-                        VerticalAlignment="Center"
-                        Content="typePointeProduit"
-                        FontSize="18" />
-                </StackPanel>
-                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                    <Label Content="Couleur(s) : " Style="{DynamicResource LabelTextBox}" />
-                    <Label
-                        x:Name="lb_couleurProduit"
-                        VerticalAlignment="Center"
-                        Content="couleurProduit"
-                        FontSize="18" />
-                </StackPanel>
-                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                    <Label Content="Prix : " Style="{DynamicResource LabelTextBox}" />
-                    <Label
-                        x:Name="lb_prixProduit"
-                        VerticalAlignment="Center"
-                        Content="prixProduit"
-                        FontSize="18" />
-                </StackPanel>
-                <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                    <Label Content="Quantité en stock : " Style="{DynamicResource LabelTextBox}" />
-                    <Label
-                        x:Name="lb_quantiteProduit"
-                        VerticalAlignment="Center"
-                        Content="QuantiteProduit"
-                        FontSize="18" />
+                        x:Name="lb_nomProduit"
+                        Margin="0,20,0,0"
+                        HorizontalAlignment="Center"
+                        Content="nomProduit"
+                        FontSize="18"
+                        FontStyle="Italic"
+                        Foreground="#335A68" />
+                    <Image
+                        x:Name="image_produit"
+                        Width="Auto"
+                        Height="170"
+                        Stretch="Uniform" />
                 </StackPanel>
 
+                <StackPanel Margin="100,0,0,0">
+                    <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                        <Label Content="Catégorie :" Style="{DynamicResource LabelTextBox}" />
+                        <Label
+                            x:Name="lb_categorieProduit"
+                            VerticalAlignment="Center"
+                            Content="catégorieProduit"
+                            FontSize="18" />
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <Label Content="Type :" Style="{DynamicResource LabelTextBox}" />
+                        <Label
+                            x:Name="lb_typeProduit"
+                            VerticalAlignment="Center"
+                            Content="typeProduit"
+                            FontSize="18" />
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <Label Content="Type de Pointe : " Style="{DynamicResource LabelTextBox}" />
+                        <Label
+                            x:Name="lb_typePointeProduit"
+                            VerticalAlignment="Center"
+                            Content="typePointeProduit"
+                            FontSize="18" />
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <Label Content="Couleur(s) : " Style="{DynamicResource LabelTextBox}" />
+                        <Label
+                            x:Name="lb_couleurProduit"
+                            VerticalAlignment="Center"
+                            Content="couleurProduit"
+                            FontSize="18" />
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <Label Content="Prix : " Style="{DynamicResource LabelTextBox}" />
+                        <Label
+                            x:Name="lb_prixProduit"
+                            VerticalAlignment="Center"
+                            Content="prixProduit"
+                            FontSize="18" />
+                    </StackPanel>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <Label Content="Quantité en stock : " Style="{DynamicResource LabelTextBox}" />
+                        <Label
+                            x:Name="lb_quantiteProduit"
+                            VerticalAlignment="Center"
+                            Content="QuantiteProduit"
+                            FontSize="18" />
+                    </StackPanel>
+
+                </StackPanel>
+                <StackPanel
+                    x:Name="stackPanel_modifierindisponible"
+                    Height="184"
+                    Margin="50,0,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Panel.ZIndex="1000"
+                    Orientation="Vertical">
+                    <Button
+                        x:Name="btn_modifierProduit"
+                        Width="200"
+                        Height="61"
+                        Background="#FF003446"
+                        BorderBrush="{x:Null}"
+                        Click="ModifierProduit_Click"
+                        Content="Modifier"
+                        FontSize="15"
+                        Foreground="White"
+                        RenderTransformOrigin="0.487,0.446"
+                        Style="{DynamicResource Button_BorderRadiud}" />
+                    <Button
+                        x:Name="btn_rendreIndisponible"
+                        Width="200"
+                        Height="61"
+                        Margin="0,50,0,0"
+                        Background="#C14347"
+                        BorderBrush="{x:Null}"
+                        Click="Btn_rendreIndisponible_Click"
+                        Content="Rendre Indisponible"
+                        FontSize="15"
+                        Foreground="White"
+                        RenderTransformOrigin="0.487,0.446"
+                        Style="{DynamicResource Button_BorderRadiud}" />
+                </StackPanel>
+            </StackPanel>
+
+
+            <StackPanel VerticalAlignment="Center" Margin="0,20,0,0">
+                <Button
+                    Width="278"
+                    Height="61"
+                    VerticalAlignment="Center"
+                    Background="#FF335A68"
+                    BorderBrush="{x:Null}"
+                    Click="RevenirEnArriere_Click"
+                    Content="Retour"
+                    FontSize="15"
+                    Foreground="White"
+                    Style="{DynamicResource Button_BorderRadiud}" />
             </StackPanel>
         </StackPanel>
-        <StackPanel
-            x:Name="stackPanel_modifierindisponible"
-            Height="184"
-            Margin="900,0,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Orientation="Vertical">
-            <Button
-                x:Name="btn_modifierProduit"
-                Width="200"
-                Height="61"
-                Background="#FF003446"
-                BorderBrush="{x:Null}"
-                Click="ModifierProduit_Click"
-                Content="Modifier"
-                FontSize="15"
-                Foreground="White"
-                RenderTransformOrigin="0.487,0.446"
-                Style="{DynamicResource Button_BorderRadiud}" />
-            <Button
-                x:Name="btn_rendreIndisponible"
-                Width="200"
-                Height="61"
-                Margin="0,50,0,0"
-                Background="#C14347"
-                BorderBrush="{x:Null}"
-                Click="Btn_rendreIndisponible_Click"
-                Content="Rendre Indisponible"
-                FontSize="15"
-                Foreground="White"
-                RenderTransformOrigin="0.487,0.446"
-                Style="{DynamicResource Button_BorderRadiud}" />
-        </StackPanel>
-        <StackPanel Height="133" VerticalAlignment="Bottom">
-            <Button
-                Width="278"
-                Height="61"
-                Margin="0,50,0,0"
-                Background="#FF335A68"
-                BorderBrush="{x:Null}"
-                Click="RevenirEnArriere_Click"
-                Content="Retour"
-                FontSize="15"
-                Foreground="White"
-                RenderTransformOrigin="0.487,0.446"
-                Style="{DynamicResource Button_BorderRadiud}" />
-        </StackPanel>
-
-
     </Grid>
 </UserControl>

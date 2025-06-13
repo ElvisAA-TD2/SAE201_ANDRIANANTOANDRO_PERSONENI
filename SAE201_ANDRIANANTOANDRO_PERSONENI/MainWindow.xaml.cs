@@ -105,6 +105,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             this.UcFormulaireRevendeur.ActionRevendeurEffectuee += ActionRevendeur;
             this.UcFormulaireRevendeur.AnnulationActionRevendeur += AnnulationActionRevendeur;
 
+
             this.UcDetailsProduit.RevenirEnArrièreDemandee += RetourEnArrièreVenantVenantDeDétails;
             this.UcDetailsProduit.ModificationRendreInsponibleDemandee += ActionProduitDemandee;
 
@@ -121,7 +122,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         private void ActionProduitTerminee(object sender, Produit unProduit)
         {
             if(unProduit == null)
-                conteneur_principal.Content = this.UcDetailsProduit;
+                conteneur_principal.Content = this.UcAccueilEmploye;
 
             else if (unProduit.NumProduit == 0)
             {
@@ -175,7 +176,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 this.UcFormulaireProduit.tb_qteStock.Text = uneInformationPorduit.UnProduit.QteStock.ToString();
                 this.UcFormulaireProduit.tb_categorieProduit.Text = uneInformationPorduit.UnProduit.UnType.UneCategorie.NomCategorie.ToString();
                 this.UcFormulaireProduit.image_produit.Source = AfficherImage(uneInformationPorduit.UnProduit.CheminImage);
-
+                
                 conteneur_principal.Content = this.UcFormulaireProduit;
             }
             else
@@ -394,6 +395,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                     else
                     {
                         this.UcAccueilEmploye.btn_ajoutProduit.Visibility = Visibility.Visible;
+                        this.UcAccueilEmploye.btn_ajoutProduit.Focusable = true;
                         this.UcBarDeNavigation.listeDesProduits_btn.Visibility = Visibility.Collapsed;
                         this.UcBarDeNavigation.creationCommande_btn.Visibility = Visibility.Collapsed;
                         this.UcBarDeNavigation.mesCommandes_btn.Visibility = Visibility.Collapsed;
@@ -429,6 +431,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                     this.UcFormulaireRevendeur.tb_adresseRue.Text = "";
                     this.UcFormulaireRevendeur.tb_adresseCP.Text = ""   ;
                     this.UcFormulaireRevendeur.tb_adresseVille.Text = "";
+                    conteneur_principal.Content = this.UcFormulaireRevendeur;
                     break;
 
                 case UserControls.ActionRevendeur.Modifier:
@@ -440,11 +443,13 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                     this.UcFormulaireRevendeur.tb_adresseRue.Text = actionRevendeur.Revendeur.AdresseRue;
                     this.UcFormulaireRevendeur.tb_adresseCP.Text = actionRevendeur.Revendeur.AdresseCP;
                     this.UcFormulaireRevendeur.tb_adresseVille.Text = actionRevendeur.Revendeur.AdresseVille;
+                    conteneur_principal.Content = this.UcFormulaireRevendeur;
                     break;
-                    
+                case UserControls.ActionRevendeur.Annuler:
+                    conteneur_principal.Content = this.UcCreationCommande;
+                    this.UcCreationCommande.cb_ModeLivraison.SelectedIndex = this.LaGestion.LesModeTransports.IndexOf(this.CommandeACree.UnModeTransport);
+                    break;      
             };
-
-            conteneur_principal.Content = this.UcFormulaireRevendeur;
         }
 
         private void ActionRevendeur (object sender, Revendeur unRevendeur)
