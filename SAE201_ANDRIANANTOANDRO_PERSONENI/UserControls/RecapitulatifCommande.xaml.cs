@@ -57,7 +57,9 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void SupprimerCommande_Click(object sender, RoutedEventArgs e)
         {
-            ActionCommandeDemandee?.Invoke(this, new RecapitulatifCommandeEventArgs(ActionCommande.Supprimer, this.CommandeAAfficher));
+            MessageBoxResult supprimerOk = MessageBox.Show("Voulez vous vraiment supprimer la commande ?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if(supprimerOk == MessageBoxResult.Yes)
+                ActionCommandeDemandee?.Invoke(this, new RecapitulatifCommandeEventArgs(ActionCommande.Supprimer, this.CommandeAAfficher));
         }
 
         public void FindCommandeByNumCommande (int numCommande, GestionPilot gestionPilot)
