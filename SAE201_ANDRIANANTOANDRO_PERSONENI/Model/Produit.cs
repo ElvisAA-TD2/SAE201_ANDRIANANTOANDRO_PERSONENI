@@ -203,6 +203,42 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
+        public Type Type
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public CouleurProduit CouleurProduit
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public TypePointe TypePointe
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         public List<Produit> FindAll(GestionPilot laGestion)
         {
             try

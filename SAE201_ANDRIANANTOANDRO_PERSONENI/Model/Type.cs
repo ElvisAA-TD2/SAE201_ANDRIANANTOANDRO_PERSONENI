@@ -67,6 +67,18 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
+        public Categorie Categorie
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         public List<Type> FindAll(GestionPilot gestionPilot)
         {
             try

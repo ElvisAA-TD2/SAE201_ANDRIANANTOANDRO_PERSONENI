@@ -50,6 +50,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                     this.nomCategorie = value;
             }
         }
+
         public List<Categorie> FindAll()
         {
             try

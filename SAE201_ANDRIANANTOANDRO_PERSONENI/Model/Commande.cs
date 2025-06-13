@@ -147,10 +147,58 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
 
             set
             {
-                if (value <0)
+                if (value < 0)
                     throw new ArgumentOutOfRangeException("value");
                 else
                     this.prixTotal = value;
+            }
+        }
+
+        public ProduitCommande ProduitCommande
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public ModeTransport ModeTransport
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public Employe Employe
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public Revendeur Revendeur
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
             }
         }
 
@@ -173,10 +221,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 }
                 return lesCommandes;
             }
-            catch (Exception ex) 
-            { 
-              LogError.Log(ex, "Erreur");
-              throw new ArgumentException("problème sur la requête"); 
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Erreur");
+                throw new ArgumentException("problème sur la requête");
             }
 
         }
@@ -194,7 +242,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             catch (Exception ex)
             {
                 LogError.Log(ex, "Erreur");
-                throw new ArgumentException("Problème sur la requête"); 
+                throw new ArgumentException("Problème sur la requête");
             }
 
         }
@@ -219,10 +267,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 this.NumCommande = nb;
                 return nb;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 LogError.Log(ex, "Erreur");
-                throw new ArgumentException("Problème sur la requête"); 
+                throw new ArgumentException("Problème sur la requête");
             }
         }
 
@@ -237,10 +285,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                     return DataAccess.Instance.ExecuteSet(cmdUpdate);
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 LogError.Log(ex, "Erreur");
-                throw new ArgumentException("Problème sur la requête"); 
+                throw new ArgumentException("Problème sur la requête");
             }
         }
     }

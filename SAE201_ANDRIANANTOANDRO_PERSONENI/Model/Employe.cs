@@ -114,6 +114,18 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
+        public Role Role
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         public List<Employe> FindAll(GestionPilot gestionPilot)
         {
             try

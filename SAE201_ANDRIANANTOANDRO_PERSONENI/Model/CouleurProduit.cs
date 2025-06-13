@@ -50,6 +50,18 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
+        public Couleur Couleur
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         public List<CouleurProduit> FindAll()
         {
             try
@@ -68,11 +80,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 LogError.Log(ex, "Erreur");
                 throw new ArgumentException("problème sur la requête"); 
             }
-
-        }
-
-        public void Update ()
-        {
 
         }
     }

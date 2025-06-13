@@ -75,6 +75,18 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
+        public Produit Produit
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         public List<ProduitCommande> FindAll(GestionPilot gestionPilot)
         {
             try
