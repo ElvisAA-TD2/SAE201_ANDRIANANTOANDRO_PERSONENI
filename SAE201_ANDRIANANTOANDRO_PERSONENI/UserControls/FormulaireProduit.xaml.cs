@@ -48,24 +48,36 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void Validation_Click(object sender, RoutedEventArgs e)
         {
-            Produit produitAEnvoye = new Produit(this.ProduitAModifier.NumProduit, "CodeProduit", tb_nomProduit.Text, decimal.Parse(tb_prix.Text),
+            bool informationOk = true;
+           
+            if (!decimal.TryParse(tb_prix.Text, out decimal prixConverti) || !int.TryParse(tb_qteStock.Text, out int qteConverti))
+                informationOk = false;
+            if (String.IsNullOrWhiteSpace(tb_nomProduit.Text) || String.IsNullOrWhiteSpace(tb_qteStock.Text)
+                || String.IsNullOrWhiteSpace(tb_prix.Text) || (cb_type.SelectedIndex == -1) || (cb_typePointe.SelectedIndex == -1) || String.IsNullOrEmpty(ProduitAModifier.CheminImage))
+                informationOk = false;
+
+            if (!informationOk)
+                MessageBox.Show("Veuillez vérifier les informations entrées dans le formulaire", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            {
+                Produit produitAEnvoye = new Produit(this.ProduitAModifier.NumProduit, "CodeProduit", tb_nomProduit.Text, prixConverti,
                 int.Parse(tb_qteStock.Text), true,
                 laMainWindow.LaGestion.LesTypePointes.FirstOrDefault(tp => tp.NomTypePointe == ((TypePointe)cb_typePointe.SelectedItem).NomTypePointe),
                 laMainWindow.LaGestion.LesTypes.FirstOrDefault(t => t.NomType == ((Model.Type)cb_type.SelectedItem).NomType),
                 this.ProduitAModifier.LesCouleurs, this.ProduitAModifier.CheminImage);
 
-            if (btn_valider.Content.ToString() == ActionProduitEffectue.Créer.ToString())
-            {
-                produitAEnvoye.NumProduit = 0;
-                produitAEnvoye.CodeProduit = Produit.GenererCodeProduit();
-                ActionProduitDemande?.Invoke(this, produitAEnvoye);
-            }  
-            else
-            {
-                produitAEnvoye.CodeProduit = this.ProduitAModifier.CodeProduit;
-                ActionProduitDemande?.Invoke(this, produitAEnvoye);
-            }
-                
+                if (btn_valider.Content.ToString() == ActionProduitEffectue.Créer.ToString())
+                {
+                    produitAEnvoye.NumProduit = 0;
+                    produitAEnvoye.CodeProduit = Produit.GenererCodeProduit();
+                    ActionProduitDemande?.Invoke(this, produitAEnvoye);
+                }
+                else
+                {
+                    produitAEnvoye.CodeProduit = this.ProduitAModifier.CodeProduit;
+                    ActionProduitDemande?.Invoke(this, produitAEnvoye);
+                }
+            }         
         }
 
         private void CheckBox_Couleur_Checked(object sender, RoutedEventArgs e)
