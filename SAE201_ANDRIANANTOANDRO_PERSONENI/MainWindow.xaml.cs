@@ -426,7 +426,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
         {
             switch (actionRevendeur.Action)
             {
-                case UserControls.ActionRevendeur.Ajouter:
+                case UserControls.ActionRevendeur.Créer:
                     this.UcFormulaireRevendeur.label_titre.Content = "Création revendeur";
                     this.UcFormulaireRevendeur.btn_validation.Content = "Créer";
 

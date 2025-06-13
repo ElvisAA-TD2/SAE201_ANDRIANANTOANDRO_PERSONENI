@@ -144,7 +144,7 @@
             VerticalAlignment="Top"
             DisplayMemberPath="NomModeTransport"
             ItemsSource="{Binding LesModeTransports}"  SelectionChanged="ModeLivraison_SelectionChanged" Style="{DynamicResource ComboBoxStyle_ModeDeLivraison}"/>
-        <Button
+        <Button x:Name="bt_CreerCommande"
             Width="446"
             Height="61"
             HorizontalAlignment="Center"

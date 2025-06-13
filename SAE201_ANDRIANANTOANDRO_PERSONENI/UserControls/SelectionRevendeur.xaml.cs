@@ -19,7 +19,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
     /// <summary>
     /// Logique d'interaction pour SelectionClient.xaml
     /// </summary>
-    public enum ActionRevendeur { Ajouter, Modifier, Annuler };
+    public enum ActionRevendeur { Créer, Modifier, Annuler };
     public partial class SelectionRevendeur : UserControl
     {
         public event EventHandler<Revendeur> RevendeurSelectionne;
@@ -58,7 +58,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void CreationRevendeur_Click(object sender, RoutedEventArgs e)
         {
-            RevendeurActionNecessaire?.Invoke(this, new RevendeurEventArgs(ActionRevendeur.Ajouter, null));
+            RevendeurActionNecessaire?.Invoke(this, new RevendeurEventArgs(ActionRevendeur.Créer, null));
         }
 
         //classe pour transférer deux informations à la mainWindow (l'action et le revendeur associé)

@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls.CreationCommande;
 
 namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 {
@@ -31,10 +34,21 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
         private void ValidationActionRevendeur_Click(object sender, RoutedEventArgs e)
         {
-            if(btn_validation.Content == ActionRevendeur.Ajouter.ToString())
+            if(btn_validation.Content == "Créer")
             {
-                Revendeur leRevendeur = new Revendeur(0, tb_raisonSociale.Text, tb_adresseRue.Text, tb_adresseCP.Text, tb_adresseVille.Text);
-                ActionRevendeurEffectuee?.Invoke(this, leRevendeur);
+                bool infoOk = true, cpOk = false;
+                if (!Regex.IsMatch(tb_adresseCP.Text, "^[0-9]{5}$"))
+                    cpOk=true;
+                if ((String.IsNullOrWhiteSpace(tb_raisonSociale.Text)) || (String.IsNullOrWhiteSpace(tb_adresseRue.Text) || (String.IsNullOrWhiteSpace(tb_adresseVille.Text) || cpOk)))
+                {
+                    MessageBox.Show("Des champs de saisie sont invalides", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                    infoOk = false;
+                }
+                if (infoOk)
+                {
+                    Revendeur leRevendeur = new Revendeur(0, tb_raisonSociale.Text, tb_adresseRue.Text, tb_adresseCP.Text, tb_adresseVille.Text);
+                    ActionRevendeurEffectuee?.Invoke(this, leRevendeur);
+                }
             }
             else
             {

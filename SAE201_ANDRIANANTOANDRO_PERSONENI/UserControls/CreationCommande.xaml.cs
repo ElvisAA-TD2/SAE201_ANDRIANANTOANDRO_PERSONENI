@@ -75,13 +75,15 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             {
                 bool result = int.TryParse(unProduitACommande.QuantiteCommandee.ToString(), out int res);
                 bool qteintOk = true, pasproduit = true;
-                if (unProduitACommande.QuantiteCommandee <= 0 || result)
+                if (unProduitACommande.QuantiteCommandee <= 0 || result == false)
                 {
                     MessageBox.Show("Quantite sur le " + unProduitACommande.UnProduit.NomProduit + " non valide", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                     qteintOk = false;
                 }
-                if (this.LesProduitsSelectionnes.Count() == 0 || this.LesProduitsSelectionnes == null) 
+                if (this.LesProduitsSelectionnes.Count() == 0 || this.LesProduitsSelectionnes == null)
+                {
                     pasproduit = false;
+                }
                 if (qteintOk && pasproduit)
                 {
                     foreach (ProduitACommande unProduitACommande1 in this.LesProduitsSelectionnes)
