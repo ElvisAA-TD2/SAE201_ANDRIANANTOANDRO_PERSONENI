@@ -155,9 +155,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
                 conteneur_principal.Content = this.UcDetailsProduit;
             }
-
-            
-
         }
 
         private void ActionProduitDemandee(object sender, DetailsProduit.InformationProduitEventArgs uneInformationPorduit)
