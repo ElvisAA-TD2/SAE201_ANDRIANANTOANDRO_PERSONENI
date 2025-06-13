@@ -11,7 +11,7 @@
     Icon="/Images/logo.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    mc:Ignorable="d" WindowState="Maximized">
 
     <Grid x:Name="conteneur_Parent">
         <ContentControl x:Name="conteneur_authentification" Panel.ZIndex="10" />

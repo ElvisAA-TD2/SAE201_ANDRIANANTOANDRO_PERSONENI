@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:utils="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.Utils"
-    Width="1200"
+    Width="Auto"
     Height="550"
     mc:Ignorable="d">
 
