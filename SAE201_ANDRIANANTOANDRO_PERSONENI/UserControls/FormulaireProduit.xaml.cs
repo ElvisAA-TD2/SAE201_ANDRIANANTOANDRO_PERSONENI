@@ -49,7 +49,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         private void Validation_Click(object sender, RoutedEventArgs e)
         {
             Produit produitAEnvoye = new Produit(this.ProduitAModifier.NumProduit, "CodeProduit", tb_nomProduit.Text, decimal.Parse(tb_prix.Text),
-                int.Parse(tb_qteStock.Text), this.ProduitAModifier.Disponible,
+                int.Parse(tb_qteStock.Text), true,
                 laMainWindow.LaGestion.LesTypePointes.FirstOrDefault(tp => tp.NomTypePointe == ((TypePointe)cb_typePointe.SelectedItem).NomTypePointe),
                 laMainWindow.LaGestion.LesTypes.FirstOrDefault(t => t.NomType == ((Model.Type)cb_type.SelectedItem).NomType),
                 this.ProduitAModifier.LesCouleurs, this.ProduitAModifier.CheminImage);
