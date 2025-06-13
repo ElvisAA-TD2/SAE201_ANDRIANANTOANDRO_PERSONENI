@@ -28,6 +28,8 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         public event EventHandler<bool> RevenirEnArrièreDemandee;
         public event EventHandler<InformationProduitEventArgs> ModificationRendreInsponibleDemandee;
 
+        public static readonly string COULEUR_DISPONIBLE = "#FF7ECF5D";
+        public static readonly string COULEUR_INDISPONIBLE = "#FFC14347";
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

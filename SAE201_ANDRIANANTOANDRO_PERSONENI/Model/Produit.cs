@@ -356,6 +356,23 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
+        public int RendreDisponible()
+        {
+            try
+            {
+                using (var cmdUpdate = new NpgsqlCommand("update produit set disponible =true where numproduit =@numproduit;"))
+                {
+                    cmdUpdate.Parameters.AddWithValue("numproduit", this.NumProduit);
+                    return DataAccess.Instance.ExecuteSet(cmdUpdate);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Erreur");
+                throw new ArgumentException("Problème sur la requête");
+            }
+        }
+
         public int Create()
         {
             try

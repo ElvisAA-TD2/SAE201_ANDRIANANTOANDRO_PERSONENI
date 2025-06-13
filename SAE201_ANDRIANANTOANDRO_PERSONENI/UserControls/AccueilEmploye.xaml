@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="Auto"
-    Height="700"
+    Height="Auto"
     Background="#FFFF0303"
     mc:Ignorable="d">
     <Grid Background="#FFDDF1FF" ScrollViewer.VerticalScrollBarVisibility="Auto">

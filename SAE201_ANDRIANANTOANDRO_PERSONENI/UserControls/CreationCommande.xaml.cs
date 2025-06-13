@@ -76,7 +76,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             CreationCommandeValidation?.Invoke(this, commandeACree);
         }
 
-
         private void SelectionProduit_Click(object sender, RoutedEventArgs e)
         {
             Produit unProduit = (Produit)((Button)sender)?.Tag;

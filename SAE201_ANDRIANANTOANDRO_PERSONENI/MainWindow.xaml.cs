@@ -180,8 +180,18 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
             }
             else
             {
-                uneInformationPorduit.UnProduit.RendreIndisponible();
-                this.LaGestion.LesProduits.FirstOrDefault(p => p.NumProduit == uneInformationPorduit.UnProduit.NumProduit).Disponible = false;
+                if(this.UcDetailsProduit.btn_rendreIndisponible.Content == "Rendre indisponible")
+                {
+                    uneInformationPorduit.UnProduit.RendreIndisponible();
+                    this.LaGestion.LesProduits.FirstOrDefault(p => p.NumProduit == uneInformationPorduit.UnProduit.NumProduit).Disponible = false;
+                }
+                else
+                {
+                    uneInformationPorduit.UnProduit.RendreDisponible(); 
+                    this.LaGestion.LesProduits.FirstOrDefault(p => p.NumProduit == uneInformationPorduit.UnProduit.NumProduit).Disponible = true;
+                }
+                    
+
                 conteneur_principal.Content = this.UcAccueilEmploye;
             }
 
@@ -275,6 +285,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 this.UcDetailsProduit.stackPanel_modifierindisponible.Visibility = Visibility.Visible;
                 this.UcDetailsProduit.stackPanel_principal.HorizontalAlignment = HorizontalAlignment.Left;
                 this.UcDetailsProduit.stackPanel_principal.Margin = new Thickness(left: 150, right:0, top:0, bottom:40);
+
+                BrushConverter brushConverter = new BrushConverter();
+                if(!leProduitADetaille.Disponible)
+                {
+                    this.UcDetailsProduit.btn_rendreIndisponible.Background = (Brush)brushConverter.ConvertFromString(DetailsProduit.COULEUR_DISPONIBLE);
+                    this.UcDetailsProduit.btn_rendreIndisponible.Content = "Rendre disponible";
+                }
+                else
+                {
+                    this.UcDetailsProduit.btn_rendreIndisponible.Background = (Brush)brushConverter.ConvertFromString(DetailsProduit.COULEUR_INDISPONIBLE);
+                    this.UcDetailsProduit.btn_rendreIndisponible.Content = "Rendre indisponible";
+                }
+                    
             }
 
             conteneur_principal.Content = this.UcDetailsProduit;  
