@@ -30,11 +30,6 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             dg_produits.Items.Filter += RechercheProduit;
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(dg_produits.ItemsSource).Refresh();

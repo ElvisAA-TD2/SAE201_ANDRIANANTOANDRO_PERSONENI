@@ -54,6 +54,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
 
             set
             {
+                if (value   < 0) { throw new ArgumentOutOfRangeException("Prix ne peut pas  être  inferieur à 0"); }
                 this.prixTotal = value;
             }
         }
@@ -65,6 +66,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
             dg_produits_trouvés.Items.Filter += RechercheProduit;
             dg_produitsSelectionnes.ItemsSource = LesProduitsSelectionnes;
         }
+
 
         private void CreationCommande_Click(object sender, RoutedEventArgs e)
         {
