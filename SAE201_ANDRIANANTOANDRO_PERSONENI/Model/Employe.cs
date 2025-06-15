@@ -146,5 +146,41 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
                 throw new ArgumentException("problème sur la requête"); 
             }
         }
+
+        public static int FindNumRoleEmploye (String login)
+        {
+            try
+            {
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select numrole from employe where login = @login;"))
+                {
+                    cmdSelect.Parameters.AddWithValue("@login", login);
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    return (Int32)dt.Rows[0]["numrole"];
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Erreur");
+                throw new ArgumentException("problème sur la requête");
+            }
+        }
+
+        public static int FindNumEmploye(String login)
+        {
+            try
+            {
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select numemploye from employe where login = @login;"))
+                {
+                    cmdSelect.Parameters.AddWithValue("@login", login);
+                    DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
+                    return (Int32)dt.Rows[0]["numemploye"];
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError.Log(ex, "Erreur");
+                throw new ArgumentException("problème sur la requête");
+            }
+        }
     }
 }

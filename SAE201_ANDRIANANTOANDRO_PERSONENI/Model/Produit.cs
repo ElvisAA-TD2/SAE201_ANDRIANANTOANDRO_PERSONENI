@@ -239,13 +239,19 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
-        public List<Produit> FindAll(GestionPilot laGestion)
+        public List<Produit> FindAll(GestionPilot laGestion, int numroleEmploye)
         {
             try
             {
-                List<Produit> lesProduits = new List<Produit>();
 
-                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("SELECT * FROM produit order by numproduit"))
+                List<Produit> lesProduits = new List<Produit>();
+                string requeteCommercial = "SELECT * FROM produit WHERE disponible = true order by numproduit;";
+                string requeteResponsableFabrication = "SELECT * FROM produit order by numproduit;";
+                string requeteAExexute = requeteCommercial;
+                if (numroleEmploye == 2)
+                    requeteAExexute = requeteResponsableFabrication;
+
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand(requeteAExexute))
                 {
                     DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
 

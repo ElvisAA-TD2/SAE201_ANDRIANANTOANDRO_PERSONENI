@@ -55,23 +55,20 @@
         <Border
             Width="276"
             Height="116"
-            Margin="0,0,40,0"
             HorizontalAlignment="Right"
             Background="#FFADC9DC"
             BorderThickness="2"
-            CornerRadius="20">
+            CornerRadius="20" Margin="0,0,50,0">
             <StackPanel
-                Width="276"
-                Height="116"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
+                Width="Auto"
+                Height="Auto"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
                 Orientation="Vertical">
                 <StackPanel
-                    Width="247"
-                    Margin="20,5,0,0"
-                    HorizontalAlignment="Left"
+                    Width="Auto"
                     Orientation="Horizontal">
-                    <Image Source="/Images/User.png" Stretch="Uniform" />
+                    <Image Source="/Images/User.png" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Center" />
                     <Label
                         x:Name="lb_loginUser"
                         HorizontalAlignment="Center"
@@ -85,14 +82,13 @@
                         x:Name="deconnexion_btn"
                         Width="58"
                         Height="40"
-                        HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Background="#C14347"
                         BorderBrush="{x:Null}"
                         Click="DeconnexionBtn_Click"
                         FontSize="16"
                         Foreground="White"
-                        Style="{DynamicResource Button_BorderRadiud}">
+                        Style="{DynamicResource Button_BorderRadiud}" Margin="20,0,-1,0" HorizontalAlignment="Right">
                         <Image
                             Width="16"
                             Height="22"

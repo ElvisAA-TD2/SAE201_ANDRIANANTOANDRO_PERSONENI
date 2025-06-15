@@ -154,13 +154,15 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             }
         }
 
-        public List<Commande> FindAll(GestionPilot gestionPilot)
+        public List<Commande> FindAll(GestionPilot gestionPilot, int numEmploye)
         {
             try
             {
                 List<Commande> lesCommandes = new List<Commande>();
-                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from commande order by numcommande;"))
+                using (NpgsqlCommand cmdSelect = new NpgsqlCommand("select * from commande where numemploye = @numemploye order by numcommande;"))
                 {
+                    cmdSelect.Parameters.AddWithValue("numemploye", numEmploye);
+
                     DataTable dt = DataAccess.Instance.ExecuteSelect(cmdSelect);
                     foreach (DataRow dr in dt.Rows)
                         lesCommandes.Add(new Commande((Int32)dr["numcommande"], gestionPilot.LesEmploye.FirstOrDefault(e => e.NumEmploye == (Int32)dr["numemploye"]),

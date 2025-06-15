@@ -71,32 +71,44 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.UserControls
         private void CreationCommande_Click(object sender, RoutedEventArgs e)
         {
             List<ProduitCommande> lesProduitsCommandes = new List<ProduitCommande>();
-            foreach (ProduitACommande unProduitACommande in this.LesProduitsSelectionnes)
+            string messageErreur = "Veuillez vérifier ces éléments avant de continuer : \n";
+            bool qteintOk = true, pasproduit = true, modelivraison = true;
+
+
+            if (this.LesProduitsSelectionnes.Count() == 0 || this.LesProduitsSelectionnes == null)
             {
-                bool result = int.TryParse(unProduitACommande.QuantiteCommandee.ToString(), out int res);
-                bool qteintOk = true, pasproduit = true, modelivraison = true;
-                if (unProduitACommande.QuantiteCommandee <= 0 || res == 0 || unProduitACommande.QuantiteCommandee > 100) // Sujet ennonce  pas plus de 100 produit commander
+                messageErreur += "- Aucun produit sélectionné. \n";
+                pasproduit = false;
+            }
+            foreach (ProduitACommande unProduitACommandeAVerifier in this.LesProduitsSelectionnes)
+            {
+                bool result = int.TryParse(unProduitACommandeAVerifier.QuantiteCommandee.ToString(), out int res);
+                
+                if (unProduitACommandeAVerifier.QuantiteCommandee <= 0 || res == 0 || unProduitACommandeAVerifier.QuantiteCommandee > 100) // Sujet ennonce  pas plus de 100 produit commander
                 {
-                    MessageBox.Show("Quantite sur le " + unProduitACommande.UnProduit.NomProduit + " non valide", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                    messageErreur += "- Quantite sur le " + unProduitACommandeAVerifier.UnProduit.NomProduit + " non valide.\n";
                     qteintOk = false;
                 }
-                if (this.LesProduitsSelectionnes.Count() == 0 || this.LesProduitsSelectionnes == null)
-                {
-                    pasproduit = false;
-                }
-                if (cb_ModeLivraison.SelectedIndex == -1)
-                {
-                    modelivraison = false;
-                    MessageBox.Show("Selectionner un mode de livraison", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                if (qteintOk && pasproduit && modelivraison)
-                {
-                    foreach (ProduitACommande unProduitACommande1 in this.LesProduitsSelectionnes)
-                        lesProduitsCommandes.Add(new ProduitCommande(0, unProduitACommande.UnProduit, unProduitACommande.QuantiteCommandee));
+                
+            }
 
-                    Commande commandeACree = new Commande(null, null, this.ModeTransportSelectionne, DateTime.Now, DateTime.Now, lesProduitsCommandes, this.PrixTotal);
-                    CreationCommandeValidation?.Invoke(this, commandeACree);
-                }
+            if (cb_ModeLivraison.SelectedIndex == -1 || this.ModeTransportSelectionne ==null)
+            {
+                modelivraison = false;
+                messageErreur += "- Selectionner un mode de livraison.";
+            }
+
+            if (!qteintOk || !pasproduit || !modelivraison)
+            {
+                MessageBox.Show(messageErreur, "Erreur de saisie", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                foreach (ProduitACommande unProduitACommande in this.LesProduitsSelectionnes)
+                    lesProduitsCommandes.Add(new ProduitCommande(0, unProduitACommande.UnProduit, unProduitACommande.QuantiteCommandee));
+
+                Commande commandeACree = new Commande(null, null, this.ModeTransportSelectionne, DateTime.Now, DateTime.Now, lesProduitsCommandes, this.PrixTotal);
+                CreationCommandeValidation?.Invoke(this, commandeACree);
             }
         }
 

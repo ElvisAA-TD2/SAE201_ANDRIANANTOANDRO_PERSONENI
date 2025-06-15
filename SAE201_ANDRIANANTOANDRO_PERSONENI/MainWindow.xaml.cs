@@ -233,9 +233,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 unProduitCommande.Create(this.CommandeACree.NumCommande);
                 this.LaGestion.LesProduitCommandes.Add(unProduitCommande);
             }
-                
 
-            MessageBox.Show(this.CommandeACree.ToString());
+            conteneur_principal.Content = this.UcAccueilEmploye;
+            BarDeNavigation.ChangementFondEtCouleurBouton(this.UcBarDeNavigation.listeDesProduits_btn, BarDeNavigation.FOND_BOUTON_SELECTIONNE, BarDeNavigation.COULEUR_TEXTE_BOUTON_SELECTIONNE);
+            BarDeNavigation.ChangementFondEtCouleurBouton(this.UcBarDeNavigation.creationCommande_btn, BarDeNavigation.FOND_BOUTON_NON_SELECTIONNE, BarDeNavigation.COULEUR_TEXTE_BOUTON_NONSELECTIONNE);
         }
 
         private void DetailsCommandeDemandee(object sender, Commande commande)
@@ -312,11 +313,11 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
                 conteneur_principal.Content = this.UcSelectionRevendeur;
         }
 
-        public bool ChargeData()
+        public bool ChargeData(int numRoleEmploye, int numEmploye)
         {
             try
             {
-                LaGestion = new GestionPilot("gestion pilot");
+                LaGestion = new GestionPilot("gestion pilot", numRoleEmploye, numEmploye);
                 this.DataContext = LaGestion;
                 return true;
             }
@@ -368,9 +369,10 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI
 
         private void SeConnecter_Reussi (object sender, InformationConnexion informationConnexion)
         {
-            //this.ConnectionString = $"Host=localhost;Port=5432;Username=postgres;Password=Naox.2006;Database=SAE";
             this.ConnectionString = $"Host=srv-peda-new;Port=5433;Username={informationConnexion.Login};Password={informationConnexion.MotDePasse};Database=andriane_pilot;Options='-c search_path=andriane'";
-            bool chargeDataOk = ChargeData();
+
+
+            bool chargeDataOk = ChargeData(Employe.FindNumRoleEmploye(informationConnexion.Login), Employe.FindNumEmploye(informationConnexion.Login));
             if (chargeDataOk)
             {
                 this.UtilisateurConnecte = this.LaGestion.LesEmploye.FirstOrDefault(e => e.Login == informationConnexion.Login);

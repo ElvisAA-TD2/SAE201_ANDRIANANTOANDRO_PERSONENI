@@ -23,7 +23,7 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
         private ObservableCollection<Role> lesRoles;
         private ObservableCollection<CouleurProduit> lesCouleursProduits;
 
-        public GestionPilot(string nom)
+        public GestionPilot(string nom, int numRoleEmploye, int numEmploye)
         {
             this.LesModeTransports = new ObservableCollection<ModeTransport>(new ModeTransport().FindAll());
             this.LesCategories = new ObservableCollection<Categorie>(new Categorie().FindAll());
@@ -31,12 +31,12 @@ namespace SAE201_ANDRIANANTOANDRO_PERSONENI.Model
             this.LesTypes = new ObservableCollection<Type>(new Type().FindAll(this));
             this.LesCouleurs = new ObservableCollection<Couleur>(new Couleur().FindAll());
             this.lesCouleursProduits = new ObservableCollection<CouleurProduit>(new CouleurProduit().FindAll());
-            this.LesProduits = new ObservableCollection<Produit>(new Produit().FindAll(this));
+            this.LesProduits = new ObservableCollection<Produit>(new Produit().FindAll(this, numRoleEmploye));
             this.LesRevendeurs = new ObservableCollection<Revendeur>(new Revendeur().FindAll());   
             this.LesRoles = new ObservableCollection<Role>(new Role().FindAll());
             this.LesEmploye = new ObservableCollection<Employe>(new Employe().FindAll(this));
             this.LesProduitCommandes = new ObservableCollection<ProduitCommande>(new ProduitCommande().FindAll(this));
-            this.LesCommandes = new ObservableCollection<Commande>(new Commande().FindAll(this));
+            this.LesCommandes = new ObservableCollection<Commande>(new Commande().FindAll(this, numEmploye));
         }
 
         public ObservableCollection<Produit> LesProduits
